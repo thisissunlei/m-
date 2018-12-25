@@ -1,0 +1,10 @@
+node_modules
+public
+server-build
+.vscode
+dist
+.idea
+.DS_Store
+logs
+client/config/newRouter.js
+package-lock.json

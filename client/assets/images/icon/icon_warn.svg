@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="70px" height="70px" viewBox="0 0 70 70" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 45.2 (43514) - http://www.bohemiancoding.com/sketch -->
+    <title>icon_提示</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="50%" y1="3.65513393%" x2="50%" y2="105.359933%" id="linearGradient-1">
+            <stop stop-color="#FFECA4" offset="0%"></stop>
+            <stop stop-color="#FFB651" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="01首页" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="01首页_弹框" transform="translate(-1461.000000, -194.000000)">
+            <g id="成功弹框" transform="translate(898.000000, 194.000000)">
+                <g id="icon_提示" transform="translate(563.000000, 0.000000)">
+                    <circle id="Oval-12" fill="url(#linearGradient-1)" cx="35" cy="35" r="35"></circle>
+                    <path d="M35.5,21 L35.5,43" id="Path-6" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path>
+                    <circle id="Oval-13" fill="#FFFFFF" cx="35.5" cy="49.5" r="1.5"></circle>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

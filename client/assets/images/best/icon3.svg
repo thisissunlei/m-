@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="17px" height="17px" viewBox="0 0 17 17" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 45.2 (43514) - http://www.bohemiancoding.com/sketch -->
+    <title>icon_智能门禁</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <path d="M4,0 L13,0 L13,0 C15.209139,-4.05812251e-16 17,1.790861 17,4 L17,13 L17,13 C17,15.209139 15.209139,17 13,17 L4,17 L4,17 C1.790861,17 2.705415e-16,15.209139 0,13 L0,4 L0,4 C-2.705415e-16,1.790861 1.790861,4.05812251e-16 4,0 Z" id="path-1"></path>
+    </defs>
+    <g id="01PCbest" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="01首页-" transform="translate(-419.000000, -1572.000000)">
+            <g id="灵活的办公方式" transform="translate(0.000000, 1216.000000)">
+                <g id="02_空间简介" transform="translate(389.000000, 144.000000)">
+                    <g id="文字" transform="translate(30.000000, 35.000000)">
+                        <g id="icon_智能门禁" transform="translate(0.000000, 177.000000)">
+                            <g id="Rectangle-27">
+                                <use fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-1"></use>
+                                <path stroke="#333333" stroke-width="1" d="M4,0.5 C2.06700338,0.5 0.5,2.06700338 0.5,4 L0.5,13 C0.5,14.9329966 2.06700338,16.5 4,16.5 L13,16.5 C14.9329966,16.5 16.5,14.9329966 16.5,13 L16.5,4 C16.5,2.06700338 14.9329966,0.5 13,0.5 L4,0.5 Z"></path>
+                            </g>
+                            <rect id="Rectangle-29" fill="#FF9D00" x="10.3888889" y="6.61111111" width="1" height="3.54166667" rx="0.5"></rect>
+                            <path d="M8.5,-1.54287627e-14 L8.5,-1.54287627e-14 L8.5,-1.54321e-14 C8.77614237,-1.54828272e-14 9,0.223857625 9,0.5 L9,15.7916667 L9,15.7916667 C9,16.067809 8.77614237,16.2916667 8.5,16.2916667 L8.5,16.2916667 L8.5,16.2916667 C8.22385763,16.2916667 8,16.067809 8,15.7916667 L8,0.5 L8,0.5 C8,0.223857625 8.22385763,-1.53813729e-14 8.5,-1.54321e-14 Z" id="Rectangle-28" fill="#333333"></path>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

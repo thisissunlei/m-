@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="5px" height="4px" viewBox="0 0 5 4" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 50.2 (55047) - http://www.bohemiancoding.com/sketch -->
+    <title>icon_Triangle</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="00top" transform="translate(-287.000000, -39.000000)" fill="#333333">
+            <g id="icon_Triangle">
+                <path d="M290.821682,40.1659575 L292.79364,42.1454441 C292.98853,42.3410779 292.987926,42.6576599 292.792293,42.8525496 C292.696617,42.9478614 292.566455,43.0004176 292.431423,42.9982593 L288.54932,42.9362111 C288.273213,42.9317981 288.052962,42.7043916 288.057375,42.4282845 C288.059444,42.2987892 288.11168,42.1751489 288.203084,42.0833959 L290.11323,40.1659575 C290.308119,39.9703237 290.624701,39.9697205 290.820335,40.1646102 C290.820785,40.1650585 290.821234,40.1655076 290.821682,40.1659575 Z" transform="translate(290.500000, 41.500000) rotate(-225.000000) translate(-290.500000, -41.500000) "></path>
+            </g>
+        </g>
+    </g>
+</svg>

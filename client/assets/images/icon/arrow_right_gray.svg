@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="36px" height="36px" viewBox="0 0 36 36" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 45.2 (43514) - http://www.bohemiancoding.com/sketch -->
+    <title>arrow_right</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="01首页" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" opacity="0.7">
+        <g id="01首页-" transform="translate(-1824.000000, -282.000000)">
+            <g id="02banner">
+                <g id="arrow_right" transform="translate(1842.000000, 300.000000) rotate(-180.000000) translate(-1842.000000, -300.000000) translate(1824.000000, 282.000000)">
+                    <circle id="Oval" fill-opacity="0.1" fill="#000000" cx="18" cy="18" r="18"></circle>
+                    <polyline id="Path-2" stroke="#FFFFFF" stroke-linecap="round" stroke-linejoin="round" transform="translate(20.000000, 18.000000) rotate(-315.000000) translate(-20.000000, -18.000000) " points="14 12 14 24 26 24"></polyline>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

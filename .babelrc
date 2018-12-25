@@ -1,0 +1,42 @@
+{
+  "presets": [
+    ["env", {
+      "modules": false,
+      "targets": {
+        "browsers": ["ie >=9"]
+      },
+      "useBuiltIns": true,
+      "debug": true
+    }],
+    "stage-1"
+  ],
+  "plugins": [
+    "transform-vue-jsx",
+    "syntax-dynamic-import"
+  ],
+  "env": {
+    "browser": {
+      "presets": [
+        "es2015",
+        [
+          "env", {
+          "targets": {
+            "browsers": ["last 2 versions", "safari >= 7"]
+          }
+        }
+        ]
+      ]
+    },
+    "node": {
+      "presets": [
+        [
+          "env", {
+          "targets": {
+            "node": "current"
+          }
+        }
+        ]
+      ]
+    }
+  }
+}

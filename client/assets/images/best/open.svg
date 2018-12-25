@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="100px" height="100px" viewBox="0 0 100 100" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 48.2 (47327) - http://www.bohemiancoding.com/sketch -->
+    <title>superscript_open</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="superscript_open">
+            <g>
+                <path d="M100,0.412239066 L99.5877609,0 L7.10542736e-15,99.5877609 L0,0 L100,0 L100,0.412239066 Z" id="Combined-Shape" fill="#F8A224"></path>
+                <text id="即将开业" transform="translate(42.012193, 39.325902) rotate(-45.000000) translate(-42.012193, -39.325902) " font-family="PingFangSC-Regular, PingFang SC" font-size="20" font-weight="normal" fill="#FFFFFF">
+                    <tspan x="2.01219331" y="46.3259018">即将开业</tspan>
+                </text>
+            </g>
+        </g>
+    </g>
+</svg>

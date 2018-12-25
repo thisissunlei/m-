@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="27px" height="27px" viewBox="0 0 27 27" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 45.2 (43514) - http://www.bohemiancoding.com/sketch -->
+    <title>icon_前台服务</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <path d="M1,14 L26,14 L26,14 C26.5522847,14 27,14.4477153 27,15 L27,17.0888672 L25.3691406,17.081543 L25.3691406,24.619751 L25.3691406,24.619751 C25.3691406,25.1720357 24.9214254,25.619751 24.3691406,25.619751 L2.57836914,25.619751 L2.57836914,25.619751 C2.02608439,25.619751 1.57836914,25.1720357 1.57836914,24.619751 L1.57836914,17.1282959 L0,17.1282959 L0,15 L0,15 C-6.76353751e-17,14.4477153 0.44771525,14 1,14 Z" id="path-1"></path>
+        <rect id="path-2" x="10" y="17" width="6" height="3" rx="1.5"></rect>
+        <path d="M6,5 L9,5 L9,5 C10.6568542,5 12,6.34314575 12,8 L12,15 L3,15 L3,8 L3,8 C3,6.34314575 4.34314575,5 6,5 Z" id="path-3"></path>
+        <path d="M18,5 L21,5 L21,5 C22.6568542,5 24,6.34314575 24,8 L24,15 L15,15 L15,8 L15,8 C15,6.34314575 16.3431458,5 18,5 Z" id="path-4"></path>
+    </defs>
+    <g id="01首页" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="01首页-" transform="translate(-1453.000000, -2250.000000)">
+            <g id="06服务您的办公环境" transform="translate(390.000000, 2025.000000)">
+                <g id="拎包入驻_icon" transform="translate(669.000000, 153.000000)">
+                    <g id="icon_前台服务" transform="translate(394.000000, 73.000000)">
+                        <g id="Rectangle-34">
+                            <use fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-1"></use>
+                            <path stroke="#333333" stroke-width="1" d="M0.5,16.6282959 L2.07836914,16.6282959 L2.07836914,24.619751 C2.07836914,24.8958934 2.30222677,25.119751 2.57836914,25.119751 L24.3691406,25.119751 C24.645283,25.119751 24.8691406,24.8958934 24.8691406,24.619751 L24.8691406,16.5792924 L26.5,16.5866166 L26.5,15 C26.5,14.7238576 26.2761424,14.5 26,14.5 L1,14.5 C0.723857625,14.5 0.5,14.7238576 0.5,15 L0.5,16.6282959 Z"></path>
+                        </g>
+                        <g id="Rectangle-34-Copy">
+                            <use fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-2"></use>
+                            <rect stroke="#FF9D00" stroke-width="1" x="10.5" y="17.5" width="5" height="2" rx="1"></rect>
+                        </g>
+                        <circle id="Oval-11" stroke="#333333" fill="#FFFFFF" cx="7.5" cy="2.5" r="2.5"></circle>
+                        <circle id="Oval-11-Copy" stroke="#333333" fill="#FFFFFF" cx="19.5" cy="2.5" r="2.5"></circle>
+                        <g id="Rectangle-35">
+                            <use fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-3"></use>
+                            <path stroke="#333333" stroke-width="1" d="M3.5,14.5 L11.5,14.5 L11.5,8 C11.5,6.61928813 10.3807119,5.5 9,5.5 L6,5.5 C4.61928813,5.5 3.5,6.61928813 3.5,8 L3.5,14.5 Z"></path>
+                        </g>
+                        <g id="Rectangle-35-Copy">
+                            <use fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-4"></use>
+                            <path stroke="#333333" stroke-width="1" d="M15.5,14.5 L23.5,14.5 L23.5,8 C23.5,6.61928813 22.3807119,5.5 21,5.5 L18,5.5 C16.6192881,5.5 15.5,6.61928813 15.5,8 L15.5,14.5 Z"></path>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="25px" height="22px" viewBox="0 0 25 22" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 50.2 (55047) - http://www.bohemiancoding.com/sketch -->
+    <title>工位</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="02社区" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="04社区详情" transform="translate(-545.000000, -874.000000)">
+            <g id="03社区信息" transform="translate(390.000000, 714.000000)">
+                <g id="icon工位" transform="translate(155.000000, 161.000000)">
+                    <g id="工位">
+                        <path d="M2.3098,12.3821 C0.4268,11.9031 0.2468,10.2181 0.7248,8.3351 L0.7698,8.1561 C1.2478,6.2731 2.2108,4.8771 4.0948,5.3561" id="Stroke-11" stroke="#333333" stroke-linecap="round" stroke-linejoin="round"></path>
+                        <ellipse id="Oval-4" fill="#FFEB00" cx="12" cy="14" rx="9" ry="3"></ellipse>
+                        <path d="M21.7649,12.3821 C23.6479,11.9031 23.8279,10.2181 23.3499,8.3351 L23.3039,8.1561 C22.8269,6.2731 21.8629,4.8771 19.9799,5.3561" id="Stroke-13" stroke="#333333" stroke-linecap="round" stroke-linejoin="round"></path>
+                        <path d="M12.0208,16.5003 L12.0208,18.7133" id="Stroke-5" stroke="#333333" stroke-linecap="round" stroke-linejoin="round"></path>
+                        <path d="M12.0217,18.887 L8.0677,19.946" id="Stroke-7" stroke="#333333" stroke-linecap="round" stroke-linejoin="round"></path>
+                        <path d="M12.0198,18.887 L15.9738,19.946" id="Stroke-9" stroke="#333333" stroke-linecap="round" stroke-linejoin="round"></path>
+                        <path d="M12.0208,0.4998 L8.5148,0.4998 C6.3148,0.4998 5.1458,2.2708 4.5158,4.4998 L2.7608,11.5178 C2.3878,13.0118 2.8168,14.6538 4.0178,15.6188 C4.7028,16.1688 5.5728,16.4998 6.5158,16.4998 L12.0198,16.4998" id="Stroke-1" stroke="#333333"></path>
+                        <path d="M12.0217,16.5003 L17.5267,16.5003 C18.4687,16.5003 19.3377,16.1693 20.0247,15.6183 C21.2247,14.6533 21.6547,13.0123 21.2807,11.5183 L19.5267,4.5003 C18.8967,2.2713 17.7257,0.5003 15.5267,0.5003 L12.0207,0.5003" id="Stroke-3" stroke="#333333"></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

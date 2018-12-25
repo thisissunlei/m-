@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="15px" height="14px" viewBox="0 0 15 14" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 45.2 (43514) - http://www.bohemiancoding.com/sketch -->
+    <title>icon_餐厅</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="04社区" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="02详情页" transform="translate(-946.000000, -3154.000000)" stroke="#FFFFFF" stroke-width="0.6">
+            <g id="06_地理位置" transform="translate(389.000000, 2893.000000)">
+                <g id="餐厅" transform="translate(545.000000, 256.000000)">
+                    <g id="icon_餐厅" transform="translate(13.000000, 5.000000)">
+                        <path d="M0.101739766,7.46666668 L12.8491288,7.46666668 L12.8491288,7.46666668 C12.9043572,7.46666668 12.9491288,7.51143821 12.9491288,7.56666668 C12.9491288,7.57426712 12.9482623,7.58184279 12.9465461,7.58924693 C12.1001429,11.2408601 9.94310563,13.0666667 6.47543427,13.0666667 C3.00776291,13.0666667 0.850725633,11.2408601 0.00432245516,7.58924689 L0.00432248912,7.58924689 C-0.00814823167,7.53544481 0.0253574523,7.48172009 0.0791595289,7.46924937 C0.0865636697,7.46753317 0.0941393299,7.46666668 0.101739766,7.46666668 Z" id="Path-8"></path>
+                        <g id="Group-11" transform="translate(0.933333, 0.000000)" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M0.466666667,1.21333333 L10.7333333,1.21333333" id="Line-12"></path>
+                            <path d="M1.63094076,1.37306641 L1.63094076,7.34880371" id="Line-12"></path>
+                            <path d="M3.73333333,1.29353027 L3.73333333,7.41163737" id="Line-12"></path>
+                            <path d="M0.466666667,3.08 L10.7333333,3.08" id="Line-12"></path>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

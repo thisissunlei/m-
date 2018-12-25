@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+   <sitemapindex>
+     <sitemap>
+       <loc>https://www.krspace.cn/sitemap-community.xml</loc>
+     </sitemap>
+     <sitemap>
+       <loc> https://www.krspace.cn/sitemap-activity.xml </loc>
+     </sitemap>
+     <sitemap>
+       <loc> https://www.krspace.cn/sitemap-other.xml </loc>
+     </sitemap>
+     <sitemap>
+       <loc> https://www.krspace.cn/sitemap-about.xml </loc>
+       <lastmod>2018-11-16</lastmod>
+     </sitemap>
+  </sitemapindex>

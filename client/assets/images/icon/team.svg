@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="28px" height="25px" viewBox="0 0 28 25" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 45.2 (43514) - http://www.bohemiancoding.com/sketch -->
+    <title>icon_社区团队</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="01首页" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="01首页-" transform="translate(-1081.000000, -2326.000000)">
+            <g id="06服务您的办公环境" transform="translate(390.000000, 2025.000000)">
+                <g id="拎包入驻_icon" transform="translate(669.000000, 153.000000)">
+                    <g id="icon_社区团队" transform="translate(23.000000, 149.000000)">
+                        <g id="左" transform="translate(0.000000, 6.000000)" stroke="#333333" fill="#FFFFFF">
+                            <ellipse id="Oval-10" cx="5.57142857" cy="5.47368421" rx="5.57142857" ry="5.47368421"></ellipse>
+                            <path d="M12,15.869504 C11.2716428,13.0307242 8.86843371,10.9473684 6.0160865,10.9473684 C3.12020795,10.9473684 0.687281256,13.0948 0,16" id="Oval-10-Copy" stroke-linecap="round"></path>
+                        </g>
+                        <g id="右" transform="translate(14.000000, 6.000000)" stroke="#333333" fill="#FFFFFF">
+                            <ellipse id="Oval-10" cx="5.57142857" cy="5.47368421" rx="5.57142857" ry="5.47368421"></ellipse>
+                            <path d="M12,15.869504 C11.2716428,13.0307242 8.86843371,10.9473684 6.0160865,10.9473684 C3.12020795,10.9473684 0.687281256,13.0948 0,16" id="Oval-10-Copy" stroke-linecap="round"></path>
+                        </g>
+                        <g id="1" transform="translate(3.000000, 0.000000)">
+                            <circle id="Oval-10" stroke="#333333" fill="#FFFFFF" cx="10" cy="8" r="8"></circle>
+                            <path d="M6,9 C6,11.209139 7.790861,13 10,13 L10,13 C12.209139,13 14,11.209139 14,9" id="Oval-10" stroke="#FF9D00" stroke-linecap="round"></path>
+                            <path d="M20,23.7933814 C18.7860713,19.2986466 14.7807228,16 10.0268108,16 C5.20034659,16 1.14546876,19.4001001 0,24" id="Oval-10-Copy" stroke="#333333" fill="#FFFFFF" stroke-linecap="round"></path>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

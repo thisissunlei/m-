@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="18px" height="18px" viewBox="0 0 18 18" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 45.2 (43514) - http://www.bohemiancoding.com/sketch -->
+    <title>icon_地铁</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="01PCbest" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="01首页-" transform="translate(-419.000000, -1537.000000)">
+            <g id="灵活的办公方式" transform="translate(0.000000, 1216.000000)">
+                <g id="02_空间简介" transform="translate(389.000000, 144.000000)">
+                    <g id="文字" transform="translate(30.000000, 35.000000)">
+                        <g id="icon_地铁" transform="translate(1.000000, 143.000000)">
+                            <path d="M3.51999995,0.00401792711 L2.00228291,0.00228551901 L2.00228291,0.00228551901 C0.897714132,0.0010247017 0.00126212023,0.895432524 1.30292186e-06,2.0000013 C4.34307357e-07,2.00076227 4.43996018e-16,2.00152325 4.4408921e-16,2.00228422 L0,3.51999995" id="Path-7" stroke="#333333" stroke-linecap="round" stroke-linejoin="round"></path>
+                            <path d="M3.51999995,12.2706846 L2.00228291,12.2689522 L2.00228291,12.2689522 C0.897714132,12.2676914 0.00126212023,13.1620992 1.30292186e-06,14.266668 C4.34307357e-07,14.2674289 4.43996018e-16,14.2681899 4.4408921e-16,14.2689509 L0,15.7866666" id="Path-7" stroke="#333333" stroke-linecap="round" stroke-linejoin="round" transform="translate(1.760000, 14.026667) rotate(-90.000000) translate(-1.760000, -14.026667) "></path>
+                            <path d="M15.7866666,12.2706846 L14.2689496,12.2689522 L14.2689496,12.2689522 C13.1643808,12.2676914 12.2679288,13.1620992 12.266668,14.266668 C12.2666671,14.2674289 12.2666667,14.2681899 12.2666667,14.2689509 L12.2666667,15.7866666" id="Path-7" stroke="#333333" stroke-linecap="round" stroke-linejoin="round" transform="translate(14.026667, 14.026667) scale(-1, 1) rotate(-90.000000) translate(-14.026667, -14.026667) "></path>
+                            <path d="M15.7866666,0.00401792711 L14.2689496,0.00228551901 L14.2689496,0.00228551901 C13.1643808,0.0010247017 12.2679288,0.895432524 12.266668,2.0000013 C12.2666671,2.00076227 12.2666667,2.00152325 12.2666667,2.00228422 L12.2666667,3.51999995" id="Path-7" stroke="#333333" stroke-linecap="round" stroke-linejoin="round" transform="translate(14.026667, 1.760000) scale(-1, 1) translate(-14.026667, -1.760000) "></path>
+                            <rect id="Rectangle-27" stroke="#FF9D00" transform="translate(8.000000, 8.000000) scale(-1, 1) translate(-8.000000, -8.000000) " x="3.16666667" y="3.16666667" width="9.66666667" height="9.66666667" rx="2"></rect>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

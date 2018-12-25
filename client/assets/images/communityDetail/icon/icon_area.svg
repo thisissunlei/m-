@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="22px" height="22px" viewBox="0 0 22 22" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 45.2 (43514) - http://www.bohemiancoding.com/sketch -->
+    <title>icon_面积</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="04社区" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="01社区列表" transform="translate(-412.000000, -232.000000)">
+            <g id="Group-3" transform="translate(391.000000, 144.000000)">
+                <g id="icon_面积" transform="translate(22.000000, 89.000000)">
+                    <g>
+                        <path d="M4.39999994,0.00502240889 L2.00228291,0.00228551901 L2.00228291,0.00228551901 C0.897714132,0.0010247017 0.00126212023,0.895432524 1.30292186e-06,2.0000013 C4.34307356e-07,2.00076227 -9.31920388e-20,2.00152325 0,2.00228422 L0,4.39999994" id="Path-7" stroke="#333333" stroke-linecap="round" stroke-linejoin="round"></path>
+                        <path d="M4.39999994,15.3383557 L2.00228291,15.3356189 L2.00228291,15.3356189 C0.897714132,15.334358 0.00126212023,16.2287659 1.30292186e-06,17.3333346 C4.34307357e-07,17.3340956 4.43996018e-16,17.3348566 4.4408921e-16,17.3356175 L0,19.7333333" id="Path-7" stroke="#333333" stroke-linecap="round" stroke-linejoin="round" transform="translate(2.200000, 17.533333) rotate(-90.000000) translate(-2.200000, -17.533333) "></path>
+                        <path d="M19.7333333,15.3383557 L17.3356162,15.3356189 L17.3356162,15.3356189 C16.2310475,15.334358 15.3345955,16.2287659 15.3333346,17.3333346 C15.3333338,17.3340956 15.3333333,17.3348566 15.3333333,17.3356175 L15.3333333,19.7333333" id="Path-7" stroke="#333333" stroke-linecap="round" stroke-linejoin="round" transform="translate(17.533333, 17.533333) scale(-1, 1) rotate(-90.000000) translate(-17.533333, -17.533333) "></path>
+                        <path d="M19.7333333,0.00502240889 L17.3356162,0.00228551901 L17.3356162,0.00228551901 C16.2310475,0.0010247017 15.3345955,0.895432524 15.3333346,2.0000013 C15.3333338,2.00076227 15.3333333,2.00152325 15.3333333,2.00228422 L15.3333333,4.39999994" id="Path-7" stroke="#333333" stroke-linecap="round" stroke-linejoin="round" transform="translate(17.533333, 2.200000) scale(-1, 1) translate(-17.533333, -2.200000) "></path>
+                        <rect id="Rectangle-27" stroke="#FF9D00" transform="translate(10.000000, 10.000000) scale(-1, 1) translate(-10.000000, -10.000000) " x="3.83333333" y="3.83333333" width="12.3333333" height="12.3333333" rx="2"></rect>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

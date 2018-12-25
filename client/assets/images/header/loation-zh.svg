@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="14px" height="15px" viewBox="0 0 14 15" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 50.2 (55047) - http://www.bohemiancoding.com/sketch -->
+    <title>icon_loation</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="00top" transform="translate(-234.000000, -29.000000)" stroke="#333333">
+            <g id="icon_loation">
+                <g transform="translate(235.000000, 30.000000)">
+                    <path d="M7.17666115,12.6843026 C10.3922204,10.344738 12,8.16209168 12,6.13636364 C12,2.74734358 9.3137085,0 6,0 C2.6862915,0 0,2.74734358 0,6.13636364 C0,8.16208852 1.60777459,10.3447312 4.82332377,12.6842917 L4.82331634,12.6843019 C5.52475725,13.1946543 6.47521991,13.1946546 7.17666115,12.6843026 Z" id="Oval-4"></path>
+                    <circle id="Oval-2" cx="6" cy="6" r="3"></circle>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

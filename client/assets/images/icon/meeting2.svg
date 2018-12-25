@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="28px" height="28px" viewBox="0 0 28 28" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 45.2 (43514) - http://www.bohemiancoding.com/sketch -->
+    <title>icon_会议室</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="01首页" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="01首页-" transform="translate(-1266.000000, -2249.000000)">
+            <g id="06服务您的办公环境" transform="translate(390.000000, 2025.000000)">
+                <g id="拎包入驻_icon" transform="translate(669.000000, 153.000000)">
+                    <g id="icon_会议室" transform="translate(207.000000, 71.000000)">
+                        <path d="M5,1 C3.34314575,1 2,2.34314575 2,4 L2,17 C2,18.6568542 3.34314575,20 5,20 L23,20 C24.6568542,20 26,18.6568542 26,17 L26,4 C26,2.34314575 24.6568542,1 23,1 L5,1 Z M5,0 L23,0 C25.209139,-4.05812251e-16 27,1.790861 27,4 L27,17 C27,19.209139 25.209139,21 23,21 L5,21 C2.790861,21 1,19.209139 1,17 L1,4 C1,1.790861 2.790861,4.05812251e-16 5,0 Z" id="Rectangle-21" fill="#333333" fill-rule="nonzero"></path>
+                        <path d="M0.5,20 L27.5,20 C27.7761424,20 28,20.2238576 28,20.5 C28,20.7761424 27.7761424,21 27.5,21 L0.5,21 C0.223857625,21 3.38176876e-17,20.7761424 0,20.5 C-3.38176876e-17,20.2238576 0.223857625,20 0.5,20 Z" id="Rectangle-21" fill="#333333" fill-rule="nonzero"></path>
+                        <rect id="Rectangle-21" fill="#FF9D00" x="19" y="19" width="4" height="1" rx="0.5"></rect>
+                        <path d="M6,27.4285714 L6,20.5714286 C6,20.2558373 6.22385763,20 6.5,20 C6.77614237,20 7,20.2558373 7,20.5714286 L7,27.4285714 C7,27.7441627 6.77614237,28 6.5,28 C6.22385763,28 6,27.7441627 6,27.4285714 Z" id="Rectangle-21-Copy" fill="#333333" fill-rule="nonzero"></path>
+                        <path d="M21,27.4285714 L21,20.5714286 C21,20.2558373 21.2238576,20 21.5,20 C21.7761424,20 22,20.2558373 22,20.5714286 L22,27.4285714 C22,27.7441627 21.7761424,28 21.5,28 C21.2238576,28 21,27.7441627 21,27.4285714 Z" id="Rectangle-21-Copy" fill="#333333" fill-rule="nonzero"></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="9px" height="15px" viewBox="0 0 9 15" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 45.2 (43514) - http://www.bohemiancoding.com/sketch -->
+    <title>return_icon</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="02废除" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round">
+        <g id="02计算器" transform="translate(-705.000000, -1861.000000)" stroke="#666666">
+            <g id="方案1-3" transform="translate(660.000000, 1766.000000)">
+                <polyline id="return_icon" transform="translate(53.072127, 102.072127) rotate(-315.000000) translate(-53.072127, -102.072127) " points="48.0721267 97.0706292 48.0721267 107.073624 58.0721267 107.073624"></polyline>
+            </g>
+        </g>
+    </g>
+</svg>

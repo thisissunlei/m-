@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 50.2 (55047) - http://www.bohemiancoding.com/sketch -->
+    <title>面积</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="02社区" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="04社区详情" transform="translate(-389.000000, -875.000000)">
+            <g id="03社区信息" transform="translate(390.000000, 714.000000)">
+                <g id="icon面积" transform="translate(0.000000, 162.000000)">
+                    <g id="面积">
+                        <path d="M3.95999994,0.004520168 L2.00228291,0.00228551901 C0.897714132,0.0010247017 0.00126212023,0.895432524 1.30292186e-06,2.0000013 C4.34307356e-07,2.00076227 -2.22137797e-16,2.00152325 -2.22044605e-16,2.00228422 L0,3.95999994" id="Path-7" stroke="#333333" stroke-linecap="round" stroke-linejoin="round"></path>
+                        <path d="M3.95999994,13.8045202 L2.00228291,13.8022855 C0.897714132,13.8010247 0.00126212023,14.6954325 1.30292186e-06,15.8000013 C4.34307356e-07,15.8007623 -2.22137797e-16,15.8015232 -2.22044605e-16,15.8022842 L0,17.7599999" id="Path-7" stroke="#333333" stroke-linecap="round" stroke-linejoin="round" transform="translate(1.980000, 15.780000) rotate(-90.000000) translate(-1.980000, -15.780000) "></path>
+                        <path d="M17.7599999,13.8045202 L15.8022829,13.8022855 C14.6977141,13.8010247 13.8012621,14.6954325 13.8000013,15.8000013 C13.8000004,15.8007623 13.8,15.8015232 13.8,15.8022842 L13.8,17.7599999" id="Path-7" stroke="#333333" stroke-linecap="round" stroke-linejoin="round" transform="translate(15.780000, 15.780000) scale(-1, 1) rotate(-90.000000) translate(-15.780000, -15.780000) "></path>
+                        <path d="M17.7599999,0.004520168 L15.8022829,0.00228551901 C14.6977141,0.0010247017 13.8012621,0.895432524 13.8000013,2.0000013 C13.8000004,2.00076227 13.8,2.00152325 13.8,2.00228422 L13.8,3.95999994" id="Path-7" stroke="#333333" stroke-linecap="round" stroke-linejoin="round" transform="translate(15.780000, 1.980000) scale(-1, 1) translate(-15.780000, -1.980000) "></path>
+                        <rect id="Rectangle-27" fill="#FFEB00" transform="translate(9.000000, 9.000000) scale(-1, 1) translate(-9.000000, -9.000000) " x="4.2" y="4.2" width="9.6" height="9.6" rx="4.8"></rect>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

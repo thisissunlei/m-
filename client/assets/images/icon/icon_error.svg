@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="70px" height="70px" viewBox="0 0 70 70" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 45.2 (43514) - http://www.bohemiancoding.com/sketch -->
+    <title>icon_重复提交</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-1">
+            <stop stop-color="#FECBBE" offset="0%"></stop>
+            <stop stop-color="#FF7272" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="01首页" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="01首页_弹框" transform="translate(-910.000000, -194.000000)">
+            <g id="成功弹框" transform="translate(692.000000, 194.000000)">
+                <g id="icon_重复提交" transform="translate(218.000000, 0.000000)">
+                    <circle id="Oval-12" fill="url(#linearGradient-1)" cx="35" cy="35" r="35"></circle>
+                    <path d="M45.2132034,24 L24,45.2132034" id="Path-6" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path>
+                    <path d="M24,24 L45.2132034,45.2132034" id="Path-6" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

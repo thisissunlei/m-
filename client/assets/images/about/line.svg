@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="70px" height="13px" viewBox="0 0 70 13" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 50.2 (55047) - http://www.bohemiancoding.com/sketch -->
+    <title>img_装饰线</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="87.9004384%" y1="0.38701142%" x2="12.2793447%" y2="97.7965823%" id="linearGradient-1">
+            <stop stop-color="#FFDF00" offset="0%"></stop>
+            <stop stop-color="#FFEB00" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="正式稿" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="6_4办公氛围" transform="translate(-390.000000, -257.000000)" fill="url(#linearGradient-1)">
+            <polygon id="img_装饰线" points="450.541308 257 444.145869 263.635478 437.75185 257 431.374861 263.615598 424.99929 257 418.605271 263.634005 412.211961 257 405.835682 263.615598 399.459402 257 390 266.814794 393.06964 270 399.459402 263.369676 405.8222 270 412.211252 263.369676 418.601014 270 424.998581 263.369676 431.362088 270 437.75114 263.369676 444.140193 270 450.541308 263.369676 456.904105 270 460 266.814794"></polygon>
+        </g>
+    </g>
+</svg>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="18px" height="20px" viewBox="0 0 18 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 45.2 (43514) - http://www.bohemiancoding.com/sketch -->
+    <title>icon_loation</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="01PCbest" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="01首页-" transform="translate(-419.000000, -1504.000000)" fill="#FFFFFF">
+            <g id="灵活的办公方式" transform="translate(0.000000, 1216.000000)">
+                <g id="02_空间简介" transform="translate(389.000000, 144.000000)">
+                    <g id="文字" transform="translate(30.000000, 35.000000)">
+                        <g id="icon_loation" transform="translate(1.000000, 110.000000)">
+                            <path d="M9.15597351,17.2087792 C13.7186578,13.9771346 16,10.9681476 16,8.18181818 C16,3.66312477 12.418278,0 8,0 C3.581722,0 0,3.66312477 0,8.18181818 C0,10.9681476 2.28134216,13.9771346 6.84402648,17.2087792 L6.84402648,17.2087792 C7.53661367,17.6993228 8.46338631,17.6993228 9.15597351,17.2087792 Z" id="Oval-4" stroke="#333333"></path>
+                            <circle id="Oval-2" stroke="#FF9D00" cx="8" cy="8" r="4"></circle>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
