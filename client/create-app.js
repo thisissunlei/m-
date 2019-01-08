@@ -14,7 +14,12 @@ import createStore from './store/store';
 import createRouter from './config/router';
 
 import VueI18n from 'vue-i18n';
-// import 'amfe-flexible/index.js';
+// import 'swiper/dist/css/swiper.css'
+
+// if (process.browser) {
+//   const VueAwesomeSwiper = require('vue-awesome-swiper/dist/ssr')
+//   Vue.use(VueAwesomeSwiper)
+// }
 
 Vue.use(VueRouter);
 Vue.use(VueI18n);

@@ -1,5 +1,6 @@
 // 起nodejs server
 // require('babel-polyfill')
+
 let window
 let document
 if ( typeof window == "undefined" ) {
@@ -83,55 +84,24 @@ module.exports = class serverRun{
     //let HOST = process.env.HOST || '0.0.0.0'
     //let PORT = process.env.PORT || 3334
     this.HOST = HOST || '0.0.0.0'
-    this.PORT = PORT || 3334
+    this.PORT = PORT || 3333
     this.app = new Koa();
   }
   start(){
     this.app.use(async (ctx, next) => {
       console.log(`This is server process : ${process.pid} `);
-      let query = ''
-      if ( ctx.url.indexOf('?') > 0 ) {
-        query = '?'+ctx.url.split('?')[1]
-      }
       try {
         logger.info('官网res：' + new Date()+'url:'+ctx.host+ctx.path);
-        if ( ctx.path.indexOf('/404') === 0 ) {
-          ctx.redirect('/'+query)
-        }
         await next()
       } catch (err) {
         logger.info('官网err：' + new Date()+'url:'+ctx.host+ctx.path+'err:'+err);
-
-        if ( ctx.path.indexOf('/news') >= 0 ) {
-          let path = ctx.path
-          let nPath = path.replace('/news', '/about')
-          ctx.status = 301
-          ctx.redirect(nPath+query)
-        } else if ( ctx.path.indexOf('/marketinga') >= 0 ) {
-          let path = ctx.path
-          let nPath = path.replace('/marketinga', '/promotion')
-          ctx.status = 301
-          ctx.redirect(nPath+query)
-        } else {
-          ctx.status = 500
-          if (isDev) {
-            ctx.redirect('/'+query)
-            ctx.body = err.message + 'dev-404page'
-          } else {
-            if ( ctx.path.indexOf('.xml') > 0 ) {
-              await next()
-            } else {
-              ctx.redirect('/'+query)
-              ctx.body = 'please try again later'
-            }
-          }
-        }
       }
     })
 
 
     // 处理favicon.ico的渲染
     this.app.use(async (ctx, next) => {
+     
       if (ctx.path === '/favicon.ico' || ctx.path === '/static/heatmap.min.js') {
         /* ?? koa-send koa的中间件 处理静态文件 实现文件下载功能
         * 在某些中间件中进行调用，传入当前请求的Context及文件对应的位置，然后实现功能
@@ -162,11 +132,11 @@ module.exports = class serverRun{
     this.app.use(pageRouter.routes()).use(pageRouter.allowedMethods())
 
     // server端口
-    
+
 
     this.app.listen(this.PORT , this.HOST, () => {
-      //console.log(this.PORT , this.HOST,9999999)
-      //console.log(`server is listening on ${HOST}:${PORT}`)
+
+      // console.log(`server is listening on ${HOST}:${PORT}`)
     });
     this.app.on("error", (e) => {
       logger.info('官网errall：' + JSON.stringify(e));
@@ -185,7 +155,7 @@ module.exports = class serverRun{
 //     for (let i = 0; i < numCPUs; i++) {
 
 //         cluster.fork();
-    
+
 //     }
 
 //     cluster.on("online", (worker) => {
@@ -200,8 +170,8 @@ module.exports = class serverRun{
 
 // } else {
 //   console.log(111111111,PORT )
-    
-  
+
+
 // }
 
 

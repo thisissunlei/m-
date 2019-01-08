@@ -1,0 +1,116 @@
+<template>
+  <div class="news-content">
+    <ul>
+      <router-link
+        tag="li"
+        class="item border-bottom"
+        v-for="item of about.newsList"
+        :key="item.index"
+        :to="'/about/' + item.id"
+      >
+        <div class="item-info">
+          <p class="item-title">{{item.title}}</p>
+          <span class="item-time">{{item.publishedAt}}</span>
+          <span class="item-read">{{item.totalReadCunt}}人阅读</span>
+        </div>
+
+        <!-- :src="item.photoUrl" -->
+        <img class="item-img" :src="item.photoUrl"/>
+      </router-link>
+    </ul>
+
+
+  </div>
+</template>
+
+<script>
+import {mapState,mapActions} from 'vuex'
+ var interval = null;
+export default {
+  data(){
+    return{
+      topValue:0,
+    }
+  },
+  computed:{
+    ...mapState([
+      'about'
+    ]),
+
+  },
+  mounted(){
+  // console.log('about',this.about.newsList)
+  window.addEventListener('scroll',this.getMore);
+  },
+  methods: {
+    ...mapActions([
+        'getNewsList'
+      ]),
+    getMore(){
+      if(interval == null){
+        interval = setInterval(this.scrollMore,1000);
+      }
+      this.topValue=document.documentElement.scrollTop || window.pageYOffset || document.body.scrollTop;
+    },
+    scrollMore(){
+      let scrollTop = document.documentElement.scrollTop || window.pageYOffset || document.body.scrollTop;
+      if(scrollTop!==this.topValue){
+            return ;
+        }
+      let winHeight = window.innerHeight;
+      let scrollHeight = document.documentElement.scrollHeight;
+      clearInterval(interval);
+      interval = null;
+      if(scrollTop >= scrollHeight - winHeight - 327){
+        if(this.about.page>= this.about.totalPages){
+          return;
+        }
+        this.getNewsList({page:this.about.page+1,pageSize:10})
+        return ;
+      }
+    }
+  },
+}
+</script>
+
+<style lang="less" scoped>
+.border-bottom {
+  border-bottom: 1px solid #F3F3F3;
+}
+.item {
+  display: flex;
+  height: 118px;
+  padding: 17px 0 13px 0;
+  overflow: hidden;
+  .item-img{
+    width: 114px;
+    height: 85px;
+  }
+  .item-info{
+    flex:1;
+    font-family: PingFangSC-Semibold;
+    padding-right: 10px;
+    .item-title {
+      height: 72px;
+      font-size: 16px;
+      color: #333333;
+      line-height: 24px;
+    }
+    .item-time {
+      float: left;
+      font-size: 12px;
+      color: #999999;
+      line-height: 17px;
+    }
+    .item-read {
+      float: right;
+      font-size: 12px;
+      color: #999999;
+      text-align: right;
+      line-height: 17px;
+    }
+  }
+}
+
+</style>
+

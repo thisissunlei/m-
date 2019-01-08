@@ -34,7 +34,7 @@ let defaultPluins = [
 ]
 
 let devServer = {
-  port: 8001,
+  port: 8000,
   host: '0.0.0.0',
   overlay: {
     errors: true

@@ -7,10 +7,14 @@ module.exports = {
   nav: {
     home: '首页',
     community: '办公',
+    welfare: '福利',
     activity: '活动',
-    about: '我们'
+    members: '会员',
+    about: '我们',
+    recommend: '推介人计划',
+    calculator: '办公成本计算器'
   },
-  headerMember: '会员中心',
+
   pre: {
     title: '预约参观',
     name: '您的称谓',
@@ -60,14 +64,15 @@ module.exports = {
     vip: '入驻会员专享',
     hot: '热门社区',
     soon: '待开社区',
-    environment: '办公环境',
+    environment: '社区环境',
+    welfare: '社区福利',
     activity: '社区活动',
-    members: '社区会员',
+    members: '会员报道',
     detail: '查看详情',
     later: '天后',
   },
   indexPriceType: {
-    long: '/工位•月',
+    long: '起/工位•月',
     meeting: '起/半小时',
     seat: '/天'
   },
@@ -221,42 +226,31 @@ module.exports = {
     key: "氪空间,氪空间新闻,氪空间发展,加入氪空间",
     des: "氪空间关于我们页面包含氪空间公司介绍，氪空间新闻，氪空间发展历程，以及如何联系加入氪空间。氪空间诞生的初心是解决小微团队办公难的问题，使命是“让办公更美好”，以空间产品构建线上线下社群，在提供联合办公空间的基础上，从用户需求出发推出更多围绕办公生态的服务，实现“赋能一亿人的快乐办公生活”的愿景。"
   },
-  aboutSizeBream: [{name: '氪空间', url: '/'}, {name: '公司简介', url: ''}],
-  aboutNewsBream: [{name: '氪空间', url: '/'}, {name: '公司新闻', url: ''}],
-  aboutThingsBream: [{name: '氪空间', url: '/'}, {name: '大事记', url: ''}],
-  aboutFeelBream: [{name: '氪空间', url: '/'}, {name: '办公氛围', url: ''}],
-  aboutContactBream: [{name: '氪空间', url: '/'}, {name: '联系我们', url: ''}],
-  aboutJoinBream: [{name: '氪空间', url: '/'}, {name: '加入我们', url: ''}],
+
   aboutTab: [{
     name: '公司简介',
     value: 'size'
-  }, {
-    name: '公司新闻',
-    value: 'news'
-  }, {
+  },{
     name: '大事记',
     value: 'things',
-  }, {
-    name: '办公氛围',
-    value: 'feel',
-  }, {
-    name: '联系我们',
-    value: 'contact'
+  },{
+    name: '公司新闻',
+    value: 'news'
   }, {
     name: '加入我们',
     value: 'join'
   }],
   aboutText: [
     '氪空间是以联合办公为载体，社群为纽带的企业服务平台。氪空间诞生的初心是解决小微团队办公难的问题，使命是“让办公更美好”，以空间产品构建线上线下社群，在提供联合办公空间的基础上，从用户需求出发推出更多围绕办公生态的服务，实现“赋能一亿人的快乐办公生活”的愿景。',
-    '截至2018年6月，氪空间在中国内地覆盖北京、上海、广州、杭州、南京、武汉、天津、苏州、成都、厦门、合肥等11个城市，运营40多个联合办公社区，管理面积超过20万平方米，工位数量超过35000个，服务企业数量超过2000家。',
+    '截至2018年6月，氪空间在中国覆盖北京、上海、香港、广州、杭州、南京、武汉、天津、苏州、成都、厦门、合肥等12个城市，运营60多个联合办公社区，管理面积超过30万平方米，工位数量超过42000个，服务企业数量超过3000家。',
     '目前，氪空间已经开始布局亚太市场，目标是2019年底在以中国为主的亚洲范围内实现管理面积超过150万平方米，实时服务22万会员，“让联合办公成为城市商业的标配”。'
   ],
   aboutProfile: {
     sectionOne: '个热点城市',
-    sectionTwo: '办公社区',
-    sectionThree: '办公工位',
-    sectionFour: '会员',
-    sectionFive: '入驻企业'
+    sectionTwo: '+办公社区',
+    // sectionThree: '办公工位',
+    sectionFour: '+会员',
+    sectionFive: '+入驻企业'
   },
   aboutJoinTitle: '简历投递邮箱：hr@krspace.cn ，邮件主题标注应聘岗位+已工作年限+姓名',
   aboutJoinInfo: [

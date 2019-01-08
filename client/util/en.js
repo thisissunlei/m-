@@ -7,10 +7,13 @@ module.exports = {
   nav: {
     home: 'Home',
     community: 'Location',
+    welfare:'Welfare',
     activity: 'Events',
-    about: 'About'
+    members: 'Member',
+    about: 'About',
+    recommend: 'Recommended',
+    calculator:'Calculator'
   },
-  headerMember: 'Member Center',
   pre: {
     title: 'Book A Tour',
     name: 'Name',

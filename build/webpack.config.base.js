@@ -19,7 +19,7 @@ let config = {
   output: {
     filename: 'bundle.[hash:8].js',
     path: path.join(__dirname, '../public'),
-    publicPath: isDev ? 'http://127.0.0.1:8001/public/' : 'https://web.krspace.cn/kr-web-cdn/' // 静态资源路径
+    publicPath: isDev ? 'http://127.0.0.1:8000/public/' : 'https://web.krspace.cn/kr-web-cdn/' // 静态资源路径
   },
   resolve: {
     extensions: ['.js', '.vue', '.json'],
@@ -62,6 +62,8 @@ let config = {
       //   },]
 
       // },
+
+      //
       {
         test: /\.(css|less|scss)(\?.*)?$/,
         loader: 'style-loader!css-loader!postcss-loader'

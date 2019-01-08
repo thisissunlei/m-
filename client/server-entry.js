@@ -6,6 +6,7 @@ import createApp from './create-app'
 
 // 接收到 server-render.js appString中传入的context
 export default context => {
+
   return new Promise((resolve, reject) => {
     let { app, router, store } = createApp()
 
@@ -27,6 +28,27 @@ export default context => {
       * context.meta = app.$meta()
       * resolve(app)
       */
+
+     store.state.common = {
+      origin: context.origin,
+      query: context.query,
+      queryString: '',
+      headerCityList: context.cityList,
+      ip: context.ip,
+      headerCityId: !context.query.cityId? context.ip[0]: context.query.cityId,
+      lang: context.query.lang,
+      language: context.query.lang === 'en'? 1: 0,
+      clientIp: context.clientIp
+    }
+
+    console.log(store.state.common)
+    let query
+    if ( context.queryUrl.indexOf('?') > 0 ) {
+      query = context.queryUrl.split('?')[1].split('&')
+      query.forEach((val, i) => {
+        router.currentRoute.query[val.split('=')[0]] = val.split('=')[1]
+      })
+    }
 
       Promise.all(matchedComponents.map(Component => {
         if (Component.asyncData) {

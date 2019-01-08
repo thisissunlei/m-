@@ -1,5 +1,6 @@
 // 起nodejs server
 // require('babel-polyfill')
+
 let window
 let document
 if ( typeof window == "undefined" ) {
@@ -104,7 +105,7 @@ if (cluster.isMaster) {
         cluster.fork();
     });
 } else {
- const app = new ServerRun(3334 ,'0.0.0.0');
+ const app = new ServerRun(3333 ,'0.0.0.0');
    app.start();
 }
 // const app = new ServerRun(3334 ,'0.0.0.0');

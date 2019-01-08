@@ -1,5 +1,5 @@
 import axios from 'axios'
-import Qs from "qs";
+// import Qs from "qs";
 import Es6Promise from 'es6-promise'
 require('es6-promise').polyfill()
 Es6Promise.polyfill()
@@ -8,7 +8,7 @@ Es6Promise.polyfill()
 //http://optest02.krspace.cn
 let url = ''
 if ( process.env.NODE_ENV === 'development' ) {
-  url = 'https://i.krspace.cn/'
+  url = 'http://optest02.krspace.cn/'
 } else {
   url = 'https://i.krspace.cn/'
 }
@@ -35,77 +35,16 @@ let handleRequest = function(request){
 }
 // 添加接口API
 export default {
-  getCommunity () {
-    return handleRequest(request.get('api/gateway/portals/get-community'))
+  getHeaderCommunityByip(data) { // ip定位
+    // console.log("ip",data);
+    return handleRequest(request.get('api/gateway/portalthree/get-community-byip', {params: data}))
   },
-  getActivityDetail (data) {
-    return handleRequest(request.get('api/gateway/portalthree/activity-detail',{params: data}))
+  getHeaderCityDownList (data) { //首页城市下拉列表
+    console.log("99",data);
+    return handleRequest(request.get('api/gateway/portalthree/city/down-list',{params:data}))
   },
-  getActivityList(data) {
-    return handleRequest(request.get('api/gateway/portalthree/activity-list', {params: data}))
-  },
-  getActivityCity(data){
-    // return handleRequest(request.get('api/gateway/portalthree/city/down-list', {params: data}))
-
-    return handleRequest(request.get('api/gateway/portalthree/activity-city',{params: data}))
-  },
-  getCommunityByip() {
-    return handleRequest(request.get('api/gateway/get-community-byip'))
-  },
-  getCommunityDetail (data) {
-    return handleRequest(request.get('api/gateway/portalthree/community-detail',{params: data}))
-  },
-  getCommunityWork (data) {
-    return handleRequest(request.get('api/gateway/portalthree/office-type',{params: data}))
-  },
-  getCommunityActivity (data) {
-    return handleRequest(request.get('api/gateway/portalthree/activity-cmt-other',{params: data}))
-  },
-  getSameCommunity(data){
-    return handleRequest(request.get('api/gateway/portalthree/same-cmt',{params: data}))
-  },
-  getOthers(data){
-    return handleRequest(request.get('api/gateway/portalthree/activity-cmt-other'))
-  },
-  getRecommend(data){
-    return handleRequest(request.get('api/gateway/portalthree/recommend-activity', {params: data}))
-  },
-  getNews(data){
-    return handleRequest(request.get('api/gateway/get-protals-news/list', {params: data}))
-  },
-  // getCommunityCitys(){
-  //   return handleRequest(request.get('api/gateway/portalthree/city/down-list'))
-  // },
-  getCommunityCbds(data){
-    return handleRequest(request.get('api/gateway/portalthree/cmt-cbd', {params: data}))
-  },
-  getCommunityStatus(data){
-    // console.log("data",data);
-    return handleRequest(request.get('/api/gateway/portalthree/status/seat-price',{params: data}))
-  },
-  getCommunityList(data){
-    return handleRequest(request.get('/api/gateway/portalthree/cmt-listing',{params: data}))
-  },
-  getOfficeEnv(data) {
-    return handleRequest(request.get('/api/gateway/portalthree/office-env-detail', {params: data}))
-  },
-  getSameEnv(data) {
-    return handleRequest(request.get('/api/gateway/portalthree/same-env-cmt', {params: data}))
-  },
-  getHeaderCityDownList(data) { // 头部城市下拉列表
-    return handleRequest(request.get('api/gateway/portalthree/city/down-list', {params: data}))
-  },
-  getIndexCityDownList(data) { // 首页城市社区列表
-    return handleRequest(request.get('api/gateway/portalthree/cmt-city/down-list', {params: data}))
-  },
-  getNewsList(data){
-    return handleRequest(request.get('api/gateway/portalthree/news-list', {params: data}))
-  },
-  getNewsDetail(data){
-    return handleRequest(request.get('api/gateway/portalthree/news-detail', {params: data}))
-  },
-  getNewsPage(data){
-    return handleRequest(request.get('api/gateway/portalthree/news-page', {params: data}))
+  getFocusBanner(data) { // 首页banner
+    return handleRequest(request.get('api/gateway/portalthree/focus-baner', {params: data}))
   },
   getIndexHotCommunity(data) { // 首页热门社区列表
     return handleRequest(request.get('api/gateway/portalthree/popular-community', {params: data}))
@@ -119,13 +58,28 @@ export default {
   getIndexActivityList(data) { // 首页社区活动列表
     return handleRequest(request.get('api/gateway/portalthree/activity-list', {params: data}))
   },
-  saveVisitInfo(data) { // 预约参观
-    return handleRequest(request.post('api/gateway/portals/save-visit-info', Qs.stringify(data)))
+  getNewsList(data){ //about页面新闻列表
+    return handleRequest(request.get('api/gateway/portalthree/news-list', {params: data}))
   },
-  postRecommend(data) {
-    return handleRequest(request.post('api/gateway/allportals/referee/addreferee', Qs.stringify(data)))
+  getNewsDetail(data){ //about页面新闻详情
+    return handleRequest(request.get('api/gateway/portalthree/news-detail', {params: data}))
   },
-  getHeaderCommunityByip(data) { // ip定位
-    return handleRequest(request.get('api/gateway/portalthree/get-community-byip', {params: data}))
+  getWelfareList(data) {// 福利列表
+    return handleRequest(request.get('api/gateway/portalthree/get-benefits-page', {params: data}))
   },
+  getPorCouponTags(data) {// 福利标签
+    return handleRequest(request.get('api/gateway/portalthree/por-coupon-tags', {params: data}))
+  },
+  getBenefitsDetail(data) {// 福利详情
+    return handleRequest(request.get('api/gateway/portalthree/benefits-detail', {params: data}))
+  },
+  getCmtCityList(data){ //城市社区列表
+    return handleRequest(request.get('api/gateway/portalthree/cmt-city/down-list', {params: data}))
+  },
+  getRecommendActivity(data){//推荐活动列表
+    return handleRequest(request.get('api/gateway/portalthree/activity-cmt-other',{params: data}))
+  },
+  getActivityList(data){//活动列表
+    return handleRequest(request.get('api/gateway/portalthree/activity-list',{params: data}))
+  }
 }

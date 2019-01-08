@@ -49,6 +49,7 @@ serverCompiler.watch({}, (err, stats) => {
 })
 
 let handleSSR = async (ctx) => {
+
   if (!bundle) {
     ctx.body = '你等一会，别着急......'
     return
@@ -56,7 +57,7 @@ let handleSSR = async (ctx) => {
 
   // 拿到vue-server-renderer/client-plugin 生成的json内容
   let clientManifestResp = await axios.get(
-    'http://127.0.0.1:8001/public/vue-ssr-client-manifest.json'
+    'http://127.0.0.1:8000/public/vue-ssr-client-manifest.json'
   )
   let clientManifest = clientManifestResp.data
 

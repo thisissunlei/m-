@@ -2,10 +2,20 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 import Router from 'vue-router';
 
+// import index from '../views/index/index.vue'
+
 import newRouter from './newRouter';
 
 Vue.use(Vuex);
 Vue.use(Router);
+
+// let routes = [
+//   {
+//     path: '/',
+//     component: index,
+//     name: 'index'
+//   }
+// ]
 
 
 let routes = newRouter.routes.concat({

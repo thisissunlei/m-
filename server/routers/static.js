@@ -11,7 +11,6 @@ let send = require('koa-send')
 let staticRouter = new Router({ prefix: process.env.NODE_ENV === 'development'? '/public' :'/kr-web-new' })
 
 staticRouter.get('/*', async ctx => {
-  console.log('static', ctx.path )
   await send(ctx, ctx.path)
 })
 
