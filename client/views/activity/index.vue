@@ -2,7 +2,9 @@
   <div class="activity">
     <div class="swiper"></div>
     <div class="content-box">
-      <a href="" class="item-content" v-for="(item,i) in $store.state.activity.activityList" :key="i">
+      <!-- target="_blank" -->
+      <a :href="'//'+$store.state.common.origin+'/activity/' + item.id + $store.state.common.queryString"
+       class="item-content" v-for="(item,i) in $store.state.activity.activityList" :key="i">
         <img :src="item.imgUrl" alt="" class="item-img">
         <div class="item-info">
           <p class="item-title">{{item.title}}</p>
@@ -62,7 +64,7 @@ export default {
   }
   .content-box {
     margin-bottom: 50px;
-    background: pink;
+    // background: pink;
     .item-content {
       display: flex;
       width: 343px;

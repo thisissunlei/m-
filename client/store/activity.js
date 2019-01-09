@@ -4,13 +4,13 @@ import model from 'model'
 export default {
   state: {
     recommendActivity:[],
-    activityList:[]
+    activityList:[],
+    activityDetail:[]
   },
   actions: {
     getRecommendActivity({ commit },params){
       return model.getRecommendActivity(params)
         .then(data => {
-          console.log("999000",data);
           commit('setRecommendActivity', data)
         })
         .catch(err => {
@@ -26,6 +26,16 @@ export default {
           console.log(err)
         })
     },
+    getActivityDetail({ commit },params){
+      return model.getActivityDetail(params)
+        .then(data => {
+
+          commit('setActivityDetail', data)
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
   },
   mutations: {
     setRecommendActivity(state,data){
@@ -33,6 +43,9 @@ export default {
     },
     setActivityList(state,data){
       state.activityList = data.items;
+    },
+    setActivityDetail(state,data){
+      state.activityDetail = data.items;
     }
   }
 }
