@@ -54,6 +54,7 @@ export default {
   mounted(){
     this.win = typeof window == "undefined" ? global : window
     var video = this.win.document.getElementById('video-play');
+    //  console.log('queryString33',this.$store.state.common)
   },
   methods: {
     videoControl(){
@@ -78,7 +79,7 @@ export default {
       width:343px;
       height:193px;
       position: absolute;
-      
+
       &:hover{
         cursor: pointer;
       }

@@ -46,7 +46,7 @@ export default {
       ])
   },
   mounted() {
-    console.log('data',this.$store.state.activity)
+    console.log('data',this.$store.state)
   },
   methods: {
     getData(){

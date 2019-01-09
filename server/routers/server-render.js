@@ -2,6 +2,8 @@
  * 服务端渲染操作
  * 开发环境、正是环境相同
 */
+console.log("server-render888");
+
 let window
 let document
 if ( typeof window == "undefined" ) {
@@ -66,12 +68,16 @@ module.exports = async (ctx, renderer, template) => {
 
   if ( ctx.url.indexOf('?') > 0 ) {
     queryList = ctx.url.split('?')[1].split('&')
+    console.log("queryList000",queryList);
+
     queryList.forEach((val, i) => {
       let name = val.split('=')[0]
       query[name] = val.split('=')[1]
+
       if (name != 'id' && name != 'tab' && name != 'porCbdId' && name != 'openStatus' && name != 'portalPriceId' ) {
         queryString += name + '=' + val.split('=')[1] + '&'
       }
+      console.log("queryString9999",queryString);
 
     })
   }

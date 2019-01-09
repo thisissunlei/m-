@@ -53,38 +53,51 @@ export default {
     // ])
   },
   mounted () {
-    this.lang = this.$route.query.lang;
-    this.setQuery()
+    // console.log('queryString', $store.state.common.origin,this.$store.state.common.queryString)
+    // this.lang = this.$route.query.lang;
+    console.log("999999000");
+
+    // this.setQuery()
   },
   watch:{
     '$route'(n, o) {
-        if ( n.query.lang != o.query.lang ) {
-          this.lang = n.query.lang;
-        }
+        // if ( n.query.lang != o.query.lang ) {
+        //   this.lang = n.query.lang;
+        // }
       },
-      '$store.state.common.queryString'() {
-        this.setQuery()
-      }
+
+      // '$store.state.common.queryString'() {
+      //   this.setQuery()
+      // }
   },
   created(){
     this.activeTab = this.$route.query.tab || 'size';
-      this.query = this.$t('aboutTab').map((val, i) => {
-        return '?tab='+val.value
+    this.query = this.$t('aboutTab').map((val, i) => {
+        return this.$store.state.common.queryString+'&tab='+val.value
       })
+  },
+  mounted(){
+    console.log("query",this.query,this.$route,this.$store.state);
+
   },
   // 在服务器端获取并渲染数据，渲染组件之前异步获取数据
   asyncData ({ route, store, router }) {
+    console.log("0000777");
+
     let lang = 0;
-      if ( !!route.query.lang && route.query.lang === 'en' ) {
-        lang = 1;
-      }
-      return Promise.all([
-        store.dispatch('getNewsList',{page:1,pageSize:9,language: lang})
-      ])
+    if ( !!route.query.lang && route.query.lang === 'en' ) {
+      lang = 1;
+    }
+    return Promise.all([
+      store.dispatch('getNewsList',{page:1,pageSize:10,language: lang})
+    ])
   },
   methods: {
     setQuery() {
+      console.log("000000");
+
         this.query = this.$t('aboutTab').map((val, i) => {
+          // console.log('queryString',this.$store.state.common.queryString)
           return this.$store.state.common.queryString+'&tab='+val.value
         })
       }
@@ -129,8 +142,6 @@ export default {
         height: 2px;
         background-color: #333;
         border-radius:2px;
-        // bottom:-16px;
-        // animation: moveNine 0.4s forwards linear;
       }
   }
 }

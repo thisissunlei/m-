@@ -32,7 +32,7 @@ export default context => {
      store.state.common = {
       origin: context.origin,
       query: context.query,
-      queryString: '',
+      queryString:context.queryString,
       headerCityList: context.cityList,
       ip: context.ip,
       headerCityId: !context.query.cityId? context.ip[0]: context.query.cityId,
@@ -40,8 +40,8 @@ export default context => {
       language: context.query.lang === 'en'? 1: 0,
       clientIp: context.clientIp
     }
+    console.log("context",context.queryString);
 
-    console.log(store.state.common)
     let query
     if ( context.queryUrl.indexOf('?') > 0 ) {
       query = context.queryUrl.split('?')[1].split('&')

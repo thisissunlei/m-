@@ -34,10 +34,12 @@
       </div>
     </div>
     <div class="item-content" v-html="activity.activityDetail.richText"></div>
+
     <div class="sign-box">
       <div class="sign-up">
         <span class="sing-num">
-          {{activity.activityDetail.countJoin}}
+          <!-- {{activity.activityDetail.countJoin}} -->
+          98
         </span>
          人已报名
       </div>
@@ -45,6 +47,7 @@
         立即报名
       </div>
     </div>
+
   </div>
 </template>
 
@@ -139,13 +142,20 @@ export default {
       color: #666666;
       letter-spacing: 0;
       line-height: 26px;
+      p>img {
+        width: 343px ;
+        height: 155px;
+      }
     }
     .sign-box {
-      width: 375px;
+      display: flex;
+      // width: 375px;
       height: 56px;
-      border-bottom: 1px solid #333;
-      border-top: 1px solid #333;
-      div { display: inline-block }
+      margin: 0 -16px;
+      line-height: 56px;
+      border-bottom: 1px solid #FFFFFF;
+      border-top: 1px solid #FFFFFF;
+      // div { display: inline-block }
       .sign-up {
         width: 140px;
         height: 56px;
@@ -155,7 +165,7 @@ export default {
         text-align: center;
       }
       .no-sign {
-        width: 235px;
+        flex: 1;
         height: 56px;
         background-image: linear-gradient(-217deg, #FFDF00 0%, #FFEB00 100%);
         font-family: PingFangSC-Regular;
@@ -167,3 +177,14 @@ export default {
   }
 </style>
 
+
+<style>
+  /* p{
+    width: 343px ;
+    height: 155px;
+  } */
+  img {
+    width: 343px ;
+    height: 155px;
+  }
+</style>

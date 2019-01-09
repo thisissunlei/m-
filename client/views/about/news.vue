@@ -39,7 +39,7 @@ export default {
 
   },
   mounted(){
-  // console.log('about',this.about.newsList)
+  console.log('about',this.about.newsList)
   window.addEventListener('scroll',this.getMore);
   },
   methods: {

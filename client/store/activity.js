@@ -1,4 +1,5 @@
 import model from 'model'
+import dealDate from '../util/dealDate'
 
 // 活动
 export default {
@@ -42,7 +43,27 @@ export default {
       state.recommendActivity = data.items;
     },
     setActivityList(state,data){
-      state.activityList = data.items;
+      let lists = data.items.map(item=>{
+        let time = ''
+        let start = dealDate.dateToArray(item.beginTime);
+        let end = dealDate.dateToArray(item.endTime);
+        console.log("start,end",start,end);
+
+        if (start[2] == end[2] && start[1] == end[1] && start[0] == start[0]) {
+          time = `${start[0]}年${start[1]}月${start[2]}日 ${
+            start[3]
+          }:${start[4]}-${end[3]}:${end[4]}`;
+        } else {
+          time = `${start[0]}年${start[1]}月${start[2]}日-${
+            end[1]
+          }月${end[2]}日`;
+        }
+        item.time = time;
+        return item;
+    })
+    state.totalCount = data.totalCount;
+    state.activityList = lists;
+      // state.activityList = data.items;
     },
     setActivityDetail(state,data){
       state.activityDetail = data.items;
