@@ -81,5 +81,8 @@ export default {
   },
   getActivityList(data){//活动列表
     return handleRequest(request.get('api/gateway/portalthree/activity-list',{params: data}))
+  },
+  getActivityDetail(data){//活动列表详情
+    return handleRequest(request.get('api/gateway/portalthree/activity-detail',{params: data}))
   }
 }

@@ -1,7 +1,6 @@
 <template>
   <div class="index">
-    <!-- @someSwiperEvent="callback" -->
-    <div v-swiper:mySwiper="swiperOption" class="index-swiper1">
+    <!-- <div v-swiper:mySwiper="swiperOption" class="index-swiper1">
       <div class="swiper-wrapper">
         <div class="swiper-slide" v-for="item of $store.state.index.banner" :key="item.id">
           <a href="">
@@ -10,9 +9,9 @@
         </div>
       </div>
       <div class="swiper-pagination"></div>
-    </div>
+    </div> -->
   <!-- 热门社区 -->
-    <div class="hot-community" v-if="!!hotList && hotList.length > 0">
+    <!-- <div class="hot-community" v-if="!!hotList && hotList.length > 0">
       <div class="hot-title">
         <span class="line"></span>
         {{$t('indexTitle.hot')}}
@@ -21,10 +20,10 @@
       <a href="" class="hot-more">
         <div class="more">{{$t('indexTitle.more')}}<i class="arror">>></i></div>
       </a>
-    </div>
-    <div class="divide-line"></div>
+    </div> -->
+    <!-- <div class="divide-line"></div> -->
     <!-- 待开社区 -->
-    <div class="soon-community" v-if="!!waitList && waitList.length > 0">
+    <!-- <div class="soon-community" v-if="!!waitList && waitList.length > 0">
       <div class="hot-title">
         <span class="line"></span>
         {{$t('indexTitle.soon')}}
@@ -36,21 +35,20 @@
         </a>
         <div class="soon-cmt">{{item.cmtName}}</div>
         <span class="num">{{item.openTime}}</span>
-        <!-- <span>{{$t('indexTitle.later')}}</span> -->
       </div>
       <a href="" class="hot-more">
         <div class="more">{{$t('indexTitle.more')}}<i class="arror">>></i></div>
       </a>
     </div>
-    <div class="divide-line"></div>
+    <div class="divide-line"></div> -->
     <!-- 社区环境 -->
-    <div class="env">
+    <!-- <div class="env">
       <div class="hot-title">
         <span class="line"></span>
         {{$t('indexTitle.environment')}}
       </div>
       <Env :data="this.$store.state.index.welfare" :query="query"/>
-    </div>
+    </div> -->
     <!-- 社区福利 -->
     <Welfare/>
     <div class="divide-line"></div>
