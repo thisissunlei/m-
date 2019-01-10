@@ -57,7 +57,7 @@ export default {
         top: 50%;
         transform:translateY(-50%);
         left:-30px;
-        z-index:999;
+        z-index:40;
       }
 
       &:nth-child(1n){
@@ -87,6 +87,7 @@ export default {
       color:#333;
       line-height:20px;
       padding:16px 30px;
+      margin-left: 60px;
       text-align:left;
     }
     .en .left{

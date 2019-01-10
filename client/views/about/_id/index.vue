@@ -1,11 +1,15 @@
 <template>
   <div class="detail-box">
-    <div class="detail-title">{{about.newsDetail.title}}</div>
-    <div class="detail-time">{{about.newsDetail.publishedAt}}</div>
+    <div class="detail-title">
+      <!-- {{about.newsDetail.title}} -->
+      氪空间完成6亿元Pre-B轮融资
+    </div>
+    <div class="detail-time">
+      <!-- {{about.newsDetail.publishedAt}} -->
+      2018-01-11
+    </div>
     <div class="detail-content" v-html="about.newsDetail.desc"></div>
-    <!-- <div class="pics">
-      <img :src="about.newsDetail.photoUrl" alt="" class="detail-pic">
-    </div>-->
+
     <div class="relative-community">
       <div class="rel-title oth">相关社区</div>
       <div class="small-title">
@@ -111,11 +115,7 @@ export default {
     color: #666666;
     letter-spacing: 0;
     line-height: 26px;
-    img {
-      width: 343px;
-      height: 155px;
-      background: red;
-    }
+
   }
   .oth {
     font-family: PingFangSC-Semibold;
@@ -125,6 +125,7 @@ export default {
     line-height: 20px;
   }
   .relative-community {
+    margin-top: 30px;
     .small-title {
       margin-top: 10px;
       margin-bottom: 20px;
@@ -153,5 +154,13 @@ export default {
     }
   }
 }
+</style>
+
+<style>
+    span>img {
+      width: 344px!important;
+      height: 155px!important;
+      background: red;
+    }
 </style>
 

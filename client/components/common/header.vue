@@ -1,5 +1,5 @@
 <template>
-  <header class="clearfix">
+  <header class="header">
     <div v-if="lang === 'zh'" class="fl header-logo">
       <a :href="'//'+$store.state.common.origin+$store.state.common.queryString">
         <img src="../../assets/images/header/logo-zh.svg" alt="氪空间联合办公共享办公众创空间">
@@ -41,8 +41,8 @@
         <div class="img" @click="setMenuState" v-if="menuShow == false && isVisit == false"></div>
         <div class="img select" @click="setMenuState" v-else></div>
         <!-- 下拉菜单 -->
-      <div class="menu-mask" v-show="menuShow">
-        <div class="menu-box" >
+      <!-- <div class="menu-mask" > -->
+        <div class="menu-box" v-show="menuShow">
           <div class="menus clearfix" >
             <div class="fl">
               <a :href="'//'+$store.state.common.origin+$store.state.common.queryString">{{$t("nav.home")}}</a>
@@ -67,11 +67,12 @@
           </div>
           <div class="order" @click="jumpVisit">立即预约</div>
       </div>
-    </div>
+    <!-- </div> -->
       </div>
     </div>
 
     <div class="mark" v-if="citysShow" @click="setCitysState(false)"></div>
+    <div class="menu-mask" v-if="menuShow || citysShow"></div>
     <Visit
     :Close="jumpVisit"
     :areaDisabled="areaDisabled"
@@ -196,22 +197,30 @@
 </script>
 
 <style lang="less" scoped>
-// .menu-mask {
-//     position: fixed;
-//     top: 0;
-//     left: 0;
-//     width: 100%;
-//     height: 100%;
-//     z-index: 9900;
-//     overflow: hidden;
-//     animation-fill-mode: both;
-//     background: rgba(0,0,0,0.60);
-// }
-
+.menu-mask {
+    position: fixed;
+    top: 50px;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 90;
+    overflow: hidden;
+    animation-fill-mode: both;
+    background: rgba(0,0,0,0.60);
+}
+  header::after{
+    content: '';
+    display: block;
+    clear: both;
+  }
   header {
+    position: fixed;
+    width: 100%;
+    height: 50px;
     border-bottom: 1px #eee solid;
     padding: 0 16px;
-    height: 50px;
+    background: #FFFFFF;
+    z-index: 100;
     .header-logo {
       width: 72px;
       height: 34px;
@@ -276,7 +285,7 @@
       .citys-box {
         position: absolute;
         left: -98px;
-        top: 51px;
+        top: 50px;
         z-index: 200;
         width: 375px;
         padding: 20px 60px;

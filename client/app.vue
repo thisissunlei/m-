@@ -7,6 +7,7 @@
 <template>
   <div id="app">
     <Header></Header>
+    <div class="empty"></div>
     <article class="re-article">
       <router-view></router-view>
     </article>
@@ -35,7 +36,7 @@ export default {
   watch: {
     '$route.query.lang'(n, o) {
       this.language = n === 'en' ? 1 : 0
-      // console.log('this.lang',this.language) 
+      // console.log('this.lang',this.language)
       this.$store.dispatch('getHeaderCityDownList', { language: this.language });
     },
     '$route.query.cityId'(n, o) {
@@ -97,6 +98,10 @@ export default {
 <style lang="less" scoped>
 #app {
   position: relative;
+}
+.empty {
+  width: 375px;
+  height: 50px;
 }
 </style>
 
