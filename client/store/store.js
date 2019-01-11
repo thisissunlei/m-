@@ -4,6 +4,7 @@ import common from './common'
 import visit from './visit'
 import index from './index'
 import activity from './activity'
+import welfare from './welfare'
 import about from './about'
 
 let isDev = process.env.NODE_ENV === 'development'
@@ -15,6 +16,7 @@ export default () => {
       index,
       visit,
       activity,
+      welfare,
       about,
     }
   })
@@ -25,12 +27,14 @@ export default () => {
       './index',
       './visit',
       './activity',
+      './welfare',
       './about'
     ], () => {
       let common = require('./common').default
       let index = require('./index').default
       let visit = require('./visit').default
       let activity = require('./activity').default
+      let welfare = require('./welfare').default
       let about = require('./about').default
       store.hotUpdate({
         modules: {
@@ -38,6 +42,7 @@ export default () => {
           index,
           visit,
           activity,
+          welfare,
           about
         }
       })

@@ -4,13 +4,12 @@
     <div class="cmt-name">{{data.cmtName}}</div>
     <div class="cmt-tabs">
       <ul class="clearfix" v-if="!!data.featureLableList && data.featureLableList.length > 0">
-        <li class="fl" v-for="(item, i) in data.featureLableList" :key="i" v-if="i < 3">{{item}}</li>
+        <li class="fl" v-for="(item, i) in data.featureLableList" :key="i" v-show="i < 3">{{item}}</li>
       </ul>
     </div>
-    <div class="hot-swiper" v-swiper:myHotSwiper="hotSwiperOption">
+    <!-- <div class="hot-swiper" v-swiper:myHotSwiper="hotSwiperOption">
       <ul class="swiper-wrapper">
         <li class="fl swiper-slide" v-for="item of data.cmtSeatPriceList" :key="item.id" >
-          <!-- :src="item.seatPicUrl" -->
           <img  :src="item.seatPicUrl" >
           <div class="cmt-text">
             <div class="name">{{item.seatName}}</div>
@@ -19,7 +18,7 @@
           </div>
         </li>
       </ul>
-    </div>
+    </div> -->
   </div>
 </a>
 </template>
@@ -39,7 +38,7 @@ export default {
     }
   },
   mounted(){
-    console.log('000999',this.data)
+    // console.log('000999',this.data)
   }
 }
 </script>

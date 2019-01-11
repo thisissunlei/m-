@@ -28,7 +28,7 @@ export default {
     }
   },
   mounted(){
-    console.log('000999',this.data)
+    // console.log('000999',this.data)
   }
 }
 </script>

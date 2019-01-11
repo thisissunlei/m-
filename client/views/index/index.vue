@@ -1,26 +1,21 @@
 <template>
   <div class="index">
-    <!-- <div v-swiper:mySwiper="swiperOption" class="index-swiper1">
-      <div class="swiper-wrapper">
-        <div class="swiper-slide" v-for="item of $store.state.index.banner" :key="item.id">
-          <a href="">
-            <img :src="item.banerPicUrl">
-          </a>
-        </div>
-      </div>
-      <div class="swiper-pagination"></div>
-    </div> -->
+    <Swiper :width="375" :height="210"
+    :list="index.banner"
+    v-show="index.banner.length>0"
+    :dots = true
+    />
     <!-- 热门社区 -->
-    <!-- <div class="hot-community" v-if="!!hotList && hotList.length > 0">
+    <div class="hot-community" v-if="!!hotList && hotList.length > 0">
       <div class="hot-title">
         <span class="line"></span>
         {{$t('indexTitle.hot')}}
       </div>
-      <Hot v-for="(item, i) in hotList" :key="i" v-if="i < 3" :data="item" :query="query"></Hot>
+      <Hot v-for="(item, i) in hotList" :key="i"  :data="item" :query="query"></Hot>
       <a href="" class="hot-more">
         <div class="more">{{$t('indexTitle.more')}}<i class="arror">>></i></div>
       </a>
-    </div> -->
+    </div>
     <!-- <div class="divide-line"></div> -->
     <!-- 待开社区 -->
     <!-- <div class="soon-community" v-if="!!waitList && waitList.length > 0">
@@ -65,15 +60,17 @@
   </div>
 </template>
 <script>
-
+import Swiper from '../../components/common/swiper.vue'
 import Hot from '../../components/index/hot.vue' // 热门社区
 import Env from '../../components/index/env.vue' // 社区环境
 import Welfare from '../../components/index/welfare.vue' // 社区福利
 import Activity from '../../components/index/activity.vue' // 社区活动
 import Member from '../../components/index/member.vue' // 社区活动
+import { mapState,mapActions } from 'vuex'
 
 export default {
   components: {
+    Swiper,
     Hot,
     Env,
     Welfare,
@@ -109,18 +106,19 @@ export default {
     activityList() {
       return this.$store.getters.throwIndexActivityList;
     },
+    ...mapState(['index'])
   },
   watch: {
-    // '$route.query.lang'(n, o) {
-    //     this.getNewData(1, n, o);
-    //   },
-    //   '$route.query.cityId'(n, o) {
-    //     this.getNewData(2, n, o);
-    //   },
-    //   '$route'(n, o) {
-    //     // this.setQuery();
-    //     this.getNewData(n, o);
-    //   }
+    '$route.query.lang'(n, o) {
+        this.getNewData(1, n, o);
+      },
+      '$route.query.cityId'(n, o) {
+        this.getNewData(2, n, o);
+      },
+      '$route'(n, o) {
+        // this.setQuery();
+        this.getNewData(n, o);
+      }
   },
   created() {
     this.getData();
@@ -130,63 +128,82 @@ export default {
     this.lang = this.$route.query.lang || 'zh';
     this.language = this.lang === 'en' ? 1 : 0;
     this.cityId = this.$route.query.cityId;
+    console.log('this.index',this.index)
     // this.getData();
     // console.log("ssss",this.$route);
     window.addEventListener('scroll', this.scroll)
   },
-
+  // asyncData({ route, store }) {
+  //     let lang = route.query.lang || 'zh'
+  //     let cityId = route.query.cityId || ''
+  //     let data = {
+  //       language: lang === 'en'? 1: 0,
+  //       cityId: cityId
+  //     }
+  //     return Promise.all([
+  //       store.dispatch('getFocusBanner',data),
+  //       //获取热门社区
+  //       store.dispatch('getIndexHotCommunity', data),
+  //       // 获取待开业社区
+  //       store.dispatch('getIndexWaitCommunity', data)
+  //     ])
+  // },
   methods: {
     getData() {
+      console.log("data");
+
       if (!this.$route.query.lang) {
         return
       }
       let lang = this.$route.query.lang
       let cityId = this.$route.query.cityId
 
-      // this.$store.dispatch('getFocusBanner', {
-      //   language: lang === 'en'? 1: 0,
-      //   cityId: cityId
-      // })
-      // this.$store.dispatch('getIndexHotCommunity', {
-      //   language: lang === 'en'? 1: 0,
-      //   cityId: cityId
-      // })
-      // this.$store.dispatch('getIndexWaitCommunity', {
-      //   language: lang === 'en'? 1: 0,
-      //   cityId: cityId
-      // })
-      // this.$store.dispatch('getIndexOfficeEnv', { language: lang === 'en'? 1: 0 })
-      // this.$store.dispatch('getIndexWelfare', {
-      //   language: lang === 'en'? 1: 0,
-      //   page: 1,
-      //   pageSize: 6,
-      //   sort: 1
-      // })
-      // this.$store.dispatch('getIndexActivityList', {
-      //   cityId: cityId,
-      //   page: 1,
-      //   pageSize: 4
-      // })
+      this.$store.dispatch('getFocusBanner', {
+        language: lang === 'en'? 1: 0,
+        cityId: cityId
+      })
+      this.$store.dispatch('getIndexHotCommunity', {
+        language: lang === 'en'? 1: 0,
+        cityId: cityId
+      })
+      this.$store.dispatch('getIndexWaitCommunity', {
+        language: lang === 'en'? 1: 0,
+        cityId: cityId
+      })
+      this.$store.dispatch('getIndexOfficeEnv', { language: lang === 'en'? 1: 0 })
+      this.$store.dispatch('getIndexWelfare', {
+        language: lang === 'en'? 1: 0,
+        page: 1,
+        pageSize: 6,
+        sort: 1
+      })
+      this.$store.dispatch('getIndexActivityList', {
+        cityId: cityId,
+        page: 1,
+        pageSize: 4
+      })
 
     },
     getNewData(n, o) {
-      // console.log("n,o",n,o);
+      console.log("newData",n,o);
 
-      // if ( !n.query ) return
-      //   this.language = n.query.lang === 'en' ? 1 : 0;
-      //   this.cityId = n.query.cityId;
-      //   this.lang = n.query.lang;
+      if ( !n.query ) return
+        this.language = n.query.lang === 'en' ? 1 : 0;
+        this.cityId = n.query.cityId;
+        this.lang = n.query.lang;
 
-      //   var query = ''
-      //   for ( var key in this.$route.query ) {
-      //     query += key + '=' + this.$route.query[key] + '&'
-      //   }
-      //   this.query = '?' + query.substr(0,query.length-1)
-      //   this.$store.dispatch('getIndexHotCommunity', {
-      //     language: this.language,
-      //     cityId: this.cityId
-      //   });
-      //   this.getData()
+        var query = ''
+        for ( var key in this.$route.query ) {
+          console.log("$route.query",this.$route.query);
+
+          query += key + '=' + this.$route.query[key] + '&'
+        }
+        this.query = '?' + query.substr(0,query.length-1)
+        this.$store.dispatch('getIndexHotCommunity', {
+          language: this.language,
+          cityId: this.cityId
+        });
+        this.getData()
     },
     scroll() {
       let top =

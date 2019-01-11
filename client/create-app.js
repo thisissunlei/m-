@@ -14,6 +14,11 @@ import createStore from './store/store';
 import createRouter from './config/router';
 
 import VueI18n from 'vue-i18n';
+// import BScroll from 'better-scroll'
+
+// let scroll = new BScroll('.wrapper')
+// Vue.use(scroll)
+
 // import 'swiper/dist/css/swiper.css'
 
 // if (process.browser) {

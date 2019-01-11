@@ -1,4 +1,4 @@
-import model from 'model'
+  import model from 'model'
 import dealDate from '../util/dealDate'
 
 // 活动
