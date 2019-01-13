@@ -3,7 +3,7 @@ module.exports = {
   newsMore: 'More',
   end: 'End',
   address: 'Kr Space headquarters：Junhao Central Park Plaza, Chaoyang Park South Road No. 10, Chaoyang District, Beijing, China.',
-
+  order:'order',
   nav: {
     home: 'Home',
     community: 'Location',
@@ -59,6 +59,7 @@ module.exports = {
   footerCopyright: '© 2011-2018 Kr Space (Beijing) Information Technology Co. LTD | Beijing ICP No. 16012805',
 
   indexTitle: {
+    order: 'order123',
     more: 'More',
     vip: 'VIP exclusive',
     hot: 'Recommended Community',

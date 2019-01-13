@@ -1,16 +1,18 @@
 <template>
   <!-- 轮播图的实现主要是通过宽度的overflow:hidden进行控制，translate进行控制 -->
-  <div class="slider" ref="slider">
-    <div class="slider-group" ref="sliderGroup">
-      <div class="slider-item" v-for="(item,index) in list" :key="index">
-        <a :href="item.linkUrl">
-          <!-- :style="`width:${width},height:${height}`" -->
-          <img :src="item.banerPicUrl" :alt="item.linkUrl"  ref="sliderItemImg">
-        </a>
+  <div class="both-swiper">
+    <div class="swiper-title">{{title}}</div>
+    <div class="slider" ref="slider">
+      <div class="slider-group" ref="sliderGroup">
+        <div class="slider-item" v-for="(item,index) in list" :key="index">
+          <a :href="item.linkUrl">
+            <img :src="item.couponCover" :alt="item.linkUrl" :style="`width:${width},height:${height}`" ref="sliderItemImg">
+          </a>
+        </div>
       </div>
-    </div>
-    <div class="dots" v-if="this.dots">
-      <span :class="`dot ${index === currentPageIndex ? 'active' :'' }`" v-for="(item,index) in list.length" :key="index"></span>
+      <div class="dots" v-if="this.dots">
+        <span :class="`dot ${index === currentPageIndex ? 'active' :'' }`" v-for="(item,index) in list.length" :key="index"></span>
+      </div>
     </div>
   </div>
 </template>
@@ -22,14 +24,17 @@
 
     props: {
       width: {
-        type: String,
-        default:'100%',
+        type: Number,
+        default:343,
       },
       height: {
-        type: String,
-        default:'210',
+        type: Number,
+        default: 172
       },
-
+      title:{
+        type: String,
+        default:'每日优选'
+      },
       loop: {
         type: Boolean,
         default: true,
@@ -52,60 +57,30 @@
     },
     data() {
       return {
-        currentPageIndex: 0,
-        slider:null
+        currentPageIndex: 0
       }
     },
     watch: {
-      "list"(n,o){
-        // console.log("list666",n,o);
-        //  console.log('list.swiper666', this.slider)
-        //  this.slider.on('destroy')
-        //  console.log('list.swiper777', this.slider)
-        this.$nextTick(() => {
-          this.slider = new Bscroll(this.$refs.slider, {})
-        })
 
-      }
     },
     mounted() {
-      // const _this = this;
-      // this.tmpTimer = setTimeout(() => {
-      //   this._initSliderWidth();
-      //   this._initSlider();
-      //   if (this.autoPlay) {
-      //     this._play();
-      //   }
-      // }, 20);
-      // this.$nextTick(()=>{
-      //   console.log("dom渲染完成以后再实例化bscroll");
-
-      //    this._initSliderWidth();
-      //   this.slider = new BScroll(this.$refs.slider, {
-      //       scrollX: true,
-      //       scrollY: false,
-      //       momentum: false,
-      //       click: true,
-      //       probeType: 1,
-      //       // snap: {
-      //       //   loop: this.loop, // 循环
-      //       //   threshold: 0.1
-      //       // }
-      //     });
-      //   this._initSlider();
-      //   if (this.autoPlay) {
-      //     this._play();
-      //   }
-      // })
-
+      const _this = this;
+      _this.tmpTimer = setTimeout(() => {
+        _this._initSliderWidth();
+        _this._initSlider();
+        if (_this.autoPlay) {
+          _this._play();
+        }
+      }, 20);
+      console.log('list-swiper', this.list,this.width,this.height)
     },
     methods: {
       // 初始化slider容器的宽度
       _initSliderWidth() {
         // 获取图片的宽度
-        const imgWidth = this.$refs.sliderItemImg[0].clientWidth;
-        // const imgWidth = this.width;
-        console.log("imgWidth",this.$refs.sliderItemImg,imgWidth);
+        // const imgWidth = this.$refs.sliderItemImg[0].clientWidth;
+        const imgWidth = this.width;
+        // console.log("imgWidth",this.$refs.sliderItemImg,imgWidth);
 
         let sliderWidth = imgWidth * this.list.length;
         // console.log("slider",imgWidth);
@@ -117,8 +92,10 @@
         // 图片容器的宽度和高度
         this.$refs.sliderGroup.style.width = sliderWidth/37.5 + 'rem';
         this.$refs.sliderGroup.style.height = this.height/37.5 + 'rem';
+        // console.log("this.height111",this.height,this.$refs.sliderItemImg);
         if(this.$refs.sliderItemImg.length >= 2){
           this.$refs.sliderItemImg.forEach(item => {
+            // console.log("this.width",this.width);
             item.style.width = this.width/37.5 + "rem";
             item.style.height = this.height/37.5 + "rem";
           });
@@ -126,53 +103,47 @@
       },
     //
       _initSlider() {
-        // const _this = this;
-        // console.log('this', this)
+        const _this = this;
         // 私有的better-scroll的实例
-        // this.slider = new BScroll(this.$refs.slider, {
-        //   scrollX: true,
-        //   scrollY: false,
-        //   momentum: false,
-        //   click: true,
-        //   probeType: 1,
-        //   snap: {
-        //     loop: this.loop, // 循环
-        //     threshold: 0.1
-        //   }
-        // });
-        // console.log("this.slider",this.slider);
-
+        _this._slider = new BScroll(_this.$refs.slider, {
+          scrollX: true,
+          scrollY: false,
+          momentum: false,
+          click: true,
+          snap: {
+            loop: this.loop, // 循环
+            threshold: 0.1
+          }
+        });
         // 获取当前页
-        this._getCurrentPageIndex();
-
-
+        _this._getCurrentPageIndex();
         // 滚动之前 清除timer
-        this.slider.on('beforeScrollStart', () => {
-          clearInterval(this._timer);
+        _this._slider.on('beforeScrollStart', () => {
+          clearInterval(_this._timer);
         });
       },
       // 获取当前滚动的页数，主要是用于 dots 中 active class 的添加
       _getCurrentPageIndex() {
-        // const _this = this;
-        this.slider.on("scrollEnd", () => {
-          let index = this.slider.getCurrentPage().pageX;
-          this.currentPageIndex = index;
+        const _this = this;
+        _this._slider.on("scrollEnd", () => {
+          let index = _this._slider.getCurrentPage().pageX;
+          _this.currentPageIndex = index;
           // 如果自动播放 则开启
-          if (this.autoPlay) {
-            this._play();
+          if (_this.autoPlay) {
+            _this._play();
           }
         });
       },
 
       _play() {
-        // const _this = this;
-        let pageIndex = this.currentPageIndex;
-        this._timer = setInterval(() => {
+        const _this = this;
+        let pageIndex = _this.currentPageIndex;
+        _this._timer = setInterval(() => {
           pageIndex++;
-          if (pageIndex >= this.list.length) {
+          if (pageIndex >= _this.list.length) {
             pageIndex = 0;
           }
-          this.slider.goToPage(pageIndex);
+          _this._slider.goToPage(pageIndex);
         }, this.speed);
       },
 

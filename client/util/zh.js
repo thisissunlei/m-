@@ -4,6 +4,7 @@ module.exports = {
   end: '已经到了尽头...',
   address: '氪空间总部：北京朝阳区朝阳公园南路11号骏豪中央公园广场A2-10层',
 
+
   nav: {
     home: '首页',
     community: '办公',
@@ -60,6 +61,7 @@ module.exports = {
   footerCopyright: '© 2011-2018 氪空间(北京)信息技术有限公司 | 京ICP备16012805号 | ',
 
   indexTitle: {
+    order: '立即预约',
     more: '查看更多',
     vip: '入驻会员专享',
     hot: '热门社区',
