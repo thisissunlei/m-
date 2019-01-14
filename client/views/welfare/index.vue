@@ -10,6 +10,7 @@
             <span class="card-info over-point">{{item.descr}}</span>
           </a>
         </div> -->
+      <Swiper :list="welfare.recommend"></Swiper>
     </section>
     <section class="detail-list">
       <div class="tab-contain">
@@ -37,6 +38,7 @@
   } from 'vuex'
   import DefaultPage from 'components/defaultPage.vue'
   import Welfare from '../../components/welfare/index.vue' // 会员福利
+  import Swiper from '../../components/welfare/swiper.vue'
   var interval = null;
   export default {
     data() {
@@ -48,7 +50,8 @@
     },
     components: {
       DefaultPage,
-      Welfare
+      Welfare,
+      Swiper
     },
 
     computed: { // 计算属性
@@ -167,10 +170,10 @@
 <style lang='less' scoped>
   .g-welfare-contain {
     width: 375px;
-    // .recommend {
-    //   height: 336px;
-    //   background: palegoldenrod;
-    // }
+    .recommend {
+      height: 336px;
+      background: palegoldenrod;
+    }
   }
 
   .detail-list {

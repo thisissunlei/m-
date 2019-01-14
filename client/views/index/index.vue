@@ -1,9 +1,13 @@
 <template>
   <div class="index">
-    <Swiper :width="375" :height="210"
+    <!-- :height="'210'" -->
+    <Swiper
+    :width="'375'"
+
     :list="index.banner"
     v-show="index.banner.length>0"
-    :dots = true
+    :loop="index.banner.length>1 ? true : false "
+    :dots="index.banner.length>1 ? true : false "
     />
     <!-- 热门社区 -->
     <div class="hot-community" v-if="!!hotList && hotList.length > 0">
@@ -53,7 +57,7 @@
     <Member />
     <!-- start 立即预约 -->
     <div class="visit-btn">
-      <p :class="[isFixed ? 'bottom-visit-fixed' : '']">立即预约</p>
+      <p :class="[isFixed ? 'bottom-visit-fixed' : '']">{{$t('indexTitle.order')}}</p>
       <p v-show="isFixed"></p>
     </div>
     <!-- end 立即预约 -->
@@ -128,9 +132,9 @@ export default {
     this.lang = this.$route.query.lang || 'zh';
     this.language = this.lang === 'en' ? 1 : 0;
     this.cityId = this.$route.query.cityId;
-    console.log('this.index',this.index)
+
     // this.getData();
-    // console.log("ssss",this.$route);
+
     window.addEventListener('scroll', this.scroll)
   },
   // asyncData({ route, store }) {
@@ -150,7 +154,7 @@ export default {
   // },
   methods: {
     getData() {
-      console.log("data");
+
 
       if (!this.$route.query.lang) {
         return
@@ -185,7 +189,7 @@ export default {
 
     },
     getNewData(n, o) {
-      console.log("newData",n,o);
+
 
       if ( !n.query ) return
         this.language = n.query.lang === 'en' ? 1 : 0;
@@ -194,7 +198,7 @@ export default {
 
         var query = ''
         for ( var key in this.$route.query ) {
-          console.log("$route.query",this.$route.query);
+  
 
           query += key + '=' + this.$route.query[key] + '&'
         }
