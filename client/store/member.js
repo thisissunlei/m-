@@ -70,8 +70,7 @@ export default {
     	// state.teamDetail = data.porTeamDetailVo;
     },
     setTeamDetail(state, data){
-      console.log('setTeamDetail',data)
-    	state.teamDetail = data;
+    	state.teamDetail = data.items;
     }
 
 
