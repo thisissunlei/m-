@@ -6,6 +6,7 @@ import index from './index'
 import activity from './activity'
 import welfare from './welfare'
 import about from './about'
+import member from './member'
 
 let isDev = process.env.NODE_ENV === 'development'
 export default () => {
@@ -18,6 +19,7 @@ export default () => {
       activity,
       welfare,
       about,
+      member,
     }
   })
 
@@ -28,7 +30,8 @@ export default () => {
       './visit',
       './activity',
       './welfare',
-      './about'
+      './about',
+      './member'
     ], () => {
       let common = require('./common').default
       let index = require('./index').default
@@ -36,6 +39,7 @@ export default () => {
       let activity = require('./activity').default
       let welfare = require('./welfare').default
       let about = require('./about').default
+      let member = require('./member').default
       store.hotUpdate({
         modules: {
           common,
@@ -43,7 +47,8 @@ export default () => {
           visit,
           activity,
           welfare,
-          about
+          about,
+          member
         }
       })
     })

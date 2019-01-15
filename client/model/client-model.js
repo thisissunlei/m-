@@ -141,5 +141,26 @@ export default {
     return handleRequest(
       request.get("api/gateway/portalthree/activity-detail", { params: data })
     );
-  }
+  },
+  getMemberList(data){
+    //会员列表
+    return handleRequest(
+      request.get("api/gateway/portalthree/usernews-list", { params: data })
+    );
+  },
+  memberReadCount(data){
+    //阅读量
+    return handleRequest(
+      request.post("api/gateway/portalthree/add-news-read", { params: data })
+    );
+  },
+  getCometTeamList(data) {// 团队 list
+    return handleRequest(request.get('api/gateway/portalthree/comet-team-list', {params: data}))
+  },
+  getPorNewsDetails(data) { // 会员报道 details
+    return handleRequest(request.get('api/gateway/portalthree/por-news-details', {params: data}))
+  },
+  getTeamDetail(data) {//团队详情
+    return handleRequest(request.get('api/gateway/portalthree/teamdetail', {params: data}))
+  },
 };
