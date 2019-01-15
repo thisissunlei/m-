@@ -1,7 +1,7 @@
 <template>
   <div class="team-info">
       <div class="t-head">
-        <div class="h-bg"></div>
+        <img class="h-bg" src="../../../assets/images/teambg.png" :alt="member.teamDetail.teamName">
         <img :src="member.teamDetail.logo" :alt="member.teamDetail.teamName" class="h-logo">
         <div class="h-title">{{member.teamDetail.teamName}}</div>
         <div class="h-info">{{member.teamDetail.slogan}}</div>
@@ -186,12 +186,22 @@ export default {
     text-align: center;
     padding-bottom: 20px;
     border-bottom: 1px solid #F3f3f3;
+    position: relative;
+    .h-bg{
+      width: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 1;
+    }
     .h-logo{
+      position: relative;
       width: 70px;
       height: 70px;
-      border: 1px solid #fff;
+      border: 2px solid #fff;
       border-radius: 4px;
       margin: 54px 0 10px;
+      z-index: 10;
     }
     .h-title{
       font-size: 18px;
@@ -248,9 +258,9 @@ export default {
     }
   }
   .t-join-c{
-      width: 100%;
-      overflow: hidden;
-      margin-bottom: 20px;
+    width: 100%;
+    overflow: hidden;
+    margin-bottom: 20px;
     .c-info{
       padding: 20px 16px
     }
