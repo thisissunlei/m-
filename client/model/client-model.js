@@ -141,5 +141,23 @@ export default {
     return handleRequest(
       request.get("api/gateway/portalthree/activity-detail", { params: data })
     );
-  }
+  },
+  getCommunityCbds(data){
+    // 社区筛选条件
+    return handleRequest(
+      request.get('api/gateway/portalthree/cmt-cbd', {params: data})
+    );
+  },
+  getCommunityStatus(data){
+    // 社区筛选状态
+    return handleRequest(
+      request.get('api/gateway/portalthree/status/seat-price',{params: data})
+    );
+  },
+  getCommunityList(data){
+    // 社区列表
+    return handleRequest(
+      request.get('api/gateway/portalthree/cmt-listing',{params: data})
+    );
+  },
 };
