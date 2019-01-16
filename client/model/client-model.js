@@ -163,4 +163,16 @@ export default {
       request.get('api/gateway/portalthree/cmt-listing',{params: data})
     );
   },
+  getCommunityDetails(data){
+    //社区详情
+    return handleRequest(
+      request.get('api/gateway/portalthree/community-detail',{params: data})
+    );
+  },
+  getOfficeType(data){
+    //高效、分时办公
+    return handleRequest(
+      request.get('api/gateway/portalthree/office-type',{params: data})
+    );
+  }
 };
