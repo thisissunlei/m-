@@ -130,6 +130,9 @@ export default {
       })
     );
   },
+  // getRecommendActivity(data){ //推荐活动列表
+  //   return handleRequest(request.get('api/gateway/portalthree/recommend-activity', {params: data}))
+  // },
   getActivityList(data) {
     //活动列表
     return handleRequest(

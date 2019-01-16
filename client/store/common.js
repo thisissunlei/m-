@@ -113,6 +113,13 @@ export default {
       return state.lang;
     },
     throwHeaderCityList: state => {
+      state.headerCityList.forEach((item) => {
+        // console.log("state.headerCityList",typeof(item.cityName),item.cityName);
+        item.cityName.slice(0,1);
+        // console.log("state.headerCityList2",item.cityName);
+        // console.log("item",item);
+
+      })
       return state.headerCityList;
     },
     throwHeaderCityId: state => {

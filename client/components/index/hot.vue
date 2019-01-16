@@ -1,40 +1,70 @@
 <template>
-<a href="" class="hot-wrapper" :style="{'background': 'url('+data.homeUrl+') no-repeat center center'}">
+<a href="" class="hot-wrapper" :style="data.homeUrl?{'background': 'url('+data.homeUrl+') no-repeat center center'}:''">
   <div class="hot-box">
     <div class="cmt-name">{{data.cmtName}}</div>
-    <div class="cmt-tabs">
-      <ul class="clearfix" v-if="!!data.featureLableList && data.featureLableList.length > 0">
-        <li class="fl" v-for="(item, i) in data.featureLableList" :key="i" v-show="i < 3">{{item}}</li>
+    <div class="cmt-tabs" v-if="!!data.featureLableList && data.featureLableList.length > 0">
+      <ul class="clearfix">
+        <li class="fl" v-for="(item, i) in data.featureLableList" :key="i" >{{item}}</li>
       </ul>
     </div>
-    <!-- <div class="hot-swiper" v-swiper:myHotSwiper="hotSwiperOption">
-      <ul class="swiper-wrapper">
-        <li class="fl swiper-slide" v-for="item of data.cmtSeatPriceList" :key="item.id" >
+      <!-- <swiper :showDot = false >
+        <div class="swiper-slide" v-for="item of data.cmtSeatPriceList" :key="item.id">
           <img  :src="item.seatPicUrl" >
-          <div class="cmt-text">
-            <div class="name">{{item.seatName}}</div>
-            <span class="num"><i>¥</i>{{item.discountPrice || item.price}}</span>
-            <span class="text">{{$t('indexPriceType.long')}}</span>
-          </div>
-        </li>
-      </ul>
-    </div> -->
+            <div class="cmt-text">
+              <div class="name">{{item.seatName}}</div>
+              <span class="num"><i>¥</i>{{item.discountPrice || item.price}}</span>
+              <span class="text">{{$t('indexPriceType.long')}}</span>
+            </div>
+        </div>
+      </swiper> -->
+
+      <!-- <wc-swiper v-if="data.cmtSeatPriceList"
+        :therehold="139"
+        :duration="900"
+        :autoplay="false"
+        class="swiper-slide">
+        <wc-slide v-for="(item, index) in data.cmtSeatPriceList" :key="index">
+          <img  :src="item.seatPicUrl" >
+            <div class="cmt-text">
+              <div class="name">{{item.seatName}}</div>
+              <span class="num"><i>¥</i>{{item.discountPrice || item.price}}</span>
+              <span class="text">{{$t('indexPriceType.long')}}</span>
+            </div>
+        </wc-slide>
+      </wc-swiper> -->
+
+
+    <div v-swiper:mySwiper="swiperOption" >
+    <div class="swiper-wrapper">
+      <div class="swiper-slide" v-for="(item, index) in data.cmtSeatPriceList" :key="index">
+        <img :src="item.seatPicUrl">
+        <div class="cmt-text">
+          <div class="name">{{item.seatName}}</div>
+          <span class="num"><i>¥</i>{{item.discountPrice || item.price}}</span>
+          <span class="text">{{$t('indexPriceType.long')}}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
   </div>
 </a>
 </template>
 
 <script>
+import swiper from '../common/swiper.vue'
 export default {
   props: ['data', 'query'],
+  components: {
+    swiper
+  },
   data(){
     return {
-      hotSwiperOption:{
-        slidesPerView : 3,
-        // centeredSlides : true,
-        centerInsufficientSlides: true,
-        // spaceBetween : 10,
-        // slidesOffsetBefore : 16,
-      }
+      swiperOption: {
+          // 设定为true时，active slide会居中，而不是默认状态下的居左
+          centeredSlides:false,
+          slidesPerView:2.5,
+        }
     }
   },
   mounted(){
@@ -49,10 +79,11 @@ export default {
   width: 375px;
   height: 281px;
   margin-bottom: 20px;
+  background: url('../../assets/images/banner/b1-cn.jpg');
   .hot-box {
     padding: 16px 0 19px 16px;
     height: 281px;
-    background: burlywood;
+    background-size: cover;
     .cmt-name {
       margin-bottom: 6px;
       font-family: PingFang-SC-Medium;
@@ -62,6 +93,7 @@ export default {
       line-height: 24px;
     }
     .cmt-tabs {
+      margin-bottom: 50px;
       li{
         margin-right: 8px;
         padding: 2px 6px;
@@ -73,16 +105,16 @@ export default {
         border-radius: 14px;
       }
     }
-    .hot-swiper {
-      margin-top: 52px;
-      ul {
-        li {
-          width: 139px!important;
+
+        .swiper-slide {
+          width: 139px;
           height: 145px;
           margin-right: 10px;
-          // background: pink;
+          border: 1px solid #F3F3F3;
+          border-radius: 4px;
+          background: #FFFFFF;
           img {
-            width: 139px;
+            width: 100%;
             height: 80px;
           }
           .cmt-text {
@@ -113,9 +145,15 @@ export default {
             }
           }
         }
-      }
-    }
+
+
   }
 }
 
+</style>
+
+<style>
+  /* .swiper-wrapper {
+    width: auto!important;
+  } */
 </style>

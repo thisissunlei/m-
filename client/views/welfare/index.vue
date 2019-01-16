@@ -147,19 +147,15 @@
       clearInterval(interval);
       interval = null;
       if(scrollTop >= scrollHeight - winHeight - 327){
-        console.log("page,totalPages",this.welfare.page,this.welfare.totalPages);
         if(this.welfare.page >= this.welfare.totalPages){
           return;
         }
-      console.log("555",this.welfare.page,this.lang,this.activeTab);
-
         this.getWelfareList({
           page: this.welfare.page+1,
           pageSize: 10,
           language: this.lang == 'en' ? 1 : 0,
           tags: this.activeTab
         })
-        // console.log("0000999",this.welfare.list);
         return ;
       }
     }

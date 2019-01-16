@@ -61,7 +61,6 @@ export default {
     this.lang = lang
     // this.setQuery();
     console.log('福利详情',this.welfare.detail)
-    // console.log('其他福利',this.welfare.others)
   },
   computed:{
     ...mapState([

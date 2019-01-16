@@ -29,10 +29,8 @@
         </div>
       </a>
     </div>
-    <div class="more">
-      <a href="" class="item-more">
-        {{$t('indexTitle.more')}}<i class="arror">>></i>
-      </a>
+    <div  class="hot-more" >
+        <a href="" class="more">{{$t('indexTitle.more')}}<i class="arror">>></i></a>
     </div>
   </div>
 </template>
@@ -53,23 +51,46 @@ export default {
 
 <style lang="less" scoped>
 
-.more {
-  width: 153px;
-  height: 44px;
-  margin: 10px 111px 20px 111px;
-  background: #FFFFFF;
-  border: 1px solid #DFDFDF;
-  border-radius: 4px;
-  .item-more {
-    line-height: 44px;
-    display: block;
-    font-family: PingFang-SC-Regular;
-    font-size: 16px;
-    color: #666666;
-    letter-spacing: 0;
-    text-align: center;
-  }
-}
+// .more {
+//   width: 153px;
+//   height: 44px;
+//   margin: 10px 111px 20px 111px;
+//   background: #FFFFFF;
+//   border: 1px solid #DFDFDF;
+//   border-radius: 4px;
+//   .item-more {
+//     line-height: 44px;
+//     display: block;
+//     font-family: PingFang-SC-Regular;
+//     font-size: 16px;
+//     color: #666666;
+//     letter-spacing: 0;
+//     text-align: center;
+//   }
+// }
+ .hot-more {
+      padding: 0 0 20px 111px;
+      border-bottom: 10px solid #f6f6f6;
+      .more {
+        display: inline-block;
+        position: relative;
+        width: 153px;
+        height: 44px;
+        line-height: 44px;
+        background: #ffffff;
+        border: 1px solid #dfdfdf;
+        border-radius: 4px;
+        font-family: PingFang-SC-Regular;
+        font-size: 16px;
+        color: #666666;
+        letter-spacing: 0;
+        text-align: center;
+        .arror {
+          position: absolute;
+          right: 21px;
+        }
+      }
+    }
 .welfare-title {
       position: relative;
       padding: 20px 0 0 16px;
@@ -88,12 +109,15 @@ export default {
       .member-vip {
         margin-right: 16px;
         .pic {
+          display: inline-block;
           width: 15px;
           height: 13px;
           margin-right: 4px;
-          background: #DBAE3C;
+          background:url("../../assets/images/vip.png");
+          background-size: cover;
         }
         .vip {
+          display: inline-block;
           font-family: PingFang-SC-Semibold;
           font-size: 14px;
           color: #DBAE3C;
@@ -145,7 +169,8 @@ export default {
         display: inline-block;
         width: 12px;
         height: 12px;
-        background: #DBAE3C;
+        background:url("../../assets/images/index/time.png");
+        background-size: cover;
         margin-right: 8px;
       }
     }
@@ -157,7 +182,8 @@ export default {
         display: inline-block;
         width: 12px;
         height: 13px;
-        background: lawngreen;
+        background:url("../../assets/images/index/address.png");
+        background-size: cover;
         margin-right: 8px;
       }
     }
