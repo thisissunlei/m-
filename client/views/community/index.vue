@@ -56,7 +56,48 @@
     </div>
     <!--列表-->
     <div class="list">
-      <a href="#"></a>
+      <a href="#" v-for="item, i in community.list.items">
+        <div class="img" :style="!!item.recommendPicUrl? 'background: url('+item.recommendPicUrl+'?x-oss-process=image/resize,h_560,w_420,color_eeeeee,quality,q_80) center top / cover no-repeat': ''"></div>
+        <div class="con">
+          <div class="tit over-point" v-if="!!item.cmtName">{{item.cmtName}}</div>
+          <div class="add">
+            <div class="icon"></div>
+            <div class="txt over-point2">北京市朝阳区建国路108号海航实业大厦9层北京市朝阳区建国路108号海航实业大厦9层</div>
+          </div>
+          <div class="info">
+            <div class="mj">
+              <div class="icon"></div>
+              <div class="txt"> >{{item.area}} {{$t('communitySQ')}}</div>
+            </div>
+            <div class="gw">
+              <div class="icon"></div>
+              <div class="txt">{{item.stationNum}} {{$t('communityGW')}}</div>
+            </div>
+          </div>
+          <div class="tip">
+            <div v-for="lableItem, lableI in item.lableList" :key="lableI" v-if="lableI < 2">
+              <span class="label0"></span>
+              <span class="label1">{{lableItem}}</span>
+              <span class="label2"></span>
+            </div>
+          </div>
+          <div class="te" v-html="$t('communityTe')" v-if="!item.openStatus"></div>
+          <div class="price">
+            <div class="yj" v-if="!!item.price && !!item.levelPrice">
+              <i v-if="listData.cityId*1 === 366">HK$</i>
+              <i v-else>¥</i>
+              {{item.price}}
+            </div>
+            <div class="xj-dw" v-if="!!item.price || !!item.levelPrice">
+              <i v-if="listData.cityId*1 === 366">HK$</i>
+              <i v-else>¥</i>
+            </div>
+            <div class="xj" v-if="!!item.price || !!item.levelPrice">{{item.levelPrice || item.price}}</div>
+            <div class="dw" v-if="!!item.price || !!item.levelPrice"><i v-if="listData.language === 0">起/</i>{{$t('communityPer')}}</div>
+            <div class="zw" v-if="item.openStatus == true && !item.price && !item.levelPrice && listData.language === 0">暂无报价</div>
+          </div>
+        </div>
+      </a>
     </div>
   </div>
 </template>
@@ -83,7 +124,7 @@ export default {
         openStatus: 0,
         portalPriceId: 0,
         page: 1,
-        pageSize: 10
+        pageSize: 50
       }
     }
   },
@@ -106,7 +147,7 @@ export default {
         openStatus: openStatus,
         portalPriceId: portalPriceId,
         page: 1,
-        pageSize: 10
+        pageSize: 50
       })
     ])
   },
@@ -115,8 +156,10 @@ export default {
       this.setData(1)
     }
   },
-  mounted() {
+  created() {
     this.community = this.$store.state.community
+  },
+  mounted() {
     console.log(this.community)
     this.setData(0)
   },
@@ -146,7 +189,7 @@ export default {
         openStatus: query.openStatus || 0,
         portalPriceId: query.portalPriceId || 0,
         page: 1,
-        pageSize: 10
+        pageSize: 50
       }
       this.next = true
       if ( !!state ) {
@@ -187,6 +230,29 @@ export default {
 }
 </script>
 
+<style lang="less">
+  .te {
+    height: 20px;
+    line-height: 20px;
+    margin-bottom: 12px;
+    color: #333333;
+    font-size: 12px;
+    font-weight: bold;
+    text-align: right;
+    span {
+      display: inline-block;
+      vertical-align: middle;
+      border: 1px solid #FF5050;
+      border-radius: 100%;
+      margin-top: -3px;
+      height: 20px;
+      width: 20px;
+      color: #ff5050;
+      font-size: 14px;
+      text-align: center;
+    }
+  }
+</style>
 <style lang="less" scoped>
   .community {
     .screen {
@@ -249,6 +315,147 @@ export default {
               color: #333333;
               font-weight: bold;
             }
+          }
+        }
+      }
+    }
+    .list {
+      a {
+        display: flex;
+        border-bottom: 1px #f3f3f3 solid;
+        margin: 0 16px;
+        padding: 20px 0;
+        &:last-child {
+          border: none;
+        }
+      }
+      .img {
+        flex-shrink: 0;
+        border: 1px #f3f3f3 solid;
+        background: #cccccc;
+        border-radius: 8px;
+        height: 140px;
+        width: 105px;
+      }
+      .con {
+        flex-shrink: 1;
+        flex-grow: 1;
+        background: #eeeeee;
+        margin-left: 16px;
+        overflow: hidden;
+        .tit {
+          margin-bottom: 8px;
+          height: 17px;
+          line-height: 17px;
+          max-width: 220px;
+          color: #333333;
+          font-size: 16px;
+          font-weight: bold;
+        }
+        .add {
+          display: flex;
+          margin-bottom: 5px;
+          .icon {
+            background: url('../../assets/images/index/address.png') 0 0 no-repeat;
+            -webkit-background-size: 100% 100%;
+            background-size: 100% 100%;
+            flex-shrink: 0;
+            margin-top: 1px;
+            height: 14px;
+            width: 13px;
+          }
+          .txt {
+            flex-shrink: 1;
+            flex-grow: 1;
+            padding-left: 6px;
+            max-width: 207px;
+            line-height: 18px;
+            color: #666666;
+            font-size: 13px;
+          }
+        }
+        .info {
+          display: flex;
+          margin-bottom: 9px;
+          .mj, .gw {
+            display: flex;
+            width: 50%;
+            height: 13px;
+            line-height: 13px;
+            .txt {
+              padding-left: 6px;
+              height: 13px;
+              line-height: 15px;
+              color: #666666;
+              font-size: 12px;
+            }
+          }
+          .mj {
+            .icon {
+              background: url('../../assets/images/community/acreage.svg') 0 0 no-repeat;
+              -webkit-background-size: 13px 13px;
+              background-size: 13px 13px;
+              height: 13px;
+              width: 13px;
+            }
+          }
+          .gw {
+            border-left: 1px #979797 dashed;
+            padding-left: 6px;
+            .icon {
+              background: url('../../assets/images/community/workpos.svg') 0 0 no-repeat;
+              -webkit-background-size: 15px 15px;
+              background-size: 15px 15px;
+              margin-top: -1px;
+              height: 15px;
+              width: 15px;
+            }
+          }
+        }
+        .tip {
+          display: flex;
+          margin-bottom: 13px;
+          height: 22px;
+          div {
+            max-width: 50%;
+          }
+        }
+        .price {
+          display: flex;
+          justify-content: flex-end;
+          align-items: flex-end;
+          div {
+            height: 18px;
+          }
+          .yj {
+            line-height: 28px;
+            color: #999999;
+            font-size: 10px;
+            text-decoration: line-through;
+          }
+          .xj-dw {
+            line-height: 28px;
+            margin-left: 9px;
+            color: #FF5050;
+            font-size: 12px;
+            font-weight: bold;
+          }
+          .xj {
+            line-height: 24px;
+            color: #FF5050;
+            font-size: 17px;
+            font-weight: bold;
+          }
+          .dw {
+            line-height: 26px;
+            color: #151515;
+            font-size: 12px;
+            margin-left: 6px;
+          }
+          .zw {
+            line-height: 22px;
+            color: #666;
+            font-size: 12px;
           }
         }
       }
