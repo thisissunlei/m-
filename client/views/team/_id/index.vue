@@ -198,14 +198,16 @@ export default {
       position: relative;
       width: 70px;
       height: 70px;
-      border: 2px solid #fff;
+      border: 2px solid #eee;
       border-radius: 4px;
       margin: 54px 0 10px;
       z-index: 10;
     }
     .h-title{
+      margin: 0 auto;
       font-size: 18px;
       color: #333333;
+      max-width: 300px;
       margin-bottom: 4px;
     }
     .h-info{

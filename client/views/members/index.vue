@@ -1,8 +1,21 @@
 <template>
   <div class="member">
     <h1 class="member-h">最新入驻团队</h1>
-    <div class="m-info">
-      
+    <div class="m-info" :style="`width:${member.teamList.length*221+20}px;`" ref="tabList">
+      <a class="card" v-for="item in member.teamList"  :href="'//'+$store.state.common.origin+'/team/' + item.teamId + $store.state.common.queryString">
+        <img src="../../assets/images/marks.png" alt="" class="marks">
+        <div class="m-slogan">{{item.slogan}}</div>
+        <div class="t-info">
+          <img class="left-img" :src="item.logo" :alt="item.teamName" />
+          <div class="t-text">
+            <div class="t-name over-point">{{item.teamName}}</div>
+            <div class="t-address">
+              {{item.cityName}} · {{item.communityName}}
+            </div>
+          </div>
+          
+        </div>
+      </a>
     </div>
     <!-- 最新入驻团队  3个 -->
     <!-- <Swiper :list="activity.recommendActivity" width="375" height="250"
@@ -46,16 +59,31 @@ export default {
       return Promise.all([
         // {page:1,pageSize:9,language: lang}
         store.dispatch('getList',{page:1,pageSize:10}),
-        store.dispatch('getTeamList',{page:1,pageSize:4})
+        store.dispatch('getTeamList',{page:1,pageSize:5})
       ])
   },
   mounted() {
+    console.log('teamList',this.member.teamList)
     window.addEventListener('scroll',this.getMore);
+    this.initializeTab()
   },
   computed: {
     ...mapState([
       'member'
     ])
+  },
+  data() {
+      return {
+        startPosition: {
+          x: 0,
+          y: 0
+        },
+        movePosition: {
+          x: 0,
+          y: 0
+        },
+        translateX: 0,
+      }
   },
   methods: {
       ...mapActions([
@@ -92,10 +120,89 @@ export default {
           pageSize: 10,
           language: this.lang == 'en' ? 1 : 0,
         })
-        // console.log("0000999",this.welfare.list);
         return ;
       }
-    }
+    },
+    initializeTab() {
+      var ele = this.$refs.tabList;
+      var box = ele.getBoundingClientRect();
+      ele.addEventListener("touchstart", this.touchStart, false);
+    },
+    touchStart(event) {
+      event = event || window.event;
+
+      var touchTarget = event.touches[0];
+      var ele = this.$refs.tabList;
+      this.startPosition = {
+        x: touchTarget.pageX,
+        y: touchTarget.pageY
+      };
+      console.log('touchStart')
+      ele.addEventListener("touchmove", this.touchMove, false);
+      ele.addEventListener("touchend", this.touchEnd, false);
+    },
+    touchMove(event) {
+      event = event || window.event;
+      var touchTarget = event.touches[0];
+      var movePosition = {
+        x: touchTarget.pageX,
+        y: touchTarget.pageY
+      };
+
+      this.movePosition = movePosition;
+      this.translate();
+    },
+    translate() {
+      var ele = this.$refs.tabList;
+      var page = this.getPageWidthOrHeight();
+      var box = ele.getBoundingClientRect();
+
+      var translateX = this.translateX + this.calcTranslateX();
+      console.log('translate',translateX)
+      ele.style.transform = `translateX(${translateX}px)`;
+    },
+    touchEnd(event) {
+      event = event || window.event;
+
+      var translateX = this.translateX + this.calcTranslateX();
+
+      this.translateX = translateX;
+
+      var ele = this.$refs.tabList;
+      ele.removeEventListener("touchmove", this.touchMove, false);
+    },
+    calcTranslateX() {
+      var startPosition = this.startPosition;
+      var movePosition = this.movePosition;
+
+      var translateX = movePosition.x - startPosition.x;
+      var ele = this.$refs.tabList;
+      var page = this.getPageWidthOrHeight();
+      var box = ele.getBoundingClientRect();
+      var maxX = Math.abs(box.width - page.width) + this.translateX;
+
+      if (this.translateX + translateX > 0) {
+        return -this.translateX;
+      }
+      if (maxX + translateX <= 0) {
+        return -maxX;
+      }
+      var tabItemWidth = box.width / this.tabItemCount;
+      return translateX;
+    },
+    getPageWidthOrHeight() {
+      var page = {};
+      page.width = window.innerWidth;
+      page.height = window.innerHeight;
+      if (document.compatMode == "CSS1Compat") {
+        page.width = document.documentElement.clientWidth;
+        page.height = document.documentElement.clientHeight;
+      } else {
+        page.width = document.body.clientWidth;
+        page.height = document.body.clientHeight;
+      }
+      return Object.assign({}, page);
+    },
   }
 }
 </script>
@@ -106,10 +213,67 @@ export default {
   .member-h{
     font-size: 20px;
     color: #333333;
+    margin-bottom: 20px;
+
   }
   .m-info{
     height: 155px;
-    background: #ccc;
+    .card{
+      display: inline-block;
+      background: #F3F3F3;
+      border-radius: 8px 40px 8px 20px;
+      width: 212px;
+      height: 155px;
+      position: relative;
+      padding: 20px 10px;
+      vertical-align: top;
+      .marks{
+        position: absolute;
+        top: 7.8px;
+        left: 10px;
+        width: 10px;
+        height: 10px;
+      }
+    }
+    .m-slogan{
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      font-size: 16px;
+      color: #333333;
+      line-height: 23px;
+      margin-bottom: 10px;
+      height: 69px;
+      font-weight: 600;
+
+    }
+    .t-info{
+      position: relative;
+      .left-img{
+        position: absolute;
+        width: 36px;
+        height: 36px;
+        border-radius: 4px;
+        background: #fff;
+      }
+      .t-text{
+        margin-left: 45px;
+        height: 36px;
+        .t-name{
+          font-size: 13px;
+          color: #666666;
+          line-height: 18px;
+          font-weight: 500;
+        }
+        .t-address{
+          font-size: 12px;
+          color: #999;
+        }
+      }
+    }
+    .card+.card{
+      margin-left: 10px;
+    }
   }
   .m-content{
     height: 115px;
