@@ -171,6 +171,7 @@ module.exports = {
   },
 
   CMNT_DTL_Title: {
+    map:'Map',
     long: "Efficient Office",
     short: "Time-sharing Office",
     shortBtn: "Reserve Now",
@@ -186,6 +187,7 @@ module.exports = {
     m: "sq.m",
     work: "desks",
     poUnit: "Per Month",
+    poUnitMor:'Per Month',
     seatUnit0: "Per day",
     seatUnit1: "Half hour",
     allImg: "All images",
