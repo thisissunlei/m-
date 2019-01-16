@@ -35,18 +35,14 @@
     </div>
     <div class="item-content" v-html="activity.activityDetail.richText"></div>
 
-    <div class="sign-box">
+    <!-- <div class="sign-box">
       <div class="sign-up">
-        <span class="sing-num">
-          <!-- {{activity.activityDetail.countJoin}} -->
-          98
-        </span>
-         人已报名
+        <span class="sing-num">98</span>人已报名
       </div>
       <div class="no-sign">
         立即报名
       </div>
-    </div>
+    </div> -->
 
   </div>
 </template>
@@ -104,6 +100,7 @@ export default {
         line-height: 30px;
       }
       .item-time,.item-address,.item-cmt,.item-sponsor {
+        position: relative;
         height: 21px;
       }
       .item-time,.item-address {
@@ -116,7 +113,8 @@ export default {
         width: 14px;
         height: 16px;
         margin-right: 6px;
-        background: palegreen;
+        background: url("../../../assets/images/activity/time.png");
+        background-size: cover;
       }
       .text {
         margin-right: 16px;
@@ -147,33 +145,32 @@ export default {
         height: 155px;
       }
     }
-    .sign-box {
-      display: flex;
-      // width: 375px;
-      height: 56px;
-      margin: 0 -16px;
-      line-height: 56px;
-      border-bottom: 1px solid #FFFFFF;
-      border-top: 1px solid #FFFFFF;
-      // div { display: inline-block }
-      .sign-up {
-        width: 140px;
-        height: 56px;
-        font-family: PingFangSC-Regular;
-        font-size: 18px;
-        color: #999999;
-        text-align: center;
-      }
-      .no-sign {
-        flex: 1;
-        height: 56px;
-        background-image: linear-gradient(-217deg, #FFDF00 0%, #FFEB00 100%);
-        font-family: PingFangSC-Regular;
-        font-size: 17px;
-        color: #624D17;
-        text-align: center;
-      }
-    }
+    // .sign-box {
+    //   display: flex;
+    //
+    //   height: 56px;
+    //   margin: 0 -16px;
+    //   line-height: 56px;
+    //   border-bottom: 1px solid #FFFFFF;
+    //   border-top: 1px solid #FFFFFF;
+    //   .sign-up {
+    //     width: 140px;
+    //     height: 56px;
+    //     font-family: PingFangSC-Regular;
+    //     font-size: 18px;
+    //     color: #999999;
+    //     text-align: center;
+    //   }
+    //   .no-sign {
+    //     flex: 1;
+    //     height: 56px;
+    //     background-image: linear-gradient(-217deg, #FFDF00 0%, #FFEB00 100%);
+    //     font-family: PingFangSC-Regular;
+    //     font-size: 17px;
+    //     color: #624D17;
+    //     text-align: center;
+    //   }
+    // }
   }
 </style>
 

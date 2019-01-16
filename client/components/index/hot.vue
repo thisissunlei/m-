@@ -7,33 +7,6 @@
         <li class="fl" v-for="(item, i) in data.featureLableList" :key="i" >{{item}}</li>
       </ul>
     </div>
-      <!-- <swiper :showDot = false >
-        <div class="swiper-slide" v-for="item of data.cmtSeatPriceList" :key="item.id">
-          <img  :src="item.seatPicUrl" >
-            <div class="cmt-text">
-              <div class="name">{{item.seatName}}</div>
-              <span class="num"><i>¥</i>{{item.discountPrice || item.price}}</span>
-              <span class="text">{{$t('indexPriceType.long')}}</span>
-            </div>
-        </div>
-      </swiper> -->
-
-      <!-- <wc-swiper v-if="data.cmtSeatPriceList"
-        :therehold="139"
-        :duration="900"
-        :autoplay="false"
-        class="swiper-slide">
-        <wc-slide v-for="(item, index) in data.cmtSeatPriceList" :key="index">
-          <img  :src="item.seatPicUrl" >
-            <div class="cmt-text">
-              <div class="name">{{item.seatName}}</div>
-              <span class="num"><i>¥</i>{{item.discountPrice || item.price}}</span>
-              <span class="text">{{$t('indexPriceType.long')}}</span>
-            </div>
-        </wc-slide>
-      </wc-swiper> -->
-
-
     <div v-swiper:mySwiper="swiperOption" >
     <div class="swiper-wrapper">
       <div class="swiper-slide" v-for="(item, index) in data.cmtSeatPriceList" :key="index">
