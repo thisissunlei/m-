@@ -48,7 +48,7 @@
     <Welfare :data="index.welfare" :tags="index.welfareTags" />
 
     <!-- 社区活动 -->
-    <Activity />
+    <Activity :data="activityList"/>
     <div class="divide-line"></div>
     <Member />
     <!-- start 立即预约 -->
