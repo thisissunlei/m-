@@ -28,10 +28,10 @@
       <div class="t-join-c">
         
         <div class="c-info">
-          <h2>入驻社区</h2>
+          <h2>{{$t('joinCommunity')}}</h2>
           <span class="name">{{member.teamDetail.cityName}}  ·  {{member.teamDetail.communityName}}</span>
           <span class='price-box'>
-            工位最低价：<span class="price">{{member.teamDetail.porPriceVo.discountType==='NONE'?member.teamDetail.porPriceVo.price:member.teamDetail.porPriceVo.levelPrice}}</span>元起/月
+            {{$t('lowPrice')}}<span class="price">{{member.teamDetail.porPriceVo.discountType==='NONE'?member.teamDetail.porPriceVo.price:member.teamDetail.porPriceVo.levelPrice}}</span> {{$t('priceUnit')}}
           </span>
         </div>
         <div class="img-list" ref="tabContent" :style="`width:${member.teamDetail.cmtPicUrl.length*168+32}px;`">

@@ -1,6 +1,6 @@
 <template>
   <div class="member">
-    <h1 class="member-h">最新入驻团队</h1>
+    <h1 class="member-h">{{$t('teamList')}}</h1>
     <div class="m-info" :style="`width:${member.teamList.length*221+20}px;`" ref="tabList">
       <a class="card" v-for="item in member.teamList"  :href="'//'+$store.state.common.origin+'/team/' + item.teamId + $store.state.common.queryString">
         <img src="../../assets/images/marks.png" alt="" class="marks">
@@ -62,6 +62,11 @@ export default {
         store.dispatch('getTeamList',{page:1,pageSize:5})
       ])
   },
+  watch: {
+    '$route.query.lang'(n, o) {
+        // this.getNewData(1, n, o);
+    }
+  },
   mounted() {
     console.log('teamList',this.member.teamList)
     window.addEventListener('scroll',this.getMore);
@@ -86,10 +91,10 @@ export default {
       }
   },
   methods: {
-      ...mapActions([
+    ...mapActions([
         'getList'
-      ]),
-      setQuery() {
+    ]),
+    setQuery() {
         let query = ''
         for (var key in this.$route.query) {
           query += key + '=' + this.$route.query[key] + '&'

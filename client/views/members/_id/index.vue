@@ -12,7 +12,7 @@
       <div class="team-info" v-if="member.memberDetail.porTeamDetailVo.teamName">
         
         <div class="team-box">
-          <h2>团队介绍</h2>
+          <h2>{{$t('teamInfo')}}</h2>
           <div class="left-head" :style="member.memberDetail.porTeamDetailVo.logo?'background: url('+member.memberDetail.porTeamDetailVo.logo+'?x-oss-process=image/resize,h_402,w_720,color_eeeeee,quality,q_90) center top / cover no-repeat' :''"></div>
           <div class="right-box">
             <a class="t-name" :href="'//'+$store.state.common.origin+'/team/' + member.memberDetail.porTeamDetailVo.teamId + $store.state.common.queryString">{{member.memberDetail.porTeamDetailVo.teamName}}</a>
