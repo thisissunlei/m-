@@ -27,8 +27,12 @@ export default {
     },
     getNewCommunityList({ commit }, data) {
       return model.getCommunityList(data)
-        .then(data => {
-          commit('setNewCommunityList', data)
+        .then(res => {
+          let info = {
+            res: res,
+            data: data
+          }
+          commit('setNewCommunityList', info)
         })
         .catch(err => {
           console.log(err)
@@ -43,7 +47,15 @@ export default {
       state.priceList = data
     },
     setNewCommunityList(state, data) {
-      state.list = data
+      let list = state.list
+      if ( data.data.page === 1 ) {
+        list.items = [].concat(data.res.items)
+        state.list = list
+        console.log(state.list)
+      } else {
+        list.items = list.items.concat(data.res.items)
+        state.list = list
+      }
     },
   },
   getters: {
