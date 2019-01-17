@@ -2,6 +2,7 @@
   <div class="activity">
   <!-- <div class="wrapper" ref="wrapper"> -->
   <!-- <div class="bscroll-container"> -->
+    <PullDown :tipFlag= false  @getMore="getMore" ref="pull">
     <div class="activity-top">
       <div class="top-title">
         <span class="fl">精选活动</span>
@@ -23,11 +24,8 @@
         </div>
       </div>
     </div>
-    <!-- <div class="content-box"> -->
-      <!-- <div class="wrapper" ref="wrapper">
-        <div class="bscroll-container"> -->
-
-          <a :href="'//'+$store.state.common.origin+'/activity/' + item.id + $store.state.common.queryString" class="item-content" v-for="(item,i) in $store.state.activity.activityList" :key="i">
+    <div class="content-box">
+          <a :href="'//'+$store.state.common.origin+'/activity/' + item.id + $store.state.common.queryString" class="item-content" v-for="(item,i) in activity.activityList" :key="i">
             <img :src="item.imgUrl" alt="" class="item-img" v-if="!!item.imgUrl">
             <img src="../../assets/images/activity/default.png" alt="" class="item-img" v-else>
             <div class="item-info">
@@ -42,25 +40,21 @@
               </p>
             </div>
           </a>
-          <!-- <div class="bottom-tip">
-            <span class="loading-hook">{{pullupMsg}}</span>
-          </div> -->
-        <!-- </div> -->
-      <!-- </div> -->
-    <!-- </div> -->
+        </div>
+    </PullDown>
   </div>
 </template>
 
 
 <script>
-// import BScroll from 'better-scroll';
+import PullDown from '../../components/pullDown.vue'
   import {
     mapState,
     mapActions
   } from 'vuex'
   export default {
     components: {
-
+      PullDown
     },
     data() {
       return {
@@ -69,7 +63,6 @@
         language: '',
         cityId: '',
         pullupMsg:'加载更多',
-        startY:0,
         page:1,
         swiperOption: {
           centeredSlides: true,
@@ -86,20 +79,6 @@
       }
     },
     computed: {
-      //   scrollbarObj: function() {
-      //   return this.scrollbar ? {
-      //     fade: this.scrollbarFade
-      //   } : false
-      // },
-      // pullDownRefreshObj: function() {
-      //   return this.pullDownRefresh ? {
-      //     threshold: parseInt(this.pullDownRefreshThreshold),
-      //     stop: parseInt(this.pullDownRefreshStop)
-      //   } : false
-      // }
-      // pullUpLoadObj: {
-      //     threshold: 0,
-      //   },
         ...mapState(['activity'])
     },
     watch: {
@@ -144,41 +123,38 @@
       this.lang = this.$route.query.lang || 'zh';
       this.language = this.lang === 'en' ? 1 : 0;
       this.cityId = this.$route.query.cityId;
-      // this.scroll = new BScroll(this.$refs.wrapper);
-      // console.log("scroll",this.scroll,this.$store.state.activity);
-      //  if(this.scroll){
-      //     this.scroll.on('touchEnd',(pos)=>{
-      //       // console.log("999",pos);
-      //       if(pos.y < (this.scroll.maxScrollY - 30)) {
-      //         this.pullupMsg = '加载中...';
-      //         this.page = ++this.page;
-      //         console.log("page",this.page,this.activity.totalPages);
-      //         setTimeout(()=>{
-      //           this.$store.dispatch('getActivityList',{
-      //             page: this.page,
-      //             pageSize: 10,
-      //             language:1,
-      //             cityId:0
-      //           })
-      //           .then((res)=>{
-      //             this.scroll.refresh();
-      //           })
-      //         },2000)
-      //       }
-      //     })
-      // }
-      // console.log('data', this.activity.activityList)
+      console.log("activityList",this.activity.activityList);
     },
     computed: {
       ...mapState(['activity'])
     },
     methods: {
+      getMore(params){
+        if(this.activity.page > this.activity.totalPages){
+          return
+        }
+        if(!!params.tip){
+           this.page = ++this.page;
+          setTimeout(()=>{
+            this.$store.dispatch('getActivityList',{
+              page: this.page,
+              pageSize: 10,
+              language:1,
+              cityId:0
+            })
+            .then((res)=>{
+              this.$refs.pull.scroll.refresh();
+            })
+          },2000)
+        }
+      },
+
       getData(n,o) {
          if (!n.query) return
         this.language = n.query.lang === 'en' ? 1 : 0;
         this.cityId = n.query.cityId;
         this.lang = n.query.lang;
-        // console.log("n,o",n,o);
+        this.page = 1;
         this.$store.dispatch('getRecommend',{
           page: 1,
           pageSize: 4,
@@ -188,7 +164,6 @@
         this.$store.dispatch('getActivityList',{
           page: 1,
           pageSize: 10,
-          language: this.lang == 'en' ? 1 : 0,
           cityId: this.cityId
         })
       },
@@ -259,12 +234,11 @@
     }
   }
 
-  // .content-box {
-    // margin-bottom: 50px;
     .wrapper {
       height: 667px;
-      overflow: auto;
     }
+  .content-box {
+    margin-bottom: 50px;
     .item-content {
       display: flex;
       width: 343px;
@@ -324,6 +298,6 @@
         }
       }
     }
-  // }
+  }
 </style>
 
