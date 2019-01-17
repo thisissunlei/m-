@@ -1,33 +1,16 @@
 <template>
   <div class="welfare-box">
     <div class="welfare-title">
-      {{$t('indexTitle.activity')}}
-      <span class="line"></span>
+        <span class="hot-text">
+          {{$t('indexTitle.activity')}}
+          <span :class="$route.query.lang === 'zh'? 'line' : 'en-line'"></span>
+        </span>
       <div class="member-vip fr">
         <span class="pic"></span>
-        <span class="vip">入驻会员专享</span>
+        <span class="vip">{{$t('indexTitle.vip')}}</span>
       </div>
     </div>
     <div class="content-box">
-      <!-- <a href="" class="item-content">
-        <img src="" alt="">
-        <div class="item-info">
-          <p class="item-title">人生若是只如详见</p>
-          <p class="item-use">
-            <span class="item-clock"></span>
-            今天 12:30-14:30
-          </p>
-          <p class="item-address">
-            <span class="address-icon"></span>
-            酒仙桥社区 • 公共休息区
-          </p>
-          <div class="item-status">
-            <span class="free">免费</span>
-            <span class="sign">报名中</span>
-            <span class="pending">进行中</span>
-          </div>
-        </div>
-      </a> -->
        <a :href="'//'+$store.state.common.origin+'/activity/' + item.id + $store.state.common.queryString" class="item-content" v-for="(item,i) in data" :key="i">
         <img :src="item.imgUrl" alt="" class="item-img" v-if="!!item.imgUrl">
         <img src="../../assets/images/activity/default.png" alt="" class="item-img" v-else>
@@ -107,22 +90,33 @@ export default {
         }
       }
     }
-.welfare-title {
-      position: relative;
+  .welfare-title {
       padding: 20px 0 0 16px;
       font-family: PingFang-SC-Medium;
       font-size: 20px;
       color: #333333;
-      .line {
-        position: absolute;
-        width: 80px;
-        height: 9px;
-        left: 15px;
-        bottom: 0px;
-        background-color: #FFEB00;
-        z-index:-10;
+      .hot-text {
+        position: relative;
+        .line {
+          position: absolute;
+          width: 100%;
+          height: 9px;
+          left: 0;
+          bottom: 0;
+          background-color: #ffeb00;
+          z-index: -10;
+        }
+        .en-line {
+          position: absolute;
+          width: 100%;
+          height: 9px;
+          left: 0;
+          bottom: 0;
+          background-color: #ffeb00;
+          z-index: -10;
+        }
       }
-      .member-vip {
+       .member-vip {
         margin-right: 16px;
         .pic {
           display: inline-block;
@@ -148,7 +142,7 @@ export default {
       display: flex;
       width: 343px;
       height: 153px;
-      margin: 10px 16px;
+      margin: 10px 0px;
       background: #F6F6F6;
       border-radius: 4px;
       .item-img {

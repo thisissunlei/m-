@@ -88,11 +88,12 @@ export default {
             }月${end[2]}日`;
           }
           item.time = time;
-          console.log("888",item.time);
+          // console.log("888",item.time);
           return item;
       })
       state.totalPages = data.totalPages;
-      state.activityList = lists;
+      state.activityList = [].concat(state.activityList,lists);
+      // state.activityList = lists;
     },
     setActivityDetail(state,data) {
       state.activityDetail = data;

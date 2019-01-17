@@ -3,15 +3,20 @@
     <Swiper :loop= "index.banner.length >1 ? true : false"  :bannerFlag = bannerFlag v-if="!!index.banner && index.banner.length>0">
       <div class="slider-item" v-for="(item,index) in index.banner" :key="index">
         <a :href="item.linkUrl">
-          <img :src="item.banerPicUrl" :alt="item.linkUrl" ref="sliderItemImg">
+          <img :src="item.banerPicUrl" :alt="item.linkUrl" ref="sliderItemImg" class="banner-img">
+          <img src="../../assets/images/bd/banner.jpg" alt="">
         </a>
       </div>
     </Swiper>
+    <img src="../../assets/images/bd/banner.jpg" alt="" v-else class="banner-img">
     <!-- 热门社区 -->
     <div class="hot-community" v-if="!!hotList && hotList.length > 0">
       <div class="hot-title">
-        <span class="line"></span> {{$t('indexTitle.hot')}}
+        <span class="hot-text">{{$t('indexTitle.hot')}}
+          <span :class="$route.query.lang === 'zh'? 'line' : 'en-line'"></span>
+        </span>
       </div>
+
       <Hot v-for="(item, i) in hotList" :key="i" :data="item" :query="query" v-if="i<3"></Hot>
       <div  class="hot-more">
         <a href="" class="more">{{$t('indexTitle.more')}}<i class="arror">>></i></a>
@@ -20,7 +25,10 @@
     <!-- 待开社区 -->
     <div class="soon-community" v-if="!!waitList && waitList.length > 0">
       <div class="hot-title">
-        <span class="line"></span> {{$t('indexTitle.soon')}}
+        <span class="hot-text">
+          {{$t('indexTitle.soon')}}
+          <span :class="$route.query.lang === 'zh'? 'line' : 'en-line'"></span>
+        </span>
       </div>
       <div class="soon-content">
         <a href="" class="soon-item fl" v-for="(item,i) in waitList" :key="i">
@@ -37,19 +45,31 @@
       </div>
     </div>
     <!-- 社区环境 -->
-    <!-- <div class="env" v-if="!!envList && envList.length > 0">
+    <div class="env" v-if="!!envList && envList.length > 0">
       <div class="hot-title">
-        <span class="line"></span> {{$t('indexTitle.environment')}}
+        <span class="hot-text">
+          {{$t('indexTitle.environment')}}
+          <span :class="$route.query.lang === 'zh'? 'line' : 'en-line'"></span>
+        </span>
       </div>
-
+       <div v-swiper:envSwiper="swiperOption" >
+        <div class="swiper-wrapper" ref="swiper">
+          <div class="swiper-slide" v-for="(item, index) in envList" :key="index">
+            <img :src="item.firstPic">
+            <span class="env-name">{{item.envName}}</span>
+          </div>
+        </div>
+      </div>
       <div  class="more-little"></div>
-    </div> -->
+    </div>
     <!-- 社区福利 -->
     <Welfare :data="index.welfare" :tags="index.welfareTags" />
 
     <!-- 社区活动 -->
     <Activity :data="activityList"/>
     <div class="divide-line"></div>
+
+    <!-- 会员报道 -->
     <Member />
     <!-- start 立即预约 -->
     <div class="visit-btn">
@@ -63,7 +83,6 @@
 <script>
   import Swiper from '../../components/common/swiper.vue'
   import Hot from '../../components/index/hot.vue' // 热门社区
-  // import Env from '../../components/index/env.vue' // 社区环境
   import Welfare from '../../components/index/welfare.vue' // 社区福利
   import Activity from '../../components/index/activity.vue' // 社区活动
   import Member from '../../components/index/member.vue' // 社区活动
@@ -77,7 +96,6 @@
     components: {
       Swiper,
       Hot,
-      // Env,
       Welfare,
       Activity,
       Member,
@@ -91,7 +109,22 @@
         cityId: '',
         query: '',
         isFixed: true,
-        bannerFlag: false
+        bannerFlag: false,
+        loopLength:1,
+        swiperOption:{
+          centeredSlides:false,
+          slidesPerView:'auto',
+          loop:true,
+          loopedSlides:this.loopLength,
+          updateOnImagesReady:true,
+          on:{
+            imagesReady:()=>{
+              let swiper = this.$refs.swiper;
+              this.loopLength = swiper.children.length;
+              // console.log("111",this.loopLength);
+            },
+          }
+        }
       }
     },
     computed: {
@@ -133,7 +166,7 @@
       this.language = this.lang === 'en' ? 1 : 0;
       this.cityId = this.$route.query.cityId;
       this.getData();
-      console.log('index', this.index, this.welfare,1111111)
+      console.log('index', this.index, this.envList,1111111)
       window.addEventListener('scroll', this.scroll)
     },
 
@@ -178,7 +211,6 @@
         this.language = n.query.lang === 'en' ? 1 : 0;
         this.cityId = n.query.cityId;
         this.lang = n.query.lang;
-
         var query = ''
         for (var key in this.$route.query) {
           query += key + '=' + this.$route.query[key] + '&'
@@ -218,22 +250,43 @@
         width: 100%;
         height: 210px;
       }
-      img {
+    }
+    .banner-img {
         display: block;
         width: 100%;
         height: 210px;
       }
-    }
     .swiper-wrapper {
-      margin-left: 10px;
+      margin-left: 11px;
       height: 180px;
       .swiper-slide {
-        display: block;
-        float: left;
-        // width: 320px;
-        // height: 180px;
-        margin-right: 10px;
+        margin: 0 5px;
         background: pink;
+        width: 284px!important;
+        height: 160px;
+        margin-top: 8px;
+        img {
+          position: relative;
+          display: block;
+          width: 284px;
+          height: 160px;
+        }
+        .env-name {
+          display: block;
+          position: absolute;
+          left: 131px;
+          bottom: 16px;
+          // width: 58px;
+          height: 28px;
+          padding: 4px 8px;
+          background: rgba(255,255,255,0.90);
+          border-radius: 4px;
+        }
+      }
+      .swiper-slide.swiper-slide-active {
+        width: 320px!important;
+        height: 180px;
+        margin-top: -4px;
         img {
           display: block;
           width: 320px;
@@ -248,19 +301,30 @@
         background: #f6f6f6;
       }
     .hot-title {
-      position: relative;
       padding: 20px 0 16px 16px;
       font-family: PingFang-SC-Medium;
       font-size: 20px;
       color: #333333;
-      .line {
-        position: absolute;
-        width: 80px;
-        height: 9px;
-        left: 15px;
-        bottom: 15px;
-        background-color: #ffeb00;
-        z-index: -10;
+      .hot-text {
+        position: relative;
+        .line {
+          position: absolute;
+          width: 100%;
+          height: 9px;
+          left: 0;
+          bottom: 0;
+          background-color: #ffeb00;
+          z-index: -10;
+        }
+        .en-line {
+          position: absolute;
+          width: 100%;
+          height: 9px;
+          left: 0;
+          bottom: 0;
+          background-color: #ffeb00;
+          z-index: -10;
+        }
       }
     }
     .hot-more {
@@ -343,6 +407,7 @@
         font-size: 18px;
         color: #624d17;
         text-align: center;
+        z-index: 100;
       }
       p:nth-of-type(2) {
         background: none;

@@ -69,6 +69,7 @@ module.exports = {
     vip: "VIP exclusive",
     hot: "Recommended Community",
     soon: "Launch Soon",
+    welfare: 'welfare',
     environment: "Office Environment",
     activity: "Community Events",
     members: "Members",
@@ -272,20 +273,12 @@ module.exports = {
       value: "size"
     },
     {
-      name: "News",
-      value: "news"
-    },
-    {
       name: "Milestones",
       value: "things"
     },
     {
-      name: "Office environment",
-      value: "feel"
-    },
-    {
-      name: "Contact us",
-      value: "contact"
+      name: "News",
+      value: "news"
     },
     {
       name: "Join us",

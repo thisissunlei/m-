@@ -84,6 +84,8 @@ export default {
       request.get("api/gateway/portalthree/activity-list", { params: data })
     );
   },
+  // 首页会员报道列表
+
   getNewsList(data) {
     //about页面新闻列表
     return handleRequest(
