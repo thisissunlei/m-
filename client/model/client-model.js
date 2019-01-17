@@ -84,6 +84,8 @@ export default {
       request.get("api/gateway/portalthree/activity-list", { params: data })
     );
   },
+  // 首页会员报道列表
+
   getNewsList(data) {
     //about页面新闻列表
     return handleRequest(
@@ -125,14 +127,9 @@ export default {
   getRecommendActivity(data) {
     //推荐活动列表
     return handleRequest(
-      request.get("api/gateway/portalthree/activity-cmt-other", {
-        params: data
-      })
+      request.get("api/gateway/portalthree/recommend-activity", {params: data})
     );
   },
-  // getRecommendActivity(data){ //推荐活动列表
-  //   return handleRequest(request.get('api/gateway/portalthree/recommend-activity', {params: data}))
-  // },
   getActivityList(data) {
     //活动列表
     return handleRequest(

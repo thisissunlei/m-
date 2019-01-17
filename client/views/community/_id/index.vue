@@ -1,5 +1,6 @@
 <template>
   <div class="community-detail">
+    <Slides></Slides>
     <!-- 查看地图 -->
     <div class="see-map">
       <p class="community-name">{{detail.list.communityName}}</p>
@@ -19,8 +20,10 @@
         <div class="office-detail-top">
           <p>{{item.seatName}}</p>
           <p>
-            <span>￥{{item.price}}</span>
-            <span>¥</span>
+            <span v-if="!!item.price && !!item.discountPrice && $route.query.cityId == 366">HK${{item.price}}</span>
+            <span v-else>￥{{item.price}}</span>
+            <span v-if="$route.query.cityId == 366">HK$</span>
+            <span v-else>¥</span>
             <span>{{item.discountPrice}}</span>
             <span>{{$t('CMNT_DTL_Title.poUnitMor')}}</span>
           </p>
@@ -44,7 +47,7 @@
       </div>
       <div class="sharing-office-title">
         <p>{{$t('CMNT_DTL_Title.short')}}</p>
-        <p>{{$t('CMNT_DTL_Title.shortBtn')}}</p>
+        <p @click="showQRcode">{{$t('CMNT_DTL_Title.shortBtn')}}</p>
       </div>
       <div class="sharing-office-detail"
         v-for="(item,index) in detail.officeType.timeShare">
@@ -52,7 +55,8 @@
           <p>{{item.seatName}}</p>
           <p>
             <span></span>
-            <span>¥</span>
+            <span v-if="$route.query.cityId == 366">HK$</span>
+            <span v-else>¥</span>
             <span>{{item.price}}</span>
             <span>{{item.officeType=="SHORT_WORK_MEETING"? $t('CMNT_DTL_Title.seatUnit1'): $t('CMNT_DTL_Title.seatUnit0')}}</span>
           </p>
@@ -130,32 +134,50 @@
     <!-- 会员报道 -->
     <Member />
     <div class="divide-line"></div>
-
     <!-- start 立即预约 -->
     <div class="visit-btn">
       <p :class="[isFixed ? 'bottom-visit-fixed' : '']">{{$t('indexTitle.order')}}</p>
       <p v-show="isFixed"></p>
     </div>
     <!-- end 立即预约 -->
+    <div class="qr-code"
+      v-if="showCode">
+      <div class="code-img">
+        <img class="code"
+          src="../../../assets/images/communityDetail/code.png"
+          alt="">
+        <img class="close"
+          src="../../../assets/images/community/close.png"
+          @click="showQRcode"
+          alt="">
+        <div class="code-guide">
+          <p>长按二维码或</p>
+          <p>打开微信 - 搜索“氪空间自由座”小程序</p>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-import Welfare from '../../../components/index/welfare.vue' // 社区福利
-import Activity from '../../../components/index/activity.vue' // 社区活动
-import Member from '../../../components/index/member.vue' // 社区活动
+import Welfare from '../../../components/index/welfare.vue'
+import Activity from '../../../components/index/activity.vue'
+import Member from '../../../components/index/member.vue'
+import Slides from './slides.vue'
 export default {
   components: {
     Welfare,
     Activity,
-    Member
+    Member,
+    Slides
   },
   data() {
     return {
       isFixed: true,
       detail: {},
       bottomTagIndex: 0,
-      bottomTagIndex1: 0
+      bottomTagIndex1: 0,
+      showCode: false
 
     }
   },
@@ -173,6 +195,14 @@ export default {
     },
     toggleBottomTags1(index) {
       this.bottomTagIndex1 = index;
+    },
+    showQRcode() {
+      this.showCode = !this.showCode;
+      if (this.showCode) {
+        document.body.style.overflow = 'hidden';
+      } else {
+        document.body.style.overflow = '';
+      }
     },
     scroll() {
       let top =
@@ -194,7 +224,6 @@ export default {
     this.detail = this.$store.state.detail
   },
   mounted() {
-    // this.detail = this.$store.state.detail
 
     console.log(this.detail)
     window.addEventListener('scroll', this.scroll)
@@ -425,6 +454,51 @@ export default {
   }
   .welfare-box /deep/ span.line {
     background-color: rgba(0, 0, 0, 0);
+  }
+  .qr-code {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(40, 38, 36, 0.9);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .code-img {
+      width: 287px;
+      height: 316px;
+      background: #ffffff;
+      border-radius: 4px;
+      position: relative;
+      .code {
+        width: 231px;
+        height: 231px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin-top: -115px;
+        margin-left: -115px;
+      }
+      .close {
+        width: 31.1px;
+        height: 63.6px;
+        position: absolute;
+        top: -60px;
+        right: 0;
+      }
+      .code-guide {
+        width: 100%;
+        font-family: PingFang-SC-Regular;
+        font-size: 14px;
+        color: #666666;
+        position: absolute;
+        bottom: 36px;
+        p {
+          text-align: center;
+        }
+      }
+    }
   }
 }
 </style>
