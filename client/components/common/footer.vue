@@ -4,7 +4,7 @@
       <div class="pics">
         <div class="hand item fl">
           <a href="//">
-            <img src="../../assets/images/footer/xcx.png"
+            <img src="../../assets/images/footer/touch.png"
               alt="">
           </a>
           <div class="f-img-text">触屏版</div>
@@ -12,7 +12,7 @@
         <div class="pc item fl">
           <a href="//krspace.cn?toM=no"
             class="f-img">
-            <img src="../../assets/images/footer/xcx.png"
+            <img src="../../assets/images/footer/pc.png"
               alt="">
           </a>
           <div class="f-img-text">电脑版</div>
@@ -20,14 +20,14 @@
         <div class="android item fl">
           <a href="//a.app.qq.com/o/simple.jsp?pkgname=com.krspace.android_vip"
             class="f-img">
-            <img src="../../assets/images/footer/xcx.png" />
+            <img src="../../assets/images/footer/app.png" />
           </a>
           <div class="f-img-text">客户端</div>
         </div>
         <div class="android item fl">
           <a href="//a.app.qq.com/o/simple.jsp?pkgname=com.krspace.android_vip"
             class="f-img">
-            <img src="../../assets/images/footer/xcx.png" />
+            <img src="../../assets/images/footer/wechat.png" />
           </a>
           <div class="f-img-text">微信</div>
         </div>

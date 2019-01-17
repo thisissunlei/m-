@@ -38,11 +38,11 @@
         <span class="fl" @click="setLang('en', 0)"></span>
       </div>
       <div class="other fl">
-        <div class="img" @click="setMenuState" v-if="menuShow == false && isVisit == false"></div>
-        <div class="img select" @click="setMenuState" v-else></div>
+        <div class="img" @click="setMenuState(true)" v-if="menuShow == false && isVisit == false"></div>
+        <div class="img select" @click="setMenuState(false)" v-else></div>
         <!-- 下拉菜单 -->
       <!-- <div class="menu-mask" > -->
-        <div class="menu-box" v-show="menuShow">
+        <div class="menu-box"  v-show="menuShow">
           <div class="menus clearfix" >
             <div class="fl">
               <a :href="'//'+$store.state.common.origin+$store.state.common.queryString">{{$t("nav.home")}}</a>
@@ -71,12 +71,12 @@
       </div>
     </div>
 
-    <div class="mark" v-if="citysShow" @click="setCitysState(false)"></div>
-    <div class="menu-mask" v-if="menuShow || citysShow"></div>
+    <div class="citys-mask" v-show="citysShow" @click="setCitysState(false)"></div>
+    <div class="menu-mask" v-show="menuShow" @click="setMenuState(false)"></div>
     <Visit
-    :Close="jumpVisit"
-    :areaDisabled="areaDisabled"
-    v-if="isVisit"/>
+      :Close="jumpVisit"
+      :areaDisabled="areaDisabled"
+      v-if="isVisit"/>
   </header>
 </template>
 
@@ -151,9 +151,12 @@
 
       setCitysState(state, id, i) { // 切换城市
         this.citysShow = state;
+        console.log("this.citysShow",this.citysShow);
+
         if ( !!id || id === 0 ) {
           this.cityIndex = i;
           this.cityId = id;
+
           if ( this.$route.name === 'activity-id-index' ) {
             this.jumpUrl('/activity');
           } else if ( this.$route.name === 'community-id-index' ) {
@@ -183,8 +186,9 @@
         let win = typeof window == "undefined" ? global : window
         win.location.href = path + '?' + url.substr(0,url.length-1);
       },
-      setMenuState(){
-        this.menuShow = !this.menuShow;
+      setMenuState(state){
+        this.menuShow = state;
+        console.log('this.menuShow',this.menuShow)
         if(this.isVisit){
           this.isVisit = !this.isVisit;
         }
@@ -197,8 +201,19 @@
 </script>
 
 <style lang="less" scoped>
-.menu-mask {
+.menu-mask{
     position: fixed;
+    top: 50px;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 90;
+    overflow: hidden;
+    animation-fill-mode: both;
+    background: rgba(0,0,0,0.60);
+}
+.citys-mask {
+  position: fixed;
     top: 50px;
     left: 0;
     width: 100%;
@@ -321,8 +336,8 @@
                   height: 20px;
                   left: 65px;
                   top: 4px;
-                  border-radius: 50%;
-                  background: #ffeb00;
+                  background:url('../../assets/images/header/chose.png') center center no-repeat;
+                  background-size: cover;
                 }
               }
             }
