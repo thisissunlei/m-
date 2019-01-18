@@ -402,5 +402,16 @@ module.exports = {
   joinCommunity: '入驻社区',
   lowPrice: '工位最低价：',
   priceUnit: '元起/月',
-  teamInfo: '团队介绍'
+  teamInfo: '团队介绍',
+  // 预约参观英文信息
+  visitInfo:{
+    title : '预约参观',
+    discriptFirstLine : '想快速寻找与您匹配的办公地点？',
+    discriptSecondLine : '请留下您的预约信息，我们的顾问为您服务',
+    discriptThreeLine : '专业的办公解决方案。',
+    userName:'您的称谓',
+    mobileNumber : '您的联系方式',
+    community : '参观地点',
+    confirmText : '提交'
+  }
 }

@@ -25,7 +25,12 @@ import VueI18n from 'vue-i18n';
 
 
 // import 'swiper/dist/css/swiper.css'
+import { Picker } from 'mint-ui';
 
+Vue.component(Picker.name, Picker);
+import { Popup } from 'mint-ui';
+
+Vue.component(Popup.name, Popup);
 // if (process.browser) {
 //   const VueAwesomeSwiper = require('vue-awesome-swiper/dist/ssr')
 //   Vue.use(VueAwesomeSwiper)

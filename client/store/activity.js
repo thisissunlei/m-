@@ -1,5 +1,6 @@
 import model from 'model'
 import dealDate from '../util/dealDate'
+// import { stat } from 'fs';
 
 export default {
   state: {
@@ -11,7 +12,6 @@ export default {
   },
   actions: {
     getRecommend({commit},formData){
-      console.log(formData)
       return model.getRecommendActivity(formData)
         .then(data => {
           commit('setRecommend', data)
@@ -88,11 +88,15 @@ export default {
             }月${end[2]}日`;
           }
           item.time = time;
-          console.log("888",item.time);
           return item;
       })
       state.totalPages = data.totalPages;
-      state.activityList = lists;
+      state.page = data.page;
+      if(state.page<2){
+        state.activityList = lists;
+      }else {
+        state.activityList = [].concat(state.activityList,lists);
+      }
     },
     setActivityDetail(state,data) {
       state.activityDetail = data;

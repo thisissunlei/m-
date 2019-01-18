@@ -52,13 +52,26 @@ export default {
       request.get("api/gateway/portalthree/city/down-list", { params: data })
     );
   },
+  /**
+   * 提交预约信息
+   * @param {username} 用户昵称 不用必填 即空则客户
+  *  @param {mobilephone} 用户电话 必填
+  *  @param {appionttime} 用户日期 页面不写 默认当前时间+1
+  *  @param {communityId} 社区id 页面不写 默认
+   */
+  getVisitInfo(data) {
+    return handleRequest(
+      request.post("api/gateway/portals/save-visit-info", { params: data })
+    );
+  },
+
   getFocusBanner(data) {
     // 首页banner
     return handleRequest(
       request.get("api/gateway/portalthree/focus-baner", { params: data })
     );
   },
-  getIndexHotCommunity(data) {
+  getIndexHotCommunity(data) { 
     // 首页热门社区列表
     return handleRequest(
       request.get("api/gateway/portalthree/popular-community", { params: data })
@@ -84,6 +97,8 @@ export default {
       request.get("api/gateway/portalthree/activity-list", { params: data })
     );
   },
+  // 首页会员报道列表
+
   getNewsList(data) {
     //about页面新闻列表
     return handleRequest(

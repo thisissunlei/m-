@@ -69,6 +69,7 @@ module.exports = {
     vip: "VIP exclusive",
     hot: "Recommended Community",
     soon: "Launch Soon",
+    welfare: 'welfare',
     environment: "Office Environment",
     activity: "Community Events",
     members: "Members",
@@ -272,20 +273,12 @@ module.exports = {
       value: "size"
     },
     {
-      name: "News",
-      value: "news"
-    },
-    {
       name: "Milestones",
       value: "things"
     },
     {
-      name: "Office environment",
-      value: "feel"
-    },
-    {
-      name: "Contact us",
-      value: "contact"
+      name: "News",
+      value: "news"
     },
     {
       name: "Join us",
@@ -492,5 +485,16 @@ module.exports = {
   joinCommunity:'Community',
   lowPrice:'￥',
   priceUnit:'Per Month',
-  teamInfo: 'Team Introduction'
+  teamInfo: 'Team Introduction',
+  // 预约参观英文信息
+  visitInfo:{
+    title : 'Book A Tour',
+    discriptFirstLine : 'Please leave your appointment',
+    discriptSecondLine : 'information ,our consultants will provid you ',
+    discriptThreeLine : 'with professional office solutions.',
+    userName:'Name',
+    mobileNumber : 'Mobile Number',
+    community : 'Community',
+    confirmText : 'OK'
+  }
 }

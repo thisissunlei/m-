@@ -1,5 +1,8 @@
 <template>
   <div class="activity">
+  <!-- <div class="wrapper" ref="wrapper"> -->
+  <!-- <div class="bscroll-container"> -->
+    <PullDown :tipFlag= false  @getMore="getMore" ref="pull">
     <div class="activity-top">
       <div class="top-title">
         <span class="fl">精选活动</span>
@@ -22,35 +25,36 @@
       </div>
     </div>
     <div class="content-box">
-      <a :href="'//'+$store.state.common.origin+'/activity/' + item.id + $store.state.common.queryString" class="item-content" v-for="(item,i) in $store.state.activity.activityList" :key="i">
-        <img :src="item.imgUrl" alt="" class="item-img" v-if="!!item.imgUrl">
-        <img src="../../assets/images/activity/default.png" alt="" class="item-img" v-else>
-        <div class="item-info">
-          <p class="item-title">{{item.title}}</p>
-          <p class="item-time">
-            <i class="time-img"></i>
-            <span class="time">{{item.time}}</span>
-          </p>
-          <p class="item-location">
-            <i class="adress-img"></i>
-            <span class="adress">{{item.communityName}}</span>
-          </p>
-
+          <a :href="'//'+$store.state.common.origin+'/activity/' + item.id + $store.state.common.queryString" class="item-content" v-for="(item,i) in activity.activityList" :key="i">
+            <img :src="item.imgUrl" alt="" class="item-img" v-if="!!item.imgUrl">
+            <img src="../../assets/images/activity/default.png" alt="" class="item-img" v-else>
+            <div class="item-info">
+              <p class="item-title">{{item.title}}</p>
+              <p class="item-time">
+                <i class="time-img"></i>
+                <span class="time">{{item.time}}</span>
+              </p>
+              <p class="item-location">
+                <i class="adress-img"></i>
+                <span class="adress">{{item.communityName}}</span>
+              </p>
+            </div>
+          </a>
         </div>
-      </a>
-    </div>
+    </PullDown>
   </div>
 </template>
 
 
 <script>
+import PullDown from '../../components/pullDown.vue'
   import {
     mapState,
     mapActions
   } from 'vuex'
   export default {
     components: {
-
+      PullDown
     },
     data() {
       return {
@@ -58,11 +62,10 @@
         lang: '',
         language: '',
         cityId: '',
+        pullupMsg:'加载更多',
+        page:1,
         swiperOption: {
-          // 设定为true时，active slide会居中，而不是默认状态下的居左
           centeredSlides: true,
-          // 设定了slides与左边框的偏移量为100px
-          // slidesOffsetBefore : 16,
           slidesPerView: "auto",
           // 子slide更新时，swiper更新
           // observeSlideChildren:true,
@@ -76,7 +79,7 @@
       }
     },
     computed: {
-
+        ...mapState(['activity'])
     },
     watch: {
        '$route.query.lang' (n, o) {
@@ -120,18 +123,38 @@
       this.lang = this.$route.query.lang || 'zh';
       this.language = this.lang === 'en' ? 1 : 0;
       this.cityId = this.$route.query.cityId;
-      console.log('data', this.activity.activityList)
+      console.log("activityList",this.activity.activityList);
     },
     computed: {
       ...mapState(['activity'])
     },
     methods: {
+      getMore(params){
+        if(this.activity.page > this.activity.totalPages){
+          return
+        }
+        if(!!params.tip){
+           this.page = ++this.page;
+          setTimeout(()=>{
+            this.$store.dispatch('getActivityList',{
+              page: this.page,
+              pageSize: 10,
+              language:1,
+              cityId:0
+            })
+            .then((res)=>{
+              this.$refs.pull.scroll.refresh();
+            })
+          },2000)
+        }
+      },
+
       getData(n,o) {
          if (!n.query) return
         this.language = n.query.lang === 'en' ? 1 : 0;
         this.cityId = n.query.cityId;
         this.lang = n.query.lang;
-        console.log("n,o",n,o);
+        this.page = 1;
         this.$store.dispatch('getRecommend',{
           page: 1,
           pageSize: 4,
@@ -141,7 +164,6 @@
         this.$store.dispatch('getActivityList',{
           page: 1,
           pageSize: 10,
-          language: this.lang == 'en' ? 1 : 0,
           cityId: this.cityId
         })
       },
@@ -212,6 +234,9 @@
     }
   }
 
+    .wrapper {
+      height: 667px;
+    }
   .content-box {
     margin-bottom: 50px;
     .item-content {
