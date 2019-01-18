@@ -25,7 +25,7 @@
         </div>
       </div>
       <div class="line"></div>
-      <div class="t-join-c">
+      <div class="t-join-c" v-if="member.teamDetail.cmtPicUrl.length">
         
         <div class="c-info">
           <h2>{{$t('joinCommunity')}}</h2>
@@ -34,7 +34,8 @@
             {{$t('lowPrice')}}<span class="price">{{member.teamDetail.porPriceVo.discountType==='NONE'?member.teamDetail.porPriceVo.price:member.teamDetail.porPriceVo.levelPrice}}</span> {{$t('priceUnit')}}
           </span>
         </div>
-        <div class="img-list" ref="tabContent" :style="`width:${member.teamDetail.cmtPicUrl.length*168+32}px;`">
+        </ul>
+        <div class="img-list" ref="tabContent" :style="`width:${(member.teamDetail.cmtPicUrl.length*168+32)/37.5}rem`">
           <img :src="item" alt="" v-for="item in member.teamDetail.cmtPicUrl" class="img-detail">
           
         </div>
@@ -84,6 +85,7 @@ export default {
     },
   methods: {
     initializeTab() {
+      console.log('initializeTab========')
       var ele = this.$refs.tabContent;
       var box = ele.getBoundingClientRect();
       ele.addEventListener("touchstart", this.touchStart, false);
@@ -288,11 +290,13 @@ export default {
       font-weight: 500;
     }
     .img-list{
+      height: 91px;
       .img-detail{
         width: 161px;
         height: 91px;
         border-radius: 4px;
         border: 1px solid #eee;
+        float: left;
         &:first-child{
           margin-left: 16px;
         }

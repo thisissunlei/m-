@@ -1,7 +1,7 @@
 <template>
   <div class="member">
     <h1 class="member-h">{{$t('teamList')}}</h1>
-    <div class="m-info" :style="`width:${member.teamList.length*221+20}px;`" ref="tabList">
+    <div class="m-info" :style="`width:${(member.teamList.length*221+20)/37.5}rem`" ref="tabList">
       <a class="card" v-for="item in member.teamList"  :href="'//'+$store.state.common.origin+'/team/' + item.teamId + $store.state.common.queryString">
         <img src="../../assets/images/marks.png" alt="" class="marks">
         <div class="m-slogan">{{item.slogan}}</div>
