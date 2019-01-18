@@ -26,12 +26,13 @@
       <p>
         <span class="address-text">{{detail.list.address}}</span>
         <span class="go-map"
-          @click="mapShow">{{$t('CMNT_DTL_Title.map')}}</span>
+          @click="hrefMap">{{$t('CMNT_DTL_Title.map')}}</span>
       </p>
     </div>
     <!-- 办公 -->
     <div class="time-sharing-office">
-      <div class="sharing-office-title">
+      <div class="sharing-office-title"
+        v-if="detail.officeType.longTerm.length > 0">
         <p>{{$t('CMNT_DTL_Title.long')}}</p>
         <p @click="jumpVisit">{{$t('indexTitle.order')}}</p>
       </div>
@@ -65,7 +66,8 @@
 
         </div>
       </div>
-      <div class="sharing-office-title">
+      <div class="sharing-office-title"
+        v-if="detail.officeType.timeShare.length > 0">
         <p>{{$t('CMNT_DTL_Title.short')}}</p>
         <p @click="showQRcode">{{$t('CMNT_DTL_Title.shortBtn')}}</p>
       </div>
@@ -149,8 +151,8 @@
       v-if="isVisit" />
 
     <!-- 详情地图 -->
-    <Detailmap v-if="showMap"
-      :change="mapChange"></Detailmap>
+    <!-- <Detailmap v-if="showMap"
+      :change="mapChange"></Detailmap> -->
     <!-- 社区福利 -->
     <Welfare />
     <div class="divide-line"></div>
@@ -191,13 +193,13 @@ import Welfare from '../../../components/index/welfare.vue'
 import Activity from '../../../components/index/activity.vue'
 import Member from '../../../components/index/member.vue'
 import Visit from 'components/common/visit.vue'
-import Detailmap from './detailmap'
+// import Detailmap from './detailmap'
 export default {
   components: {
     Welfare,
     Activity,
     Member,
-    Detailmap,
+    // Detailmap,
     Visit
   },
   data() {
@@ -206,14 +208,14 @@ export default {
       isVisit: false,
       isFixed: true,
       detail: {},
-      showMap: false,
+      // showMap: false,
       bottomTagIndex: 0,
       bottomTagIndex1: 0,
       showCode: false,
       imgList: [],
       tabList: [],
       currentIndex: 0,
-      mapChange: 1,
+      // mapChange: 1,
       swiperOption: {
         autoplay: true,
         speed: 1500,
@@ -231,7 +233,7 @@ export default {
     }
   },
   asyncData({ route, router, store }) {
-    let cmtId = 1 || route.params.id;
+    let cmtId = route.params.id;
     let lang = route.query.lang == 'en' ? 1 : 0;
     return Promise.all([
       store.dispatch('getNewCommunityDetails', { id: cmtId, language: lang }),
@@ -239,8 +241,9 @@ export default {
     ])
   },
   methods: {
-    mapShow() {
-      this.showMap = true;
+    hrefMap() {
+      let cmtId = 1 || route.params.id;
+      location.href = `/community/${cmtId}/detailmap`;
     },
     jumpVisit() {
       this.isVisit = true;

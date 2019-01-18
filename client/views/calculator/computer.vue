@@ -51,7 +51,7 @@
           </div>  
           
          <div style="text-align:center;">
-             <mt-button type="primary" @click="subcompute" class="btn">马上预约参观</mt-button>
+             <!-- <mt-button type="primary" @click="subcompute" class="btn">马上预约参观</mt-button> -->
         </div>
         <!--  <Visit 
             :Close="jumpVisit"

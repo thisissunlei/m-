@@ -25,9 +25,10 @@ import VueI18n from 'vue-i18n';
 
 
 // import 'swiper/dist/css/swiper.css'
-import { Picker } from 'mint-ui';
+import { Picker ,Field} from 'mint-ui';
 
 Vue.component(Picker.name, Picker);
+Vue.component(Field.name, Field);
 import { Popup } from 'mint-ui';
 
 Vue.component(Popup.name, Popup);
