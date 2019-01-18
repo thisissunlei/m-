@@ -1,5 +1,5 @@
 module.exports = {
-  getMore: '加载更多…',
+  getMore: '上滑加载更多…',
   newsMore: '其他新闻',
   end: '已经到了尽头...',
   address: '氪空间总部：北京朝阳区朝阳公园南路11号骏豪中央公园广场A2-10层',
