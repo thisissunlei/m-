@@ -25,14 +25,15 @@
       <p class="community-name">{{detail.list.communityName}}</p>
       <p>
         <span class="address-text">{{detail.list.address}}</span>
-        <span class="go-map">{{$t('CMNT_DTL_Title.map')}}</span>
+        <span class="go-map"
+          @click="mapShow">{{$t('CMNT_DTL_Title.map')}}</span>
       </p>
     </div>
     <!-- 办公 -->
     <div class="time-sharing-office">
       <div class="sharing-office-title">
         <p>{{$t('CMNT_DTL_Title.long')}}</p>
-        <p>{{$t('indexTitle.order')}}</p>
+        <p @click="jumpVisit">{{$t('indexTitle.order')}}</p>
       </div>
       <div class="sharing-office-detail"
         v-for="(item,index) in detail.officeType.longTerm">
@@ -143,7 +144,13 @@
         </div>
       </div>
     </div>
+    <Visit :Close="jumpVisit"
+      :areaDisabled="areaDisabled"
+      v-if="isVisit" />
 
+    <!-- 详情地图 -->
+    <Detailmap v-if="showMap"
+      :change="mapChange"></Detailmap>
     <!-- 社区福利 -->
     <Welfare />
     <div class="divide-line"></div>
@@ -154,7 +161,8 @@
     <Member />
     <div class="divide-line"></div>
     <!-- start 立即预约 -->
-    <div class="visit-btn">
+    <div class="visit-btn"
+      @click="jumpVisit">
       <p :class="[isFixed ? 'bottom-visit-fixed' : '']">{{$t('indexTitle.order')}}</p>
       <p v-show="isFixed"></p>
     </div>
@@ -182,22 +190,30 @@
 import Welfare from '../../../components/index/welfare.vue'
 import Activity from '../../../components/index/activity.vue'
 import Member from '../../../components/index/member.vue'
+import Visit from 'components/common/visit.vue'
+import Detailmap from './detailmap'
 export default {
   components: {
     Welfare,
     Activity,
-    Member
+    Member,
+    Detailmap,
+    Visit
   },
   data() {
     return {
+      areaDisabled: false,
+      isVisit: false,
       isFixed: true,
       detail: {},
+      showMap: false,
       bottomTagIndex: 0,
       bottomTagIndex1: 0,
       showCode: false,
       imgList: [],
       tabList: [],
       currentIndex: 0,
+      mapChange: 1,
       swiperOption: {
         autoplay: true,
         speed: 1500,
@@ -223,6 +239,12 @@ export default {
     ])
   },
   methods: {
+    mapShow() {
+      this.showMap = true;
+    },
+    jumpVisit() {
+      this.isVisit = true;
+    },
     goToImg(tab) {
       this.currentIndex = tab.index;
       // console.log('111', this.mySwiper)
@@ -601,6 +623,7 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
+    z-index: 1000;
     .code-img {
       width: 287px;
       height: 316px;

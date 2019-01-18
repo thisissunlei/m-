@@ -145,7 +145,7 @@ import PullDown from '../../components/pullDown.vue'
             .then((res)=>{
               this.$refs.pull.scroll.refresh();
             })
-          },2000)
+          },400)
         }
       },
 
@@ -287,7 +287,7 @@ import PullDown from '../../components/pullDown.vue'
           i {
             display: inline-block;
             width: 12px;
-            height: 12px;
+            height: 13px;
             background: url("../../assets/images/activity/location.png");
             background-size: cover;
           }

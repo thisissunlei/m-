@@ -394,59 +394,59 @@ module.exports = {
   aboutMilestone: [
     {
       year: "2018",
-      month: "August",
+      month: "08",
       content: "Kr Space management area reached 300 thousand square meters."
     },
     {
       year: "2018",
-      month: "June",
+      month: "06",
       content:
         "Kr Space starts overseas expansion, signing Hongkong One Hennessy building"
     },
     {
       year: "2018",
-      month: "May",
+      month: "05",
       content:
         'Kr Space brand upgrade, launched the "joint office krypton space, the whole city business district you choose" new brand slogan.'
     },
     {
       year: "2018",
-      month: "January",
+      month: "01",
       content:
         "Kr Space announced the completion of 600 million yuan Pre-B round of financing."
     },
     {
       year: "2017",
-      month: "September",
+      month: "09",
       content:
         "Kr Space announced that it has obtained a strategic investment over 100 million yuan from IDG Capital."
     },
     {
       year: "2017",
-      month: "July",
+      month: "07",
       content:
         "Kr Space announced that it has obtained a strategic investment from China Minsheng Investment Group."
     },
     {
       year: "2016",
-      month: "November",
+      month: "11",
       content:
         "Kr Space obtained A+ round of financing with over 200 million yuan from Prometheus Capital and IDG Capital."
     },
     {
       year: "2016",
-      month: "March",
+      month: "03",
       content: "Kr Space’s business model was reported by the US media."
     },
     {
       year: "2016",
-      month: "January",
+      month: "01",
       content:
         "Kr Space split from 36 Kr and completed A-round financing independently."
     },
     {
       year: "2014",
-      month: "April",
+      month: "04",
       content: "Kr Space was born in Zhongguancun Innoway."
     }
   ],
