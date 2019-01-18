@@ -51,7 +51,6 @@ export default {
       if ( data.data.page === 1 ) {
         list.items = [].concat(data.res.items)
         state.list = list
-        console.log(state.list)
       } else {
         list.items = list.items.concat(data.res.items)
         state.list = list
