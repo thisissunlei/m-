@@ -155,6 +155,27 @@ export default {
       request.get("api/gateway/portalthree/activity-detail", { params: data })
     );
   },
+  getMemberList(data){
+    //会员列表
+    return handleRequest(
+      request.get("api/gateway/portalthree/usernews-list", { params: data })
+    );
+  },
+  memberReadCount(data){
+    //阅读量
+    return handleRequest(
+      request.post("api/gateway/portalthree/add-news-read", { params: data })
+    );
+  },
+  getCometTeamList(data) {// 团队 list
+    return handleRequest(request.get('api/gateway/portalthree/comet-team-list', {params: data}))
+  },
+  getPorNewsDetails(data) { // 会员报道 details
+    return handleRequest(request.get('api/gateway/portalthree/por-news-details', {params: data}))
+  },
+  getTeamDetail(data) {//团队详情
+    return handleRequest(request.get('api/gateway/portalthree/teamdetail', {params: data}))
+  },
   getCommunityCbds(data){
     // 社区筛选条件
     return handleRequest(
@@ -184,5 +205,11 @@ export default {
     return handleRequest(
       request.get('api/gateway/portalthree/office-type',{params: data})
     );
-  }
+  },
+  getComter(data){
+    //高效、分时办公
+    return handleRequest(
+      request.get('/api/gateway/get-all-cbd',{params: data})
+    );
+  },
 };

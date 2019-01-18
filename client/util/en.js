@@ -481,6 +481,11 @@ module.exports = {
     'The Ministry of administration has also prepared breakfast and lunch for everyone.',
     'And provide paid annual leave and paid sick leave,all other holidays are implemented in accordance with Chinese regulations.',
   ],
+  teamList:'New team',
+  joinCommunity:'Community',
+  lowPrice:'￥',
+  priceUnit:'Per Month',
+  teamInfo: 'Team Introduction',
   // 预约参观英文信息
   visitInfo:{
     title : 'Book A Tour',

@@ -6,8 +6,10 @@ import index from './index'
 import activity from './activity'
 import welfare from './welfare'
 import about from './about'
+import member from './member'
 import community from './community'
 import detail from './detail'
+import calculator from './calculator'
 
 let isDev = process.env.NODE_ENV === 'development'
 export default () => {
@@ -20,8 +22,10 @@ export default () => {
       activity,
       welfare,
       about,
+      member,
       community,
-      detail
+      detail,
+      calculator,
     }
   })
 
@@ -33,8 +37,10 @@ export default () => {
       './activity',
       './welfare',
       './about',
+      './member',
       './community',
-      './detail'
+      './detail',
+      './calculator',
     ], () => {
       let common = require('./common').default
       let index = require('./index').default
@@ -42,8 +48,10 @@ export default () => {
       let activity = require('./activity').default
       let welfare = require('./welfare').default
       let about = require('./about').default
+      let member = require('./member').default
       let community = require('./community').default
       let detail = require('./detail').default
+      let calculator = require('./calculator').default
       store.hotUpdate({
         modules: {
           common,
@@ -52,8 +60,10 @@ export default () => {
           activity,
           welfare,
           about,
+          member,
           community,
-          detail
+          detail,
+          calculator
         }
       })
     })
