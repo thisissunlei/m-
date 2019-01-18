@@ -96,13 +96,9 @@
       :tags="index.welfareTags" />
 
     <!-- 社区活动 -->
-    <<<<<<< HEAD
-      <Activity
-      :data="activityList" />
-    =======
+    <Activity :data="activityList" />
     <Activity :data="activityList"
       v-if="activityList.length > 0" />
-    >>>>>>> 2341c0325082e9401eb76ffc9d0e94973ec22e17
     <div class="divide-line"></div>
 
     <!-- 会员报道 -->
