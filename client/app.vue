@@ -9,34 +9,36 @@
     <Header></Header>
     <div class="empty"></div>
     <article class="re-article">
-      <router-view></router-view>
+      <router-view @sensors="setSensors"></router-view>
     </article>
     <Footer></Footer>
-
+    <Sa :sensors="sensorsData"></Sa>
   </div>
 </template>
 
 <script>
 import Header from './components/common/header.vue'
 import Footer from './components/common/footer.vue'
+import Sa from './components/common/sa.vue'
 
 
 export default {
   components: {
     Header,
-    Footer
+    Footer,
+    Sa
   },
   data() {
     return {
       lang: null,
       language: null,
       cityId: null,
+      sensorsData: {}
     }
   },
   watch: {
     '$route.query.lang'(n, o) {
       this.language = n === 'en' ? 1 : 0
-      // console.log('this.lang',this.language)
       this.$store.dispatch('getHeaderCityDownList', { language: this.language });
     },
     '$route.query.cityId'(n, o) {
@@ -91,6 +93,9 @@ export default {
       this.$store.commit('setHeaderCityId', this.cityId);
       this.$router.replace({ path: path, query: newQuery });
     },
+    setSensors(data) {
+      this.sensorsData = data
+    }
   },
 }
 </script>

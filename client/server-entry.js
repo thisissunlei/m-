@@ -32,7 +32,8 @@ export default context => {
      store.state.common = {
       origin: context.origin,
       query: context.query,
-      queryString:context.queryString,
+      // queryString: context.queryString,
+       queryString: '',
       headerCityList: context.cityList,
       ip: context.ip,
       headerCityId: !context.query.cityId? context.ip[0]: context.query.cityId,
