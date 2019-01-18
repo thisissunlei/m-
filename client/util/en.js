@@ -477,7 +477,6 @@ module.exports = {
     sectionThree: "Comfortable environment"
   },
   aboutWelfare: [
-<<<<<<< HEAD
     'Kr Space provide five social insurance and one housing fund,and enterprise supplementary medical insurance.',
     'The Ministry of administration has also prepared breakfast and lunch for everyone.',
     'And provide paid annual leave and paid sick leave,all other holidays are implemented in accordance with Chinese regulations.',
@@ -494,10 +493,3 @@ module.exports = {
     confirmText : 'OK'
   }
 }
-=======
-    "Kr Space provide five social insurance and one housing fund,and enterprise supplementary medical insurance.",
-    "The Ministry of administration has also prepared breakfast and lunch for everyone.",
-    "And provide paid annual leave and paid sick leave,all other holidays are implemented in accordance with Chinese regulations."
-  ]
-};
->>>>>>> 2150deb92e73f98db7c3ea00c5bb0bccb89f3f3e

@@ -92,7 +92,7 @@ export default {
       selectCityName: "", //已经选中得城市
       selectCityId: "", //当前选择的城市索引
       citysShow: false, //下拉城市是否显示
-      showOption:false,//默认不展示勾
+      showOption:true,//默认不展示勾
       language: 0, // 0:中文 1:英文
       cityId: Number, //路由上面的city,只能在路由传参的时候修改
       menuShow: false,
@@ -157,10 +157,7 @@ export default {
       var cityId = (this.cityId = this.$route.query.cityId);
       this.listenCityList.map((val, index) => {
         if (val.cityId == cityId) {
-          this.showOption = true;
           this.selectCityName = val.cityName;
-        }else{
-          this.showOption = false;
         }
       });
     },
