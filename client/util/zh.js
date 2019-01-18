@@ -404,4 +404,15 @@ module.exports = {
     '值得一说的是，在社区内，运营同学也会为大家提供高频次的各种试吃和体验活动，让大小吃货都各饱口福，很多有意义的体验也是被赞不绝口。',
     '如此神奇的氪空间和众多优秀的小伙伴在等待着你，还在犹豫个啥子嘞~~',
   ],
+  // 预约参观英文信息
+  visitInfo:{
+    title : '预约参观',
+    discriptFirstLine : '想快速寻找与您匹配的办公地点？',
+    discriptSecondLine : '请留下您的预约信息，我们的顾问为您服务',
+    discriptThreeLine : '专业的办公解决方案。',
+    userName:'您的称谓',
+    mobileNumber : '您的联系方式',
+    community : '参观地点',
+    confirmText : '提交'
+  }
 }
