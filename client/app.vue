@@ -59,6 +59,10 @@ export default {
   mounted() {
     var lang = this.$route.query.lang;
     var cityId = this.$route.query.cityId;
+    if ( !!lang && !!cityId ) {
+      this.$store.commit('setCommonLang', lang);
+      this.$store.commit('setHeaderCityId', cityId);
+    }
     this.win = typeof window == "undefined" ? global : window
     if (!this.$store.state.common.ip || this.$store.state.common.ip.length == 0) {
       this.$store.dispatch('getHeaderCommunityByip')
