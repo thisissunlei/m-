@@ -207,9 +207,8 @@ export default {
     );
   },
   getComter(data){
-    //高效、分时办公
     return handleRequest(
-      request.get('/api/gateway/get-all-cbd',{params: data})
+      request.get('api/gateway/get-all-cbd',{params: data})
     );
   },
 };

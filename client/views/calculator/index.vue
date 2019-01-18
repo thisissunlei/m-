@@ -28,10 +28,10 @@
                 id="area" 
                 type="text"  
                 name="input_area"  
-                  v-model="time"
+                v-model="time"
                 placeholder="请选择租赁时长"
                 readOnly="readOnly"
-                onfocus="this.blur()"
+                 @click="clickModelTime"
                 class="activeinput"
                 />
                 <p style="margin-right:0.12rem">> </p>
@@ -39,9 +39,9 @@
                 <!-- <p class="mine mit"><span style="opacity:0.5">x</span></p>  -->
           </div> 
             
-            <mt-field label="公司人数" class="star" type="number"  placeholder="请输入 "  :state='state'   v-model="visitData.number" @input="text">&nbsp; 人&nbsp;&nbsp;</mt-field>
+            <mt-field label="公司人数" class="star" type="number"  placeholder="请输入 "  :state='state'   v-model="visitData.number" @input="text" name="number">&nbsp; 人&nbsp;&nbsp;</mt-field>
             <span class="a1">*</span>
-            <mt-field label="办公面积" type="number" placeholder="请输入 " :state='state1'  v-model="visitData.office">&nbsp; ㎡&nbsp;&nbsp;</mt-field>
+            <mt-field label="办公面积" type="number" placeholder="请输入 " :state='state1'  v-model="visitData.office" name="office">&nbsp; ㎡&nbsp;&nbsp;</mt-field>
             <span class="a2">*</span>
         
             
@@ -50,25 +50,35 @@
 
         <div class="div">
             <p class="emit"><span>月支出费用</span></p>
-            <mt-field label="月租金"  :disabled="switchOn" >{{month}}&nbsp;元</mt-field>
-            <mt-field label="物业费"  :disabled="switchOn" >{{property}}&nbsp;元</mt-field>
-            <mt-field label="保洁费" :disabled="switchOn" >{{cleanup}}&nbsp;元</mt-field>
-            <mt-field label="水电网费"  :disabled="switchOn" >{{whater}}&nbsp;元</mt-field>
+            <mt-field label="月租金"  :disabled="switchOn" name="month">{{month}}&nbsp;元</mt-field>
+            <mt-field label="物业费"  :disabled="switchOn" name="property">{{property}}&nbsp;元</mt-field>
+            <mt-field label="保洁费" :disabled="switchOn" name="cleanup">{{cleanup}}&nbsp;元</mt-field>
+            <mt-field label="水电网费"  :disabled="switchOn" name="whater">{{whater}}&nbsp;元</mt-field>
 
         </div>
 
         <div class="div"> 
             <p class="emit"><span>前期投入费用</span></p> 
-            <mt-field label="装修费" :disabled="switchOn"  >{{renovation}}&nbsp;元</mt-field>
-            <mt-field label="办公家具"  :disabled="switchOn" >{{furniture}}&nbsp;元</mt-field>
-            <mt-field label="打印机" :disabled="switchOn" >{{printing}}&nbsp;元</mt-field>
-            <mt-field label="投影仪"  :disabled="switchOn" >{{projection}}&nbsp;元</mt-field>
+            <mt-field label="装修费" :disabled="switchOn"  name="renovation">{{renovation}}&nbsp;元</mt-field>
+            <mt-field label="办公家具"  :disabled="switchOn" name="furniture">{{furniture}}&nbsp;元</mt-field>
+            <mt-field label="打印机" :disabled="switchOn" name="printing">{{printing}}&nbsp;元</mt-field>
+            <mt-field label="投影仪"  :disabled="switchOn" name="projection">{{projection}}&nbsp;元</mt-field>
             
         </div>
         <div style="text-align:center;">
-              <mt-button type="primary" @click="subcompute" class="btn">计算</mt-button>
+              <!-- <mt-button type="primary" @click="subcompute" class="btn" name="compute">计算</mt-button> -->
         </div>
         <p class="small">依据城市核心商圈的费用平均值进行估算，您也可手动填写。</p>
+
+        
+        <mt-popup v-model="areaVisible" position="bottom" class="area-class">
+          <p>
+            <span @click="cancel">取消</span>
+            <span class="btns" @click="confirm">确定</span>
+          </p>
+          <mt-picker :slots="timeList" @change="onValuesChange"></mt-picker>
+          <!-- <mt-picker :slots="areaCommunity" @change="onValuesChange"></mt-picker> -->
+        </mt-popup>
         <!-- <CommonDialog :personName="commonDialogName" :message="CommonDialogMessage" :isShow="isShowCommon" :dialogType="commonDialogType" :Close="commonDialogClose" /> -->
       </div>  
 
@@ -116,7 +126,7 @@
                 </div>  
                 
               <div style="text-align:center;">
-                  <mt-button type="primary" @click="onSubmit" class="btn">马上预约参观</mt-button>
+                  <!-- <mt-button type="primary" @click="onSubmit" class="btn">马上预约参观</mt-button> -->
               </div>
               <!-- <Visit 
                   :Close="jumpVisit"
@@ -139,6 +149,8 @@
 </div>
 </template>
 <script>
+
+  import { mapState,mapActions } from 'vuex'
 import Thousand from "../../util/thousand";
 // import Header from "~/components/Header";
 // import $http from "~/plugins/http";
@@ -156,6 +168,35 @@ export default {
 
   data () {
     return {
+      visitData: {
+        community: [],
+        cityId: "11",
+        time: "",
+        number: "",
+        month: "",
+        office: "",
+        property: "",
+        cleanup: "",
+        whater: "",
+        renovation: "",
+        furniture: "",
+        printing: "",
+        projection: ""
+      },
+      timeList: [
+        { id: 1, name: "1个月"},
+        { id: 3, name: "3个月" },
+        { id: 6, name: "6个月" },
+        { id: 12, name: "1年" },
+        { id: 24, name: "2年" },
+        { id: 36, name: "3年" },
+        { id: 48, name: "4年" },
+        { id: 60, name: "5年" },
+        { id: 120, name: "10年" }
+      ],
+      areaVisible: false,
+      communityData:{},
+
       isVisit: false,
       showComputer: false,
       switchOn: true,
@@ -177,21 +218,7 @@ export default {
       isShowCommon:false,
       dialogName:'',
       dialogType:'',
-      visitData: {
-        community: [],
-        cityId: "11",
-        time: "",
-        number: "",
-        month: "",
-        office: "",
-        property: "",
-        cleanup: "",
-        whater: "",
-        renovation: "",
-        furniture: "",
-        printing: "",
-        projection: ""
-      },
+      
       swiperMemberOption: {
         slidesPerView: 1.5,
         spaceBetween: 20,
@@ -209,7 +236,15 @@ export default {
     };
   },
   created () { },
+  asyncData({ route, store }) {
+      return Promise.all([
+        store.dispatch('getComter',{}),
+      ])
+  },
   computed: {
+    ...mapState([
+      'calculator'
+    ]),
     params: function () {
       let query = this.$route.query;
       var params = [];
@@ -311,211 +346,37 @@ export default {
       }
   },
   mounted () {
-    this.getComputer();
-    // this.getParams();
-    // this.onCountDetail();
-    var data = [
-      { id: 1, name: "1个月" },
-      { id: 3, name: "3个月" },
-      { id: 6, name: "6个月" },
-      { id: 12, name: "1年" },
-      { id: 24, name: "2年" },
-      { id: 36, name: "3年" },
-      { id: 48, name: "4年" },
-      { id: 60, name: "5年" },
-      { id: 120, name: "10年" }
-    ];
-    this.cityList = data;
-    this.initArea(data);
+
+    console.log('communityData=======',this.calculator.communityData)
+
   },
   methods: {
-    test (val) {
-      this.visitData.office = val * 12
-    },
+    // initArea1 (LAreaData) {
+    //   // console.log("larea", LAreaData);
+    //   var area = new LArea();
+    //   area.init({
+    //     trigger: "#area1", //触发选择控件的文本框，同时选择完毕后name属性输出到该位置
+    //     valueTo: "#areaValue1", //选择完毕后id属性输出到该位置
+    //     keys: { id: "id", name: "name" }, //绑定数据源相关字段 id对应valueTo的value属性输出 name对应trigger的value属性输出
+    //     type: 1, //数据源类型
+    //     data: LAreaData //数据源
+    //   });
+    // },
 
-    commonDialogClose(){
-      this.isShowCommon = !this.isShowCommon;
-    },
+    // initArea (LAreaData) {
+    //   var area = new LArea();
+    //   area.init({
+    //     trigger: "#area", //触发选择控件的文本框，同时选择完毕后name属性输出到该位置
+    //     valueTo: "#time", //选择完毕后id属性输出到该位置
+    //     keys: { id: "id", name: "name" }, //绑定数据源相关字段 id对应valueTo的value属性输出 name对应trigger的value属性输出
+    //     type: 1, //数据源类型
+    //     data: LAreaData, //数据源
+    //     flexNum: 1
+    //   });
+    // },
+    subcompute(){
 
-    dialogClose(){
-        if (this.isShow && (this.dialogType=='success' || this.dialogType == 'warn') ){
-          location.href='/';
-        }
-        this.isShow = !this.isShow;
     },
-
-    //SEM
-    getParams(){
-      var routeParams = this.$route;
-      var urlFrom = routeParams.query.from;
-      var urlTerminal = routeParams.query.terminal;
-      var sessionFrom=sessionStorage.getItem("visitFrom");
-      var sessionTerminal=sessionStorage.getItem("visitTerminal");
-      if(sessionFrom && sessionTerminal){
-          this.visitParams = {
-              from:sessionFrom,
-              terminal:sessionTerminal
-          }
-      }else if(urlFrom && urlTerminal){
-          sessionStorage.setItem("visitFrom",urlFrom);
-          sessionStorage.setItem("visitTerminal",urlTerminal);
-          this.visitParams = {
-              from:urlFrom,
-              terminal:urlTerminal
-          }
-      }
-    },
-    GetQueryString(name){
-            var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
-            var r = window.location.search.substr(1).match(reg);
-            if(r!=null)return  unescape(r[2]); return null;
-        },
-    onSubmit(){
-        var _this=this;
-        if(this.mobile=="" || !/^1[345678]\d{9}$/.test(this.mobile)){
-                this.errorMessage="请输入正确的手机号码";
-                this.ifError=true;
-                setTimeout(function(){
-                    _this.ifError=false;
-                },1000)
-                return 
-        }
-        this.disableSubmit = true;
-        var submitData = Object.assign({},this.visitData);
-        let form = {};
-        form.username = '客户from计算器';
-        form.mobilephone = this.mobile;
-        
-        form.cityId =this.cityId;
-         //去参数
-        // form.from_type = this.GetQueryString('source') || 'krspace_visit';
-        form.from_type='krspace_visit';
-        form.appionttime = dateFormat(new Date(),'YYYY-MM-dd');;
-        form.promoCode = this.GetQueryString('key') || '';
-        if(this.visitParams.from && this.visitParams.terminal){
-            form.from = this.visitParams.from;
-            form.terminal = this.visitParams.terminal;
-        }
-        
-        this.$http.post('post-city-visit',form).then((res)=>{
-                // console.log(res)
-                this.isShow = true;
-                this.disableSubmit = false;
-                this.dialogName = this.username;
-                this.dialogType = 'success';
-                this.mobile='';
-                // this.areaValue='';
-                _taq.push({convert_id:"1597892806975534", event_type:"form"});
-                _taq.push({convert_id:"1600058262413320", event_type:"form"});
-                _taq.push({convert_id:"1602584012684340", event_type:"form"});
-                _taq.push({convert_id:"1602492776885256", event_type:"form"});
-                gdt('track', 'RESERVATION');
-        }).catch((err)=>{
-            if(err.code == -2){
-                this.dialogType = 'warn';
-            }else{
-                this.dialogType = 'error';
-            }
-
-            this.isShow = true;
-            this.dialogName = this.username;
-            
-        })
-    },
-    jumpVisit() {
-      this.isVisit = !this.isVisit;
-    },
-    subcompute () {
-      
-      var communityData = Object.assign({}, this.selectCbdData);
-      
-      if(this.areaValue1 && this.time && this.visitData.number && this.visitData.office ){
-          var swiperData = [];
-          communityData.cmtVos.map((item, index) => {
-          var swiperItem = {};
-          swiperItem.name = item.communityName;
-          swiperItem.id = item.id;
-          swiperItem.imageUrl = item.homeImageUrl;
-          swiperData.push(swiperItem)
-              return item;
-          });
-          this.swiperData = swiperData;
-          this.showComputer = true;
-      }else{
-        var _this = this;
-        this.commonDialogType = 'warn';
-        this.communityName = "提示";
-        this.CommonDialogMessage = "请填写完整！";
-        setTimeout(() => {
-            _this.isShowCommon = true;
-        }, 200);
-        
-      }
-      
-      
-      
-    },
-
-    getComputer () {
-      this.$http
-        .get("get-comter")
-        .then(res => {
-          //计算商圈接口
-          var communityData = Object.assign({}, res.data);
-          // console.log("123", communityData.items);
-          this.communityData = communityData.items;
-          communityData.items.map((item, index) => {
-            //更改城市字段
-            item.name = item.cityName;
-            item.id = index;
-            // item.value = item.cityId;
-            // item.label = item.cityName;
-            var children = [];
-            item.protalsCbdVos.forEach((items,itemIndex) => {
-              if(items.dayPrice){
-                items.name = items.cbdName;
-                items.id = itemIndex;
-                children.push(items);
-              }
-            });
-            // item.protalsCbdVos.map((items, itemIndex) => {
-            //   items.name = items.cbdName;
-            //   items.id = itemIndex;
-            //   return items;
-            // });
-            item.children = children;
-            return item;
-          });
-          this.initArea1(communityData.items);
-        })
-        .catch(err => { });
-    },
-
-    initArea1 (LAreaData) {
-      // console.log("larea", LAreaData);
-      var area = new LArea();
-      area.init({
-        trigger: "#area1", //触发选择控件的文本框，同时选择完毕后name属性输出到该位置
-        valueTo: "#areaValue1", //选择完毕后id属性输出到该位置
-        keys: { id: "id", name: "name" }, //绑定数据源相关字段 id对应valueTo的value属性输出 name对应trigger的value属性输出
-        type: 1, //数据源类型
-        data: LAreaData //数据源
-      });
-    },
-
-    initArea (LAreaData) {
-      var area = new LArea();
-      area.init({
-        trigger: "#area", //触发选择控件的文本框，同时选择完毕后name属性输出到该位置
-        valueTo: "#time", //选择完毕后id属性输出到该位置
-        keys: { id: "id", name: "name" }, //绑定数据源相关字段 id对应valueTo的value属性输出 name对应trigger的value属性输出
-        type: 1, //数据源类型
-        data: LAreaData, //数据源
-        flexNum: 1
-      });
-    },
-
-
     poqoweq () {
       this.totalMonth = parseInt();
       this.peopleCapita = Thousand(
@@ -536,347 +397,348 @@ export default {
         }, 1000);
       }
     },
-    onPhoneChange () {
-      this.checkPhone();
-    },
     //办公面积
     text (val) {
       this.visitData.office = val * 12
+    },
+    onValuesChange(picker,value){
+      console.log('onValuesChange',picker,value)
+    },
+    clickModelTime(){
+      console.log('blur=====')
+      this.areaVisible = true;
+      var modifiedRow = {
+        flex: 1,
+        values: ['1','2','3','4'],
+        textAlign: "center"
+      };
+      this.timeList.splice(0, 1, modifiedRow);
+    },
+    confirm(){
+      this.areaVisible = false;
+      console.log('confirm')
+    },
+    cancel(){
+      this.areaVisible = false;
     }
-
-    //计算
-    // onCalculation() {
-    //   this.$refs["visitData"].validate(valid => {
-    //     if (valid) {
-    //       if (this.visitData.number > 10000 || this.visitData.office > 100000) {
-    //         const title = "Title";
-    //         const content =
-    //           '<p style="font-size:16px;">老板您的公司规模庞大，我们将安排专人为您服务，请拨打400-807-3636</p>';
-    //         this.$Modal.warning({
-    //           content: content,
-    //           onOk: () => {
-    //             this.Close && this.Close();
-    //           }
-    //         });
-    //         return;
-    //       }
-    //       this.totalMonth = parseInt(
-    //         this.visitData.month +
-    //           this.visitData.property +
-    //           this.visitData.whater +
-    //           this.visitData.cleanup +
-    //           (this.visitData.furniture +
-    //             this.visitData.renovation +
-    //             this.visitData.printing +
-    //             this.visitData.projection) /
-    //             this.visitData.time
-    //       );
-    //       this.peopleCapita = Thousand(
-    //         parseInt(this.totalMonth / this.visitData.number)
-    //       );
-    //       this.totalMonth = Thousand(this.totalMonth);
-    //       // this.isFormShow = false;
-    //       // this.isResultShow = true;
-    //     } else {
-    //     }
-    // });
-    // }
   }
 };
 </script>
+<style scoped lang="less">
+  @import "https://unpkg.com/mint-ui/lib/style.css";
+.area-class {
+  width: 100% !important;
+  p {
+    height: 1.066rem;
+    padding: 0.165rem;
+    line-height: 0.736rem;
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    border: 1px solid #e6e6e6;
+    span {
+      padding: 0 0.5rem;
+    }
+    .btns {
+      color: #f7b500;
+      font-size: 14px;
+    }
+  }
+}
+</style>
 <style lang="less" >
-.sp,.a1,.a2{
-font-family:PingFang-SC-Regular;
-font-size: 16px;
-color: #FF6868;
-line-height: 20px;
-}
-.a1{
-  position: absolute;
-  top: 1.7rem;
-  left:0.74rem;
-}
-.a2{
-  position: absolute;
-  top: 2.13rem;
-  left: 0.74rem;
-}
+  .sp,.a1,.a2{
+  font-family:PingFang-SC-Regular;
+  font-size: 16px;
+  color: #FF6868;
+  line-height: 20px;
+  }
+  .a1{
+    position: absolute;
+    top: 140px;
+    left:78px;
+  }
+  .a2{
+    position: absolute;
+    top: 190px;
+    left: 78px;
+  }
 
-.bottom{
-  width: 2.4rem;
-  height: 1.86rem;
-  img{width: 100%;}
-}
-.m-calculator {
-  padding-top: 0.5rem;
-  .swiper-cal{
-    width:100%;
-    height:1.86rem;
-    align-items: center;
-      .swiper-slide{
-        width: 2rem;
-        height: 1.55rem;
-        border-radius:0.1rem;
-        overflow: hidden; 
-   
-        .image{
-          width: 100%;
-          height: 100%;
-          position: relative;
-         background-repeat: no-repeat;
-         background-size: cover;
+  .bottom{
+    width: 240px;
+    height: 186px;
+    img{width: 100%;}
+  }
+  .m-calculator {
+    .swiper-cal{
+      width:100%;
+      height:186px;
+      align-items: center;
+        .swiper-slide{
+          width: 200px;
+          height: 155px;
+          border-radius:10px;
+          overflow: hidden; 
+     
+          .image{
+            width: 100%;
+            height: 100%;
+            position: relative;
+           background-repeat: no-repeat;
+           background-size: cover;
+          }
+        
+        }   
+         .swiper-slide-active{
+          transform:scale(1.05,1.1);
         }
+        .text{
+          position: absolute;
+          background: rgba(0,0,0,0.80);
+          height: 40px;
+          width: 100%;
+          line-height: 40px;
+          bottom:0;
+          text-align: center;
+          color:#fff;
+          font-size: 15px;
+        }
+     
       
-      }   
-       .swiper-slide-active{
-        transform:scale(1.05,1.1);
-      }
-      .text{
-        position: absolute;
-        background: rgba(0,0,0,0.80);
-        height: 0.4rem;
+    }
+    .auto {
+      margin: 14px auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .fead {
+      font-family: PingFang-SC-Regular;
+      font-size: 15px;
+      color: #666666;
+      margin-top: 10px;
+      padding-bottom: 20px;
+      border-bottom: 1px dashed #ffdfdfdf;
+    }
+    .computy_car {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      img {
         width: 100%;
-        line-height: 0.4rem;
-        bottom:0;
-        text-align: center;
-        color:#fff;
-        font-size: 15px;
+        height: 100%;
       }
-   
+    }
+    .counmt {
+      width: 218px;
+      height: 44px;
+      text-align: center;
+      line-height: 44px;
+      font-family: PingFang-SC-Medium;
+      font-size: 17px;
+      // transform: rotate(-180deg);
+      background-image: url("./image/jx.png");
+      background-size: 100% 100%;
+      color: #ff9d00;
+    }
+
+    .pel {
+      font-family: PingFang-SC-Regular;
+      font-size: 15px;
+      color: #666666;
+      line-height: 20px;
+      border: none;
+      text-align: center;
+     
+    }
+    h4 {
+      font-family: PingFang-SC-Medium;
+      font-size: 18px;
+      color: #333333;
+      line-height: 24px;
+      text-align: center;
+       padding: 10px;
+    }
+    .btn {
+      width: 30px;
+      height: 50;
+      margin: 10px 0 40px 0;
+      background-image: linear-gradient(46deg, #f79c1c 0%,  #fad961 100% );
+      box-shadow: 0 5px 15px #f79c1c;
+      border-radius: 8px;
+    }
+    .tel {
+      background: #F3F3F3;
+      border-radius: 8px;
+      width: 3px;
+      height: 50px;
+      display: inline-block;
+      border: none;
+      font-family: PingFang-SC-Regular;
+      font-size: 16px;
+      margin-top: 20px;
+      text-align: center;
+      color: #CCCCCC;
+      outline: none;
+    }
+    .biginput {
+      position: relative;
+      .u-error-tip {
+        height: 46px;
+        line-height: 46;
+        position: absolute;
+        background: rgba(35, 36, 40, 0.9);
+        border-radius: 8px;
+        text-align: center;
+        font-family: PingFangSC-Regular;
+        font-size: 16px;
+        color: #ffffff;
+        padding: 0 32px;
+        display: inline-block;
+        top: 50%;
+        left: 50%;
+        transform: translateX(-50%);
+        margin-top: -13px;
+        white-space: nowrap;
+      }
+    }
+  }
+
+
+  .mine {
+    background: red;
+    width: 18px;
+    height: 18px;
+    line-height: 18px;
+    padding-left: 6px;
+    color: white;
+    border-radius: 50%;
+    position: absolute;
+    top: 15px;
+    right: 20px;
+  }
+  .mit {
+    opacity: 0;
+  }
+  .emit {
+    height: 30px;
+    line-height: 30px;
+    background: #eeeeee;
+    padding-left: 4px;
+    padding-top: 4px;
+
+    span {
+      font-family: PingFang-SC-Regular;
+      border-left: 2px solid yellow;
+      display: inline-block;
+      font-size: 14px;
+      line-height: 18px;
+      padding-left: 5px;
+      height: 18px;
+      color: #666666;
+    }
+  }
+
+  .u-input,.u-area {
+    width: 100%;
+    
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding:8px 6px;
+    min-height: 48px;
+    .smal {
+    font-family: PingFang-SC-Regular;
+    font-size: 14.5px !important;
     
   }
-  .auto {
-    margin: 0.14rem auto;
+    input{
+      width: 40%;
+      border: none;
+      outline: none;
+      text-align: right;
+      margin-left:82px; 
+    }
+    input::-webkit-input-placeholder {
+    font-size: 14px;  
+    /* placeholder颜色  */
+    color: #aab2bd;
+    /* placeholder位置  */
+    text-align: right;
+  }
+    .u-triangle {
+      width: 0;
+      height: 0;
+      border: 7px solid transparent;
+      border-top-color: #bbbbbb;
+      position: absolute;
+      right: 18px;
+      top: 23px;
+    }
+   
+    ::-moz-placeholder {
+      color: #cccccc;
+    }
+    ::-webkit-input-placeholder {
+      color: #cccccc;
+    }
+    :-ms-input-placeholder {
+      color: #cccccc;
+    }
+    .smal {
+      margin-left: 5px;
+      font-size: 15px;
+    }
+  }
+  .mint-cell-wrapper {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .input.mint-cell-value {
+      width: 40% !important;
+      height: 100%;
+      background: red;
+    }
+    .mint-field-core {
+      // padding-left: 1.82rem;
+      text-align: right;
+    }
+  }
+
+  .div {
+    .mint-field-core {
+      width: 0;
+      display: none;
+    }
+    .mint-field-other {
+      text-align: right;
+      color: #aab2bd;
+      margin-right: 10px;
+    }
+    .mint-cell-value {
+      text-align: right;
+      display: block;
+    }
+  }
+
+  input::-webkit-input-placeholder {
+    /* placeholder颜色  */
+    color: #aab2bd;
+    /* placeholder位置  */
+    text-align: right;
+  }
+  .tel::-webkit-input-placeholder {
+    text-align: center;
+  }
+  .small{
+    width: 100%;
+    padding: 0 0  10px ;
     display: flex;
     align-items: center;
     justify-content: center;
   }
-  .fead {
-    font-family: PingFang-SC-Regular;
-    font-size: 0.15rem;
-    color: #666666;
-    margin-top: 0.1rem;
-    padding-bottom: 0.2rem;
-    border-bottom: 0.01rem dashed #ffdfdfdf;
-  }
-  .computy_car {
-    width: 0.5rem;
-    height: 0.5rem;
-    border-radius: 50%;
-    img {
-      width: 100%;
-      height: 100%;
-    }
-  }
-  .counmt {
-    width: 2.18rem;
-    height: 0.44rem;
-    text-align: center;
-    line-height: 0.44rem;
-    font-family: PingFang-SC-Medium;
-    font-size: 0.17rem;
-    // transform: rotate(-180deg);
-    background-image: url("./image/jx.png");
-    background-size: 100% 100%;
-    color: #ff9d00;
-  }
-
-  .pel {
-    font-family: PingFang-SC-Regular;
-    font-size: 0.15rem;
-    color: #666666;
-    line-height: 0.2rem;
-    border: none;
-    text-align: center;
-   
-  }
-  h4 {
-    font-family: PingFang-SC-Medium;
-    font-size: 0.18rem;
-    color: #333333;
-    line-height: 0.24rem;
-    text-align: center;
-     padding: 0.1rem;
-  }
-  .btn {
-    width: 3rem;
-    height: 0.5rem;
-    margin: 0.1rem 0 0.4rem 0;
-    background-image: linear-gradient(46deg, #f79c1c 0%,  #fad961 100% );
-    box-shadow: 0 5px 15px #f79c1c;
-    border-radius: 0.08rem;
-  }
-  .tel {
-    background: #F3F3F3;
-    border-radius: 0.08rem;
-    width: 3rem;
-    height: 0.5rem;
-    display: inline-block;
-    border: none;
-    font-family: PingFang-SC-Regular;
-    font-size: 0.16rem;
-    margin-top: 0.2rem;
-    text-align: center;
-    color: #CCCCCC;
-    outline: none;
-  }
-  .biginput {
-    position: relative;
-    .u-error-tip {
-      height: 0.46rem;
-      line-height: 0.46rem;
-      position: absolute;
-      background: rgba(35, 36, 40, 0.9);
-      border-radius: 0.08rem;
-      text-align: center;
-      font-family: PingFangSC-Regular;
-      font-size: 0.16rem;
-      color: #ffffff;
-      padding: 0 0.32rem;
-      display: inline-block;
-      top: 50%;
-      left: 50%;
-      transform: translateX(-50%);
-      margin-top: -0.13rem;
-      white-space: nowrap;
-    }
-  }
-}
-
-
-.mine {
-  background: red;
-  width: 18px;
-  height: 18px;
-  line-height: 18px;
-  padding-left: 6px;
-  color: white;
-  border-radius: 50%;
-  position: absolute;
-  top: 0.15rem;
-  right: 0.2rem;
-}
-.mit {
-  opacity: 0;
-}
-.emit {
-  height: 0.3rem;
-  line-height: 0.3rem;
-  background: #eeeeee;
-  padding-left: 0.04rem;
-  padding-top: 0.03rem;
-
-  span {
-    font-family: PingFang-SC-Regular;
-    border-left: 0.02rem solid yellow;
-    display: inline-block;
-    font-size: 0.14rem;
-    line-height: 0.18rem;
-    padding-left: 0.05rem;
-    height: 0.18rem;
-    color: #666666;
-  }
-}
-
-.u-input,.u-area {
-  width: 100%;
-  
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding:0.08rem 0.06rem;
-  .smal {
-  font-family: PingFang-SC-Regular;
-  font-size: 0.145rem !important;
-  
-}
-  input{
-    width: 40%;
-    border: none;
-    outline: none;
-    text-align: right;
-    margin-left:0.82rem; 
-  }
-  input::-webkit-input-placeholder {
-  font-size: 0.14rem;  
-  /* placeholder颜色  */
-  color: #aab2bd;
-  /* placeholder位置  */
-  text-align: right;
-}
-  .u-triangle {
-    width: 0;
-    height: 0;
-    border: 0.07rem solid transparent;
-    border-top-color: #bbbbbb;
-    position: absolute;
-    right: 0.18rem;
-    top: 0.23rem;
-  }
- 
-  ::-moz-placeholder {
-    color: #cccccc;
-  }
-  ::-webkit-input-placeholder {
-    color: #cccccc;
-  }
-  :-ms-input-placeholder {
-    color: #cccccc;
-  }
-  .smal {
-    margin-left: 0.05rem;
-    font-size: 0.15rem;
-  }
-}
-.mint-cell-wrapper {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-
-  .input.mint-cell-value {
-    width: 40% !important;
-    height: 100%;
-    background: red;
-  }
-  .mint-field-core {
-    // padding-left: 1.82rem;
-    text-align: right;
-  }
-}
-
-.div {
-  .mint-field-core {
-    width: 0;
-    display: none;
-  }
-  .mint-field-other {
-    text-align: right;
-    color: #aab2bd;
-    margin-right: 0.1rem;
-  }
-  .mint-cell-value {
-    text-align: right;
-    display: block;
-  }
-}
-
-input::-webkit-input-placeholder {
-  /* placeholder颜色  */
-  color: #aab2bd;
-  /* placeholder位置  */
-  text-align: right;
-}
-.tel::-webkit-input-placeholder {
-  text-align: center;
-}
-.small{
-  width: 100%;
-  padding: 0 0  0.1rem ;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
 </style>
 
    
