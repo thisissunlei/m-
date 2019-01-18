@@ -3,11 +3,34 @@ import model from 'model'
 // 立即预约
 export default {
   state: {
-    cmtCityList:[]
+    cmtCityList: [],
+    defaultCity: "",
+    cityDownList: [],
+    submitInfo: "",
+    visitCityList: []
   },
   // action去commit哪个mutation
   actions: {
-    getCmtCityList({ commit },params){
+    // 获取默认地址的数据
+    /**
+     * 
+     * @param {langurge} 语言种类 
+     */
+    getDefaultCityList({
+      commit
+    }, params) {
+      return model.getHeaderCommunityByip(params)
+        .then(data => {
+          commit('setDefaultCity', data)
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
+    //获取所有社区信息
+    getCmtCityList({
+      commit
+    }, params) {
       return model.getCmtCityList(params)
         .then(data => {
           commit('setCmtCityList', data)
@@ -16,11 +39,54 @@ export default {
           console.log(err)
         })
     },
+    // 提交预约信息接口
+    getVisitInfo({
+      commit
+    }, params) {
+      return model.getVisitInfo(params)
+        .then(data => {
+          commit('sussuseSumbit', data)
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
   },
   // 只有mutations才能改变state
   mutations: {
-    setCmtCityList(state,data){
+    // 获取默认地址展示数据
+    setDefaultCity(state, data) {
+      if (!data.items.communityVo.communityName) {
+        state.defaultCity = data.items.cityVo.cityName;
+      } else {
+        state.defaultCity = data.items.cityVo.cityName + data.items.communityVo.communityName;
+      }
+    },
+    //获取预约下拉的城市名称从社区接口中获得
+    setVisitCityList(state) {
+      state.visitCityList = state.cmtCityList.map(val => {
+        return val.cityName
+      })
+    },
+    //获取社区信息
+    setCmtCityList(state, data) {
       state.cmtCityList = data.items;
     },
+    //提交信息成功
+    sussuseSumbit(state, data) {
+      // state.cmtCityList = data.items;
+      console.log(data)
+    },
+    //选择并且修改信息
+    modifydefaultCity(state, data) {
+      state.defaultCity = data;
+    },
+  },
+  getters: {
+    // 处理默认展示数据
+    computerDefault(state) {
+      return state.defaultCity
+    },
+    // 处理默认数据
   }
 }
