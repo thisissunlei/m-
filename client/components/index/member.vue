@@ -9,7 +9,7 @@
       <div class="item-info">
         <p class="item-title">星巴克全国通用全国通用全国通用全国通用全国通用全国通用全国通用</p>
         <p class="item-bottom">
-          <span class="fire fl"></span>
+          <!-- <span class="fire fl"></span> -->
           <span class="num fl">100049 阅读</span>
           <span class="time fr">2018-12-20</span>
         </p>

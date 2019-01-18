@@ -1,17 +1,29 @@
 <template>
   <div class="g-welfare-contain">
-    <section class="recommend">
-      <!-- <h1>{{$t('welfare.title')}}</h1> -->
-      <!-- <div class="recommend-list clearfix">
-          <a  class="recommend-detail" v-for="(item, i) in welfare.recommend" target="_blank" :key="i"
-              :href="'//'+$store.state.common.origin+'/welfare/'+item.id+$store.state.common.queryString">
-            <span class="card-bg" :style="item.couponCover?'background: url('+item.couponCover+'?x-oss-process=image/quality,q_80) center top / cover no-repeat' :''"></span>
-            <span class="card-title over-point">{{item.title}}</span>
-            <span class="card-info over-point">{{item.descr}}</span>
-          </a>
-        </div> -->
-      <Swiper :list="welfare.recommend"></Swiper>
-    </section>
+      <div class="activity-top">
+      <div class="top-title">
+        <span class="fl">每日优选</span>
+        <span class="fr num">
+          <i class="next fr">/{{welfare.recommend.length}}</i>
+          <i class="prev fr">{{actiIndex}}</i>
+        </span>
+      </div>
+
+      <div v-swiper:mySwiper="swiperOption" v-if="welfare.recommend.length>0" ref="swiper">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide" v-for="(item, index) in welfare.recommend" :key="index">
+            <img :src="item.couponCover" v-if="!!item.couponCover">
+            <img class="default-img" v-else>
+            <div class="swiper-content">
+              <div class="swiper-title">{{item.title}}</div>
+              <div class="swiper-desr">{{item.descr}}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
     <section class="detail-list">
       <div class="tab-contain">
         <nav>
@@ -38,7 +50,6 @@
   } from 'vuex'
   import DefaultPage from 'components/defaultPage.vue'
   import Welfare from '../../components/welfare/index.vue' // 会员福利
-  import Swiper from '../../components/welfare/swiper.vue'
   var interval = null;
   export default {
     data() {
@@ -46,12 +57,30 @@
         activeTab: '0',
         query: '',
         lang: 'zh',
+        actiIndex: 1,
+        lang: '',
+        language: '',
+        cityId: '',
+        swiperOption: {
+          // 设定为true时，active slide会居中，而不是默认状态下的居左
+          centeredSlides: true,
+          // 设定了slides与左边框的偏移量为100px
+          // slidesOffsetBefore : 16,
+          slidesPerView: "auto",
+          // 子slide更新时，swiper更新
+          // observeSlideChildren:true,
+          on: {
+            slideChangeTransitionStart: () => {
+              let swiper = this.mySwiper;
+              this.actiIndex = swiper.activeIndex + 1;
+            },
+          }
+        }
       }
     },
     components: {
       DefaultPage,
       Welfare,
-      Swiper
     },
 
     computed: { // 计算属性
@@ -75,6 +104,7 @@
 
     },
     mounted() {
+
       console.log('推荐福利', this.welfare.recommend)
       console.log('福利列表', this.welfare.list)
       console.log('福利标签', this.welfare.tags)
@@ -147,19 +177,15 @@
       clearInterval(interval);
       interval = null;
       if(scrollTop >= scrollHeight - winHeight - 327){
-        console.log("page,totalPages",this.welfare.page,this.welfare.totalPages);
         if(this.welfare.page >= this.welfare.totalPages){
           return;
         }
-      console.log("555",this.welfare.page,this.lang,this.activeTab);
-
         this.getWelfareList({
           page: this.welfare.page+1,
           pageSize: 10,
           language: this.lang == 'en' ? 1 : 0,
           tags: this.activeTab
         })
-        // console.log("0000999",this.welfare.list);
         return ;
       }
     }
@@ -168,13 +194,70 @@
 </script>
 
 <style lang='less' scoped>
-  .g-welfare-contain {
-    width: 375px;
-    .recommend {
-      height: 336px;
-      background: palegoldenrod;
+.activity-top {
+    .top-title {
+      height: 30px;
+      margin: 16px;
+      font-family: PingFangSC-Medium;
+      font-size: 20px;
+      color: #333333;
+      letter-spacing: 0;
+      line-height: 30px;
+      span {
+        display: inline-block;
+      }
+      .num {
+        height: 25px;
+        line-height: 25px;
+      }
+      .prev {
+        font-family: PingFangSC-Regular;
+        font-size: 18px;
+        color: #333333;
+      }
+      .next {
+        font-family: PingFangSC-Regular;
+        font-size: 12px;
+        color: #3F3F3F;
+        line-height: 25px;
+      }
+    }
+    .swiper-wrapper {
+      margin-left: 5px;
+    }
+    .swiper-slide {
+      width: 343px;
+      margin-right: 10px;
+      img {
+        width: 100%;
+        height: 172px;
+      }
+      .default-img {
+        background: url("../../assets/images/default.png") ;
+      }
+      .swiper-content {
+        padding: 16px 16px 50px 0px;
+        .swiper-title {
+          font-family: PingFangSC-Medium;
+          font-size: 16px;
+          color: #333333;
+          letter-spacing: 0;
+          line-height: 20px;
+        }
+        .swiper-desr {
+          margin-top: 5px;
+          font-family: PingFangSC-Regular;
+          font-size: 11px;
+          color: #999999;
+          letter-spacing: 0;
+          line-height: 11px;
+        }
+      }
     }
   }
+  // .g-welfare-contain {
+  //   width: 375px;
+  // }
 
   .detail-list {
     // margin-top:70px;
@@ -202,9 +285,7 @@
 
     .tab-contain {
       width: 375px;
-      // overflow: hidden;
       position: relative;
-      margin-bottom: 30px;
       nav {
         padding-left: 16px;
         display: -webkit-box;

@@ -1,247 +1,226 @@
 <template>
-  <!-- 轮播图的实现主要是通过宽度的overflow:hidden进行控制，translate进行控制 -->
-  <div class="slider" ref="slider">
-    <div class="slider-group" ref="sliderGroup">
-      <div class="slider-item" v-for="(item,index) in list" :key="index">
+  <div class="slide" ref="slider">
+    <div class="slide-group" ref='slideGroup'>
+      <!-- <div class="slider-item" v-for="(item,index) in list" :key="index">
         <a :href="item.linkUrl">
-          <!-- :style="`width:${width},height:${height}`" -->
-          <img :src="item.banerPicUrl" :alt="item.linkUrl"  ref="sliderItemImg">
+          <img :src="item.banerPicUrl" :alt="item.linkUrl" ref="sliderItemImg">
         </a>
-      </div>
+      </div> -->
+      <slot></slot>
     </div>
-    <div class="dots" v-if="this.dots">
-      <span :class="`dot ${index === currentPageIndex ? 'active' :'' }`" v-for="(item,index) in list.length" :key="index"></span>
+    <div v-if="showDot" class="dots">
+      <span class="dot"
+        :class="{active: currentPageIndex === index }"
+        v-for="(item, index) in dots"
+        :key="index">
+      </span>
     </div>
   </div>
 </template>
 
 <script>
   import BScroll from 'better-scroll'
-
   export default {
-
+    name: 'Swiper',
     props: {
-      width: {
-        type: String,
-        default:'100%',
-      },
-      height: {
-        type: String,
-        default:'210',
-      },
-
       loop: {
         type: Boolean,
-        default: true,
+        default: false,
       },
       autoPlay: {
         type: Boolean,
         default: false,
       },
-      dots:{
+      click: {
         type: Boolean,
-        default: false,
+        default: true
       },
-      speed: {
+      interval: {
         type: Number,
         default: 1000
       },
-      list: {
-        type: Array
-      }
+      bannerFlag: {
+        type: Boolean
+      },
+      initSwiper: {
+        type: Function
+      },
+      showDot: {
+        type: Boolean,
+        default: true
+      },
     },
     data() {
       return {
-        currentPageIndex: 0,
-        slider:null
+        dots: [],
+        currentPageIndex: 0
       }
     },
     watch: {
-      "list"(n,o){
-        // console.log("list666",n,o);
-        //  console.log('list.swiper666', this.slider)
-        //  this.slider.on('destroy')
-        //  console.log('list.swiper777', this.slider)
-        this.$nextTick(() => {
-          this.slider = new Bscroll(this.$refs.slider, {})
-        })
+      'bannerFlag' () {
+        this.update();
+      },
+      // loop() {
+      //   this.update()
+      // },
+      // autoPlay() {
+      //   this.update()
+      // },
 
-      }
     },
     mounted() {
-      // const _this = this;
-      // this.tmpTimer = setTimeout(() => {
-      //   this._initSliderWidth();
-      //   this._initSlider();
-      //   if (this.autoPlay) {
-      //     this._play();
-      //   }
-      // }, 20);
-      // this.$nextTick(()=>{
-      //   console.log("dom渲染完成以后再实例化bscroll");
-
-      //    this._initSliderWidth();
-      //   this.slider = new BScroll(this.$refs.slider, {
-      //       scrollX: true,
-      //       scrollY: false,
-      //       momentum: false,
-      //       click: true,
-      //       probeType: 1,
-      //       // snap: {
-      //       //   loop: this.loop, // 循环
-      //       //   threshold: 0.1
-      //       // }
-      //     });
-      //   this._initSlider();
-      //   if (this.autoPlay) {
-      //     this._play();
-      //   }
-      // })
-
+      this.update()
+      if (!this.slide || !this.slide.enabled) {
+        return
+      }
+      clearTimeout(this.resizeTimer)
+      this.resizeTimer = setTimeout(() => {
+        if (this.slide.isInTransition) {
+          this._onScrollEnd()
+        } else {
+          if (this.autoPlay) {
+            this._play()
+          }
+        }
+        this.refresh()
+      }, 60)
     },
     methods: {
-      // 初始化slider容器的宽度
-      _initSliderWidth() {
-        // 获取图片的宽度
-        const imgWidth = this.$refs.sliderItemImg[0].clientWidth;
-        // const imgWidth = this.width;
-        console.log("imgWidth",this.$refs.sliderItemImg,imgWidth);
-
-        let sliderWidth = imgWidth * this.list.length;
-        // console.log("slider",imgWidth);
-
-        if (this.loop) {
-          // 循环轮播需要添加两个img DOM 的宽度
-          sliderWidth += imgWidth * 2;
+      update() {
+        if (this.slide) {
+          this.slide.destroy()
         }
-        // 图片容器的宽度和高度
-        this.$refs.sliderGroup.style.width = sliderWidth/37.5 + 'rem';
-        this.$refs.sliderGroup.style.height = this.height/37.5 + 'rem';
-        if(this.$refs.sliderItemImg.length >= 2){
-          this.$refs.sliderItemImg.forEach(item => {
-            item.style.width = this.width/37.5 + "rem";
-            item.style.height = this.height/37.5 + "rem";
-          });
+        this.$nextTick(() => {
+          this.init()
+        })
+      },
+      refresh() {
+        this._setSlideWidth(true)
+        this.slide.refresh()
+      },
+      init() {
+        clearTimeout(this.timer)
+        this.currentPageIndex = 0
+        this._setSlideWidth()
+        if (this.showDot) {
+          this._initDots()
+        }
+        this._initSlide()
+
+        if (this.autoPlay) {
+          this._play()
         }
       },
-    //
-      _initSlider() {
-        // const _this = this;
-        // console.log('this', this)
-        // 私有的better-scroll的实例
-        // this.slider = new BScroll(this.$refs.slider, {
-        //   scrollX: true,
-        //   scrollY: false,
-        //   momentum: false,
-        //   click: true,
-        //   probeType: 1,
-        //   snap: {
-        //     loop: this.loop, // 循环
-        //     threshold: 0.1
-        //   }
-        // });
-        // console.log("this.slider",this.slider);
+      _setSlideWidth(isResize) {
+        this.children = this.$refs.slideGroup.children
+        let width = 0
+        let slideWidth = this.$refs.slider.clientWidth
+        // console.log("length111",this.children.length,this.children);
 
-        // 获取当前页
-        this._getCurrentPageIndex();
-
-
-        // 滚动之前 清除timer
-        this.slider.on('beforeScrollStart', () => {
-          clearInterval(this._timer);
-        });
+        for (let i = 0; i < this.children.length; i++) {
+          let child = this.children[i]
+          child.style.width = slideWidth + 'px'
+          width += slideWidth
+        }
+        if (this.loop && !isResize) {
+          width += 2 * slideWidth
+        }
+        this.$refs.slideGroup.style.width = width + 'px'
       },
-      // 获取当前滚动的页数，主要是用于 dots 中 active class 的添加
-      _getCurrentPageIndex() {
-        // const _this = this;
-        this.slider.on("scrollEnd", () => {
-          let index = this.slider.getCurrentPage().pageX;
-          this.currentPageIndex = index;
-          // 如果自动播放 则开启
+      _initSlide() {
+        this.slide = new BScroll(this.$refs.slider, {
+          scrollX: true,
+          scrollY: false,
+          // 当快速滑动时是否开启滑动惯性
+          momentum: false,
+          snap: {
+            loop: this.loop,
+            threshold: this.threshold,
+            speed: this.speed
+          },
+          // snapLoop:true,
+          stopPropagation: true,
+          click: this.click
+        })
+
+        this.slide.on('scrollEnd', this._onScrollEnd)
+
+        this.slide.on('touchEnd', () => {
           if (this.autoPlay) {
-            this._play();
+            this._play()
           }
-        });
-      },
+        })
 
+        this.slide.on('beforeScrollStart', () => {
+          if (this.autoPlay) {
+            clearTimeout(this.timer)
+          }
+        })
+      },
+      _onScrollEnd() {
+        let pageIndex = this.slide.getCurrentPage().pageX
+        this.currentPageIndex = pageIndex
+        if (this.autoPlay) {
+          this._play()
+        }
+      },
+      _initDots() {
+        this.dots = new Array(this.children.length)
+      },
       _play() {
-        // const _this = this;
-        let pageIndex = this.currentPageIndex;
-        this._timer = setInterval(() => {
-          pageIndex++;
-          if (pageIndex >= this.list.length) {
-            pageIndex = 0;
-          }
-          this.slider.goToPage(pageIndex);
-        }, this.speed);
-      },
-
-
+        clearTimeout(this.timer)
+        this.timer = setTimeout(() => {
+          this.slide.next()
+        }, this.interval)
+      }
     },
-
-
   }
 </script>
 
 
-<style lang="less" scoped>
-  // img {
-  //   width: 375px;
-  //   height: 200px;
-  // }
-  .slider {
-    position: relative;
-    min-height: 1px;
-  }
-
-  .slider .slider-group {
-    position: relative;
-    overflow: hidden;
-    white-space: nowrap;
-  }
-
-  .slider .slider-group .slider-item {
-    float: left;
-    overflow: hidden;
-    text-align: center;
-  }
-
-  .slider .slider-group .slider-item a {
-    display: block;
+<style scoped lang="less">
+  .slide {
     width: 100%;
     overflow: hidden;
-    text-decoration: none;
-  }
-
-  .slider .slider-group .slider-item img {
-    display: block;
-    width: 100%;
-  }
-
-  .slider .dots {
-    position: absolute;
-    right: 0;
-    left: 0;
-    bottom: 12px;
-    text-align: center;
-    font-size: 0;
-  }
-
-  .slider .dot {
-    display: inline-block;
-    margin: 0 6px;
-    width: 12px;
-    height: 3px;
-    background: rgba(255,255,255,0.30);
-    border-radius: 4px;
-  }
-
-  .slider .dot.active {
-    width: 12px;
-    height: 3px;
-    background: #FFFFFF;
-    border-radius: 4px;
-
+    height: 210px;
+    position: relative;
+    .slide-group {
+       height: 210px;
+      .slider-item {
+        float: left;
+        a {
+            display: block;
+            width: 100%;
+            height: 210px;
+        }
+        img {
+          display: block;
+          width: 100%;
+          height: 210px;
+        }
+      }
+    }
+    .dots {
+      position: absolute;
+      right: 0;
+      left: 0;
+      bottom: 12px;
+      transform: translateZ(1px);
+      text-align: center;
+      font-size: 0;
+      .dot {
+        display: inline-block;
+        margin: 0 4px;
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: #ccc;
+        &.active {
+          width: 20px;
+          border-radius: 5px;
+          background: #fff;
+        }
+      }
+    }
   }
 </style>
-

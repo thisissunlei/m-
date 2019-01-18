@@ -7,9 +7,13 @@
         <p class="title">{{welfare.detail.title}}</p>
         <p class="desc">{{welfare.detail.descr}}</p>
         <div class="tags">
+            <span class="text text-one" >人气值{{welfare.detail.hotValue}}</span>
+            <span class="text text-two" v-for="(item,i) in welfare.detail.tagName" :key="i">{{item}}</span>
+          </div>
+        <!-- <div class="tags">
           <span>人气值123</span>
           <span>美食</span>
-        </div>
+        </div> -->
       </div>
 
       <div class="item-intro">
@@ -32,7 +36,7 @@
 
     </div>
     <div class="line"></div>
-    <div class="item-receive">立即领取</div>
+    <!-- <div class="item-receive">立即领取</div> -->
 
   </div>
 </template>
@@ -61,7 +65,6 @@ export default {
     this.lang = lang
     // this.setQuery();
     console.log('福利详情',this.welfare.detail)
-    // console.log('其他福利',this.welfare.others)
   },
   computed:{
     ...mapState([
@@ -97,10 +100,24 @@ export default {
         letter-spacing: 0;
         line-height: 13px;
       }
-      .tags {
-        span {
-          display: inline-block;
-          border:1px solid #333;
+      .tags{
+        overflow: hidden;
+        margin: 0 -3px 20px;
+        .text{
+          float: left;
+          border-radius: 4px;
+          margin: 0 5px 5px;
+          padding: 1px 6px;
+        }
+        .text-one{
+          border: 1px solid #FECBC8;
+          color: #FF6868;
+          background: #FFF5F5;
+        }
+        .text-two{
+          border: 1px solid #CCCCCC;
+          color: #999;
+          background: #fff;
         }
       }
     }

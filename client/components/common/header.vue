@@ -37,8 +37,8 @@
         <span class="fl" @click="changeLang('en', 1)"></span>
       </div>
       <div class="other fl">
-        <div class="img" @click="setMenuState" v-if="menuShow == false && isVisit == false"></div>
-        <div class="img select" @click="setMenuState" v-else></div>
+        <div class="img" @click="setMenuState(true)" v-if="menuShow == false && isVisit == false"></div>
+        <div class="img select" @click="setMenuState(false)" v-else></div>
         <!-- 下拉菜单 -->
         <!-- <div class="menu-mask" > -->
         <div class="menu-box" v-show="menuShow">

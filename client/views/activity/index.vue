@@ -1,70 +1,244 @@
 <template>
   <div class="activity">
-    <div class="swiper"></div>
-    <div class="content-box">
-      <!-- target="_blank" -->
-      <a :href="'//'+$store.state.common.origin+'/activity/' + item.id + $store.state.common.queryString"
-       class="item-content" v-for="(item,i) in $store.state.activity.activityList" :key="i">
-        <img :src="item.imgUrl" alt="" class="item-img">
-        <div class="item-info">
-          <p class="item-title">{{item.title}}</p>
-          <p class="item-time">
-            <span class="data">{{item.beginTime}}</span>
-            <span class="time">{{item.endTime}}</span>
-          </p>
-          <p class="item-num">
-            报名人数{{item.countJoin}}人
-          </p>
-          <div class="item-cmt">北京 • 创业大街社区</div>
+  <!-- <div class="wrapper" ref="wrapper"> -->
+  <!-- <div class="bscroll-container"> -->
+    <PullDown :tipFlag= false  @getMore="getMore" ref="pull">
+    <div class="activity-top">
+      <div class="top-title">
+        <span class="fl">精选活动</span>
+        <span class="fr num">
+          <i class="next fr">/{{activity.recommendActivity.length}}</i>
+          <i class="prev fr">{{actiIndex}}</i>
+        </span>
+      </div>
+      <div v-swiper:mySwiper="swiperOption" v-if="activity.recommendActivity.length>0" ref="swiper">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide" v-for="(item, index) in activity.recommendActivity" :key="index">
+            <img :src="item.imgUrl" v-if="!!item.imgUrl">
+            <img class="default-img" v-else>
+            <div class="swiper-content">
+              <div class="swiper-title">{{item.title}}</div>
+              <div class="swiper-desr">{{item.time}}</div>
+            </div>
+          </div>
         </div>
-      </a>
+      </div>
     </div>
+    <div class="content-box">
+          <a :href="'//'+$store.state.common.origin+'/activity/' + item.id + $store.state.common.queryString" class="item-content" v-for="(item,i) in activity.activityList" :key="i">
+            <img :src="item.imgUrl" alt="" class="item-img" v-if="!!item.imgUrl">
+            <img src="../../assets/images/activity/default.png" alt="" class="item-img" v-else>
+            <div class="item-info">
+              <p class="item-title">{{item.title}}</p>
+              <p class="item-time">
+                <i class="time-img"></i>
+                <span class="time">{{item.time}}</span>
+              </p>
+              <p class="item-location">
+                <i class="adress-img"></i>
+                <span class="adress">{{item.communityName}}</span>
+              </p>
+            </div>
+          </a>
+        </div>
+    </PullDown>
   </div>
 </template>
 
 
 <script>
-import Swiper from '../../components/common/swiper.vue'
-export default {
-  components:{
-    Swiper
-  },
-  data(){
-    return {
-
-    }
-  },
-  asyncData ({ route, store, router }) {
-    let lang = 0;
-      if ( !!route.query.lang && route.query.lang === 'en' ) {
+import PullDown from '../../components/pullDown.vue'
+  import {
+    mapState,
+    mapActions
+  } from 'vuex'
+  export default {
+    components: {
+      PullDown
+    },
+    data() {
+      return {
+        actiIndex: 1,
+        lang: '',
+        language: '',
+        cityId: '',
+        pullupMsg:'加载更多',
+        page:1,
+        swiperOption: {
+          centeredSlides: true,
+          slidesPerView: "auto",
+          // 子slide更新时，swiper更新
+          // observeSlideChildren:true,
+          on: {
+            slideChangeTransitionStart: () => {
+              let swiper = this.mySwiper;
+              this.actiIndex = swiper.activeIndex + 1;
+            },
+          }
+        }
+      }
+    },
+    computed: {
+        ...mapState(['activity'])
+    },
+    watch: {
+       '$route.query.lang' (n, o) {
+        this.getData( n, o);
+      },
+      '$route.query.cityId' (n, o) {
+        this.getData(n, o);
+      },
+      '$route' (n, o) {
+        this.getData(n, o);
+      },
+    },
+    asyncData({
+      route,
+      store,
+      router
+    }) {
+      let lang = 0;
+      if (!!route.query.lang && route.query.lang === 'en') {
         lang = 1;
       }
+      let cityId = route.query.cityId || '';
+      let data = {
+        page: 1,
+        pageSize: 4,
+        language: lang == 'en' ? 1 : 0,
+        cityId: cityId
+      }
+      let listParams = {
+        page: 1,
+        pageSize: 10,
+        language: lang == 'en' ? 1 : 0,
+        cityId: cityId
+      }
       return Promise.all([
-        // {page:1,pageSize:9,language: lang}
-        store.dispatch('getRecommendActivity'),
-        store.dispatch('getActivityList')
+        store.dispatch('getRecommend', data),
+        store.dispatch('getActivityList',listParams)
       ])
-  },
-  mounted() {
-    console.log('data',this.$store.state)
-  },
-  methods: {
-    getData(){
-      // this.$store.dispatch('getRecommendActivity')
-    }
-  },
-}
+    },
+    mounted() {
+      this.lang = this.$route.query.lang || 'zh';
+      this.language = this.lang === 'en' ? 1 : 0;
+      this.cityId = this.$route.query.cityId;
+      console.log("activityList",this.activity.activityList);
+    },
+    computed: {
+      ...mapState(['activity'])
+    },
+    methods: {
+      getMore(params){
+        if(this.activity.page > this.activity.totalPages){
+          return
+        }
+        if(!!params.tip){
+           this.page = ++this.page;
+          setTimeout(()=>{
+            this.$store.dispatch('getActivityList',{
+              page: this.page,
+              pageSize: 10,
+              language:1,
+              cityId:0
+            })
+            .then((res)=>{
+              this.$refs.pull.scroll.refresh();
+            })
+          },2000)
+        }
+      },
+
+      getData(n,o) {
+         if (!n.query) return
+        this.language = n.query.lang === 'en' ? 1 : 0;
+        this.cityId = n.query.cityId;
+        this.lang = n.query.lang;
+        this.page = 1;
+        this.$store.dispatch('getRecommend',{
+          page: 1,
+          pageSize: 4,
+          language: this.lang == 'en' ? 1 : 0,
+          cityId: this.cityId
+        }),
+        this.$store.dispatch('getActivityList',{
+          page: 1,
+          pageSize: 10,
+          cityId: this.cityId
+        })
+      },
+    },
+  }
 </script>
 
 <style lang="less" scoped>
-  .swiper {
-    width: 375px;
-    height: 306px;
-    background: palegreen;
+  .activity-top {
+    .top-title {
+      height: 30px;
+      margin: 16px;
+      font-family: PingFangSC-Medium;
+      font-size: 20px;
+      color: #333333;
+      letter-spacing: 0;
+      line-height: 30px;
+      span {
+        display: inline-block;
+      }
+      .num {
+        height: 25px;
+        line-height: 25px;
+      }
+      .prev {
+        font-family: PingFangSC-Regular;
+        font-size: 18px;
+        color: #333333;
+      }
+      .next {
+        font-family: PingFangSC-Regular;
+        font-size: 12px;
+        color: #3F3F3F;
+        line-height: 25px;
+      }
+    }
+    .swiper-wrapper {
+      margin-left: 5px;
+    }
+    .swiper-slide {
+      width: 343px;
+      margin-right: 10px;
+      img {
+        width: 100%;
+        height: 172px;
+      }
+      .default-img {
+        background: url("../../assets/images/default.png") ;
+      }
+      .swiper-content {
+        padding: 16px 16px 30px 0px;
+        .swiper-title {
+          font-family: PingFangSC-Medium;
+          font-size: 16px;
+          color: #333333;
+          letter-spacing: 0;
+          line-height: 20px;
+        }
+        .swiper-desr {
+          margin-top: 5px;
+          font-family: PingFangSC-Regular;
+          font-size: 11px;
+          color: #999999;
+          letter-spacing: 0;
+          line-height: 11px;
+        }
+      }
+    }
   }
+
+    .wrapper {
+      height: 667px;
+    }
   .content-box {
     margin-bottom: 50px;
-    // background: pink;
     .item-content {
       display: flex;
       width: 343px;
@@ -97,16 +271,30 @@ export default {
           font-family: PingFang-SC-Regular;
           font-size: 13px;
           color: #666666;
+          i {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            background: url("../../assets/images/activity/time.png");
+            background-size: cover;
+          }
+          .time {
+            font-size: 13px;
+            color: #666666;
+          }
         }
-        .item-num {
-          margin-bottom: 17px;
-          font-family: PingFangSC-Regular;
-          font-size: 13px;
-          color: #666666;
-        }
-        .item-cmt {
-          position: absolute;
-          bottom: 0;
+        .item-location {
+          i {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            background: url("../../assets/images/activity/location.png");
+            background-size: cover;
+          }
+          .adress {
+            font-size: 13px;
+            color: #666666;
+          }
         }
       }
     }

@@ -97,6 +97,8 @@ export default {
       request.get("api/gateway/portalthree/activity-list", { params: data })
     );
   },
+  // 首页会员报道列表
+
   getNewsList(data) {
     //about页面新闻列表
     return handleRequest(
@@ -138,9 +140,7 @@ export default {
   getRecommendActivity(data) {
     //推荐活动列表
     return handleRequest(
-      request.get("api/gateway/portalthree/activity-cmt-other", {
-        params: data
-      })
+      request.get("api/gateway/portalthree/recommend-activity", {params: data})
     );
   },
   getActivityList(data) {
@@ -153,6 +153,36 @@ export default {
     //活动列表详情
     return handleRequest(
       request.get("api/gateway/portalthree/activity-detail", { params: data })
+    );
+  },
+  getCommunityCbds(data){
+    // 社区筛选条件
+    return handleRequest(
+      request.get('api/gateway/portalthree/cmt-cbd', {params: data})
+    );
+  },
+  getCommunityStatus(data){
+    // 社区筛选状态
+    return handleRequest(
+      request.get('api/gateway/portalthree/status/seat-price',{params: data})
+    );
+  },
+  getCommunityList(data){
+    // 社区列表
+    return handleRequest(
+      request.get('api/gateway/portalthree/cmt-listing',{params: data})
+    );
+  },
+  getCommunityDetails(data){
+    //社区详情
+    return handleRequest(
+      request.get('api/gateway/portalthree/community-detail',{params: data})
+    );
+  },
+  getOfficeType(data){
+    //高效、分时办公
+    return handleRequest(
+      request.get('api/gateway/portalthree/office-type',{params: data})
     );
   }
 };
