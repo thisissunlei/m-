@@ -1,30 +1,37 @@
 <template>
   <div class="detail-map">
-    <baidu-map class="bm-view"
-      ak="FqwyBT0DR8BunOKYZ0ABDoWU"
-      :center="center"
-      :zoom="zoom"
-      @ready="handler">
-      <bm-marker :position="{lng: center.lng, lat: center.lat}"
-        :dragging="true"
-        :icon="{
+    <div class="top">
+      <baidu-map class="bm-view"
+        ak="FqwyBT0DR8BunOKYZ0ABDoWU"
+        :center="center"
+        :zoom="zoom"
+        @ready="handler">
+        <bm-marker :position="{lng: center.lng, lat: center.lat}"
+          :dragging="true"
+          :icon="{
                   url: 'https://web.krspace.cn/kr-new-web/location5.png',
                   size: {
                     width: 40,
                     height: 71
                   }
                 }">
-        <bm-label :content="detail.list.communityName"
-          :offset="{width: -20, height: -30}" />
-      </bm-marker>
-    </baidu-map>
+          <!-- <bm-label :content="detail.list.communityName"
+            :offset="{width: -20, height: -30}" /> -->
+        </bm-marker>
+      </baidu-map>
+    </div>
+    <div class="bottom">
+      <p>{{detail.list.communityName}}</p>
+      <p>{{detail.list.address}}</p>
+    </div>
+
   </div>
 </template>
 
 <script>
 import BaiduMap from 'components/vue-baidu-map/components/map/Map.vue'
 import BmMarker from 'components/vue-baidu-map/components/overlays/Marker.vue'
-import BmLabel from 'components/vue-baidu-map/components/overlays/Label.vue'
+// import BmLabel from 'components/vue-baidu-map/components/overlays/Label.vue'
 
 
 export default {
@@ -33,7 +40,7 @@ export default {
   components: {
     BaiduMap,
     BmMarker,
-    BmLabel
+    // BmLabel
   },
   data() {
     return {
@@ -73,7 +80,35 @@ export default {
   bottom: 0;
   left: 0;
   right: 0;
-  z-index: 30;
+  z-index: 200;
+  .top {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 60px;
+  }
+  .bottom {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 60px;
+    background: #ffffff;
+    padding: 0 12px;
+    padding-top: 8px;
+    p:nth-child(1) {
+      font-size: 17px;
+      color: #333333;
+    }
+    p:nth-child(2) {
+      font-size: 13px;
+      color: #666666;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
 }
 .bm-view {
   width: 100%;
