@@ -235,6 +235,7 @@ export default {
   asyncData({ route, router, store }) {
     let cmtId = route.params.id;
     let lang = route.query.lang == 'en' ? 1 : 0;
+    console.log(cmtId)
     return Promise.all([
       store.dispatch('getNewCommunityDetails', { id: cmtId, language: lang }),
       store.dispatch('getNewOfficeType', { id: cmtId, language: lang })
@@ -242,7 +243,7 @@ export default {
   },
   methods: {
     hrefMap() {
-      let cmtId = 1 || route.params.id;
+      let cmtId = this.$route.params.id;
       location.href = `/community/${cmtId}/detailmap`;
     },
     jumpVisit() {
