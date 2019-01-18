@@ -44,7 +44,7 @@
 </template>
 <script>
   export default {
-    props: ['listData', 'item', 'i']
+    props: ['listData', 'item', 'i', 'change']
   }
 </script>
 <style lang='less' scoped>

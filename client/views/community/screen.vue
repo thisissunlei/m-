@@ -88,6 +88,7 @@
         if ( !n ) {
           this.all = true
           this.screenIndex = 0
+          this.setIndex()
         }
       },
       '$route.query'() {

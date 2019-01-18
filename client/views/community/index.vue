@@ -6,13 +6,13 @@
     <div class="list" v-if="!!community.list.items && !!community.list.items.length && !mapShow">
       <Item :listData="listData" v-for="item, i in community.list.items" :key="i" :item="item" :i="i"></Item>
     </div>
-    <div class="none" v-if="!community.list.items || !community.list.items.length">
+    <div class="none" v-if="(!community.list.items || !community.list.items.length) && !loading">
       抱歉,未找到与您匹配的社区<br/>请您重新筛选条件查询
     </div>
     <div :class="!!mapShow? 'map select': 'map'" @click="mapShow = !mapShow"
          v-if="!!community.list.items && !!community.list.items.length && this.listData.cityId != 0"></div>
     <Map v-if="!!community.list.items && !!community.list.items.length && !!mapShow"
-         @change="changeMap" :change="mapChange"></Map>
+         @change="changeMap" :change="dataChange"></Map>
     <div class="map-detail" v-if="!!community.list.items && !!community.list.items.length && !!mapShow">
       <Item :listData="listData" v-for="item, i in community.list.items" v-if="i===mapIndex" :key="i" :item="item" :i="i"></Item>
     </div>
@@ -49,8 +49,9 @@
         all: false,
         mapShow: false,
         mapIndex: null,
-        mapChange: 1,
-        len: 0
+        dataChange: 1,
+        len: 0,
+        loading: true
       }
     },
     components: {
@@ -130,6 +131,9 @@
           page: 1,
           pageSize: 100
         }
+        if ( !!this.listData.lang || !!this.listData.cityId ) {
+          this.loading = false
+        }
         if ( this.listData.cityId === 0 ) {
           this.mapShow = false
         }
@@ -138,9 +142,10 @@
         }
       },
       getNewData() {
+        this.len = 100
         this.$store.dispatch('getNewCommunityCbds', this.cbdData)
           .then(res => {
-            let list = this.community.cbdList.filter((val, i) => {
+            let list = this.$store.state.community.cbdList.filter((val, i) => {
               return val.cityId === this.listData.cityId
             })
             if ( !list[0].cbdList ) {
@@ -153,8 +158,10 @@
         this.$store.dispatch('getNewCommunityStatus', this.priceData)
         this.$store.dispatch('getNewCommunityList', this.listData)
           .then(res => {
+            this.loading = false
             this.mapIndex = null
-            this.mapChange = this.mapChange+1
+            this.dataChange = this.dataChange+1
+            this.community = JSON.parse(JSON.stringify(this.$store.state.community));
           })
       },
       changeScreenInde(data) {
