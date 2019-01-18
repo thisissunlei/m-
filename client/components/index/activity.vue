@@ -17,11 +17,13 @@
         <div class="item-info">
           <p class="item-title">{{item.title}}</p>
           <p class="item-time">
-            <i class="time-img"></i>
+            <!-- <i class="time-img"></i> -->
+            <img src="../../assets/images/activity/time.png" alt="">
             <span class="time">{{item.time}}</span>
           </p>
           <p class="item-location">
-            <i class="adress-img"></i>
+            <!-- <i class="adress-img"></i> -->
+            <img src="../../assets/images/activity/location.png" alt="">
             <span class="adress">{{item.communityName}}</span>
           </p>
 
@@ -170,7 +172,7 @@ export default {
           font-family: PingFang-SC-Regular;
           font-size: 13px;
           color: #666666;
-          i {
+          img {
             display: inline-block;
             width: 12px;
             height: 12px;
@@ -183,7 +185,7 @@ export default {
           }
         }
         .item-location {
-          i {
+          img {
             display: inline-block;
             width: 12px;
             height: 12px;

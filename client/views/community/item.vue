@@ -1,5 +1,5 @@
 <template>
-  <a href="#">
+  <a :href="'//'+this.$store.state.common.origin+'/community/' + item.communityId + this.$store.state.common.queryString">
     <div class="img" :style="!!item.recommendPicUrl? 'background: url('+item.recommendPicUrl+'?x-oss-process=image/resize,h_560,w_420,color_eeeeee,quality,q_80) center top / cover no-repeat': ''"></div>
     <div class="con">
       <div class="tit over-point" v-if="!!item.cmtName">{{item.cmtName}}</div>
