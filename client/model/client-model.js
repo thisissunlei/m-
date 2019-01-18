@@ -205,5 +205,11 @@ export default {
     return handleRequest(
       request.get('api/gateway/portalthree/office-type',{params: data})
     );
-  }
+  },
+  getComter(data){
+    //高效、分时办公
+    return handleRequest(
+      request.get('/api/gateway/get-all-cbd',{params: data})
+    );
+  },
 };
