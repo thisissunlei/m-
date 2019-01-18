@@ -1,7 +1,7 @@
 <template>
-  <div class="community">
+  <div :class="screenIndex*1 != 0? 'community select': 'community'">
     <h1 style="display: none;">氪空间联合办公室出租</h1>
-    <Screen :index="screenIndex" @change="changeScreenInde"></Screen>
+    <Screen :len="len" :all="all" @change="changeScreenInde"></Screen>
     <!--列表-->
     <div class="list" v-if="!!community.list.items && !!community.list.items.length && !mapShow">
       <Item :listData="listData" v-for="item, i in community.list.items" :key="i" :item="item" :i="i"></Item>
@@ -11,7 +11,8 @@
     </div>
     <div :class="!!mapShow? 'map select': 'map'" @click="mapShow = !mapShow"
          v-if="!!community.list.items && !!community.list.items.length && this.listData.cityId != 0"></div>
-    <Map v-if="!!community.list.items && !!community.list.items.length && !!mapShow"></Map>
+    <Map v-if="!!community.list.items && !!community.list.items.length && !!mapShow"
+         @change="changeMap" :change="mapChange"></Map>
     <div class="map-detail" v-if="!!community.list.items && !!community.list.items.length && !!mapShow">
       <Item :listData="listData" v-for="item, i in community.list.items" v-if="i===mapIndex" :key="i" :item="item" :i="i"></Item>
     </div>
@@ -47,7 +48,9 @@ export default {
       },
       all: false,
       mapShow: false,
-      mapIndex: null
+      mapIndex: null,
+      mapChange: 1,
+      len: 0
     }
   },
   components: {
@@ -96,7 +99,6 @@ export default {
   },
   watch: {
     '$route.query'() {
-      this.mapIndex = null
       this.setData(1)
     }
   },
@@ -142,14 +144,24 @@ export default {
             return val.cityId === this.listData.cityId
           })
           if ( !list[0].cbdList ) {
-            this.screenIndex = 0;
+            this.all = true
+            this.len = 0;
+          } else {
+            this.len = list[0].cbdList.length
           }
         })
       this.$store.dispatch('getNewCommunityStatus', this.priceData)
       this.$store.dispatch('getNewCommunityList', this.listData)
+        .then(res => {
+          this.mapIndex = null
+          this.mapChange = this.mapChange+1
+        })
     },
     changeScreenInde(data) {
       this.screenIndex = data
+    },
+    changeMap(data) {
+      this.mapIndex = data
     }
   }
 }
@@ -180,8 +192,18 @@ export default {
 </style>
 <style lang="less" scoped>
   .community {
+    &.select {
+      position: fixed;
+      top: 50px;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      z-index: 10;
+      overflow: hidden;
+    }
     .list {
       border-bottom: 1px #f3f3f3 solid;
+      background: #ffffff;
     }
     .none {
       background: url('../../assets/images/none.png') center top no-repeat;
