@@ -14,12 +14,12 @@
           <span class="item-read">{{item.totalReadCunt}}人阅读</span>
         </div>
 
-        <!-- :src="item.photoUrl" -->
         <img class="item-img" :src="item.photoUrl"/>
       </router-link>
     </ul>
 
-
+    <div class="get-more" v-if="about.page < about.totalPages">{{$t("getMore")}}</div>
+    <div class="get-more" v-else>{{$t("end")}}</div>
   </div>
 </template>
 
@@ -111,6 +111,12 @@ export default {
     }
   }
 }
-
+.get-more {
+  margin: 29px 0 50px 0;
+  font-family: PingFang-SC-Regular;
+  font-size: 15px;
+  color: #666666;
+  text-align: center;
+}
 </style>
 

@@ -364,7 +364,7 @@
       }
       span {
         position: relative;
-        cursor: pointer;
+        // cursor: pointer;
         text-align: center;
         height: 28px;
         width: 38px;

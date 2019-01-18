@@ -66,7 +66,7 @@
     <Welfare :data="index.welfare" :tags="index.welfareTags" />
 
     <!-- 社区活动 -->
-    <Activity :data="activityList"/>
+    <Activity :data="activityList" v-if="activityList.length > 0"/>
     <div class="divide-line"></div>
 
     <!-- 会员报道 -->
@@ -177,7 +177,6 @@
         }
         let lang = this.$route.query.lang
         let cityId = this.$route.query.cityId
-
         this.$store.dispatch('getFocusBanner', {
           language: lang === 'en' ? 1 : 0,
           cityId: cityId
@@ -199,11 +198,16 @@
           pageSize: 6,
           sort: 1
         })
-        this.$store.dispatch('getPorCouponTags')
         this.$store.dispatch('getIndexActivityList', {
           cityId: cityId,
           page: 1,
           pageSize: 4
+        })
+        this.$store.dispatch('getNewList',{
+          language: lang === 'en' ? 1 : 0,
+          newsType:2,
+          page:1,
+          pageSize:3
         })
       },
       getNewData(n, o) {
