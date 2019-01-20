@@ -2,7 +2,7 @@
   <div class="index">
     <Swiper :loop= "index.banner.length >1 ? true : false"  :bannerFlag = bannerFlag v-if="!!index.banner && index.banner.length>0">
       <div class="slider-item" v-for="(item,index) in index.banner" :key="index">
-        <a :href="item.linkUrl">
+        <a :href="!!item.banerLink?item.banerLink:'javascript:;'">
           <img :src="item.banerPicUrl" :alt="item.linkUrl" ref="sliderItemImg" class="banner-img">
           <img src="../../assets/images/bd/banner.jpg" alt="">
         </a>
@@ -19,7 +19,7 @@
 
       <Hot v-for="(item, i) in hotList" :key="i" :data="item" :query="query" v-if="i<3"></Hot>
       <div  class="hot-more">
-        <a href="" class="more">{{$t('indexTitle.more')}}<i class="arror">>></i></a>
+        <a :href="'//'+$store.state.common.origin+'/community'+$store.state.common.queryString" class="more">{{$t('indexTitle.more')}}<i class="arror">>></i></a>
       </div>
     </div>
     <!-- 待开社区 -->
@@ -31,8 +31,8 @@
         </span>
       </div>
       <div class="soon-content">
-        <a href="" class="soon-item fl" v-for="(item,i) in waitList" :key="i">
-          <img :src="item.recommendPicUrl" alt="">
+        <a :href="'//'+$store.state.common.origin+'/community/' + item.cmtId + $store.state.common.queryString" class="soon-item fl" v-for="(item,i) in waitList" :key="i">
+          <img :src="item.recommendPicUrl+'?x-oss-process=image/resize,h_279,w_501,color_eeeeee,quality,q_80'" alt="">
           <div class="soon-city">{{item.cityName}}</div>
           <div class="soon-cmt">{{item.cmtName}}</div>
           <!--大于30天显示 n天后 else 显示日期-->
@@ -41,7 +41,7 @@
         </a>
       </div>
        <div  class="hot-more" >
-        <a href="" class="more">{{$t('indexTitle.more')}}<i class="arror">>></i></a>
+        <a :href="'//'+$store.state.common.origin+'/community'+$store.state.common.queryString+'&openStatus=2'" class="more">{{$t('indexTitle.more')}}<i class="arror">>></i></a>
       </div>
     </div>
     <!-- 社区环境 -->
@@ -63,14 +63,16 @@
       <div  class="more-little"></div>
     </div>
     <!-- 社区福利 -->
-    <Welfare :data="index.welfare" :tags="index.welfareTags" />
+    <Welfare
+      :data="$store.state.welfare.recommend"
+      v-if="!!$store.state.welfare.recommend && $store.state.welfare.recommend.length > 0" />
 
     <!-- 社区活动 -->
-    <Activity :data="activityList" v-if="activityList.length > 0"/>
+    <Activity :data="activityList" v-if="!!activityList && activityList.length > 0"/>
     <div class="divide-line"></div>
 
     <!-- 会员报道 -->
-    <Member />
+    <Member :data="memberList" v-if="!!memberList && memberList.length > 0"/>
     <!-- start 立即预约 -->
     <div class="visit-btn">
       <p :class="[isFixed ? 'bottom-visit-fixed' : '']">{{$t('indexTitle.order')}}</p>
@@ -138,7 +140,10 @@
         return this.$store.getters.throwIndexOfficeEnv;
       },
       activityList() {
-        return this.$store.getters.throwIndexActivityList;
+        return this.$store.getters.throwActivityList;
+      },
+      memberList(){
+        return this.$store.getters.throwIndexMemberList;
       },
       ...mapState(['index', 'welfare']),
     },
@@ -166,7 +171,7 @@
       this.language = this.lang === 'en' ? 1 : 0;
       this.cityId = this.$route.query.cityId;
       this.getData();
-      console.log('index', this.index, this.envList,1111111)
+      console.log('state', this.memberList)
       window.addEventListener('scroll', this.scroll)
     },
 
@@ -192,20 +197,18 @@
         this.$store.dispatch('getIndexOfficeEnv', {
           language: lang === 'en' ? 1 : 0
         })
-        this.$store.dispatch('getIndexWelfare', {
+        this.$store.dispatch('getWelfareList', {
           language: lang === 'en' ? 1 : 0,
           page: 1,
-          pageSize: 6,
-          sort: 1
+          pageSize: 3,
+          sort: 2
         })
-        this.$store.dispatch('getIndexActivityList', {
+        this.$store.dispatch('getActivityList', {
           cityId: cityId,
           page: 1,
-          pageSize: 4
+          pageSize: 3
         })
-        this.$store.dispatch('getNewList',{
-          language: lang === 'en' ? 1 : 0,
-          newsType:2,
+        this.$store.dispatch('getIndexMember',{
           page:1,
           pageSize:3
         })
@@ -231,7 +234,6 @@
           document.documentElement.scrollTop ||
           window.pageYOffset ||
           document.body.scrollTop;
-
         let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
         let elementHeight = document.querySelector("footer").offsetHeight;
 
@@ -311,6 +313,7 @@
       color: #333333;
       .hot-text {
         position: relative;
+        font-weight: bold;
         .line {
           position: absolute;
           width: 100%;
@@ -366,11 +369,14 @@
         img {
           width: 167px;
           height: 93px;
+          border-radius: 8px;
         }
         .soon-city {
           position: absolute;
           top: 0;
           left: 16px;
+          line-height: 18px;
+          padding: 2px 4px;
           font-family: PingFang-SC-Regular;
           font-size: 13px;
           color: #e1be65;

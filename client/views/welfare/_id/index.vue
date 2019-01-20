@@ -37,9 +37,6 @@
         </div>
       </div>
 
-      <!-- <div class="content-title use-title" v-if="welfare.detail.useRule">{{$t('welfare.warn')}}</div>
-        <div class="activity-richText" v-html="welfare.detail.useRule"></div> -->
-
       <div class="item-tips" v-if="!!welfare.detail.useRule">
         <p class="intro-title">使用提示</p>
         <p class="tip-rule" >
@@ -101,8 +98,6 @@ export default {
   position: relative;
 }
   .welfare-swiper {
-
-    // background: palegreen;
     .swiper {
       width: 375px;
       height: 188px;
@@ -198,7 +193,6 @@ export default {
       .tip-adress {
         font-family: PingFangSC-Medium;
         line-height: 20px;
-        // margin-right: 5px;
         span {
           display: inline-block;
           width: 28px;

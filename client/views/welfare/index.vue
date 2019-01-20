@@ -12,17 +12,18 @@
       <div v-swiper:mySwiper="swiperOption" v-if="welfare.recommend.length>0" ref="swiper">
         <div class="swiper-wrapper">
           <div class="swiper-slide" v-for="(item, index) in welfare.recommend" :key="index">
-            <img :src="item.couponCover" v-if="!!item.couponCover">
-            <img class="default-img" v-else>
-            <div class="swiper-content">
-              <div class="swiper-title">{{item.title}}</div>
-              <div class="swiper-desr">{{item.descr}}</div>
-            </div>
+            <a :href="'//'+$store.state.common.origin+'/welfare/'+item.id+$store.state.common.queryString">
+              <img :src="item.couponCover" v-if="!!item.couponCover">
+              <img class="default-img" v-else>
+              <div class="swiper-content">
+                <div class="swiper-title">{{item.title}}</div>
+                <div class="swiper-desr">{{item.descr}}</div>
+              </div>
+            </a>
           </div>
         </div>
       </div>
     </div>
-
 
     <section class="detail-list">
       <div class="tab-contain">
@@ -62,13 +63,8 @@
         language: '',
         cityId: '',
         swiperOption: {
-          // 设定为true时，active slide会居中，而不是默认状态下的居左
           centeredSlides: true,
-          // 设定了slides与左边框的偏移量为100px
-          // slidesOffsetBefore : 16,
           slidesPerView: "auto",
-          // 子slide更新时，swiper更新
-          // observeSlideChildren:true,
           on: {
             slideChangeTransitionStart: () => {
               let swiper = this.mySwiper;
@@ -255,9 +251,6 @@
       }
     }
   }
-  // .g-welfare-contain {
-  //   width: 375px;
-  // }
 
   .detail-list {
     // margin-top:70px;
@@ -271,18 +264,6 @@
     .next-tab {
       transform: translateX(-375px);
     }
-    .tab-box {
-      font-size: 16px;
-      color: #999999;
-      font-weight: 600;
-      display: inline-block;
-      height: 26px;
-      line-height: 26px;
-      &:hover {
-        cursor: pointer;
-      }
-    }
-
     .tab-contain {
       width: 375px;
       position: relative;
@@ -300,11 +281,10 @@
           -ms-flex-negative: 0;
           flex-shrink: 0;
           padding: 6px 10px;
-          font-family: PingFangSC-Regular;
           font-size: 14px;
           color: #666666;
-          letter-spacing: 0;
           line-height: 14px;
+          border: 1px solid #F3F3F3;
           background: #F3F3F3;
           border-radius: 4px;
         }
@@ -312,7 +292,7 @@
           margin-left: 10px;
         }
         .activity {
-        font-family: PingFangSC-Regular;
+
         font-size: 14px;
         color: #D29D01;
         background: #FFF9B2;

@@ -40,7 +40,6 @@
         <div class="img" @click="setMenuState(true)" v-if="menuShow == false && isVisit == false"></div>
         <div class="img select" @click="setMenuState(false)" v-else></div>
         <!-- 下拉菜单 -->
-        <!-- <div class="menu-mask" > -->
         <div class="menu-box" v-show="menuShow">
           <div class="menus clearfix">
             <div>
@@ -70,7 +69,6 @@
           </div>
           <div class="order" @click="jumpVisit">立即预约</div>
         </div>
-        <!-- </div> -->
       </div>
     </div>
     <div class="menu-mask" v-if="menuShow || citysShow" @click="closeCityDoenPage"></div>
@@ -399,7 +397,7 @@ header {
       position: absolute;
       top: 0;
       left: 0;
-      background: url("../../assets/images/header/cn.svg") center center
+      background: url("../../assets/images/header/cn.svg") center top/contain
         no-repeat;
       height: 28px;
       width: 76px;

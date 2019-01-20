@@ -36,7 +36,6 @@ export default {
   watch: {
     '$route.query.lang'(n, o) {
       this.language = n === 'en' ? 1 : 0
-      // console.log('this.lang',this.language)
       this.$store.dispatch('getHeaderCityDownList', { language: this.language });
     },
     '$route.query.cityId'(n, o) {
@@ -67,7 +66,6 @@ export default {
           if (!lang || !cityId) {
             this.pushUrl()
           } else {
-            // console.log("this.lllll",this.language);
             this.$store.dispatch('getHeaderCityDownList', { language: this.language })
           }
         })

@@ -13,7 +13,7 @@
               {{item.cityName}} · {{item.communityName}}
             </div>
           </div>
-          
+
         </div>
       </a>
     </div>
