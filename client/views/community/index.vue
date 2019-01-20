@@ -6,13 +6,13 @@
     <div class="list" v-if="!!community.list.items && !!community.list.items.length && !mapShow">
       <Item :listData="listData" v-for="item, i in community.list.items" :key="i" :item="item" :i="i"></Item>
     </div>
-    <div class="none" v-if="!community.list.items || !community.list.items.length">
+    <div class="none" v-if="(!community.list.items || !community.list.items.length) && !loading">
       抱歉,未找到与您匹配的社区<br/>请您重新筛选条件查询
     </div>
     <div :class="!!mapShow? 'map select': 'map'" @click="mapShow = !mapShow"
          v-if="!!community.list.items && !!community.list.items.length && this.listData.cityId != 0"></div>
     <Map v-if="!!community.list.items && !!community.list.items.length && !!mapShow"
-         @change="changeMap" :change="mapChange"></Map>
+         @change="changeMap" :change="dataChange"></Map>
     <div class="map-detail" v-if="!!community.list.items && !!community.list.items.length && !!mapShow">
       <Item :listData="listData" v-for="item, i in community.list.items" v-if="i===mapIndex" :key="i" :item="item" :i="i"></Item>
     </div>
@@ -23,148 +23,155 @@
   import Screen from './screen.vue'
   import Item from './item.vue'
   import Map from './map.vue'
-export default {
-  data() {
-    return {
-      screenIndex: 0,
-      community: {},
-      cbdData: {
-        language: 0,
-        cityId: 0
-      },
-      priceData: {
-        language: 0,
-        cbdId: 0,
-        cityId: 0
-      },
-      listData: {
-        language: 0,
-        cityId: 0,
-        porCbdId: 0,
-        openStatus: 0,
-        portalPriceId: 0,
-        page: 1,
-        pageSize: 100
-      },
-      all: false,
-      mapShow: false,
-      mapIndex: null,
-      mapChange: 1,
-      len: 0
-    }
-  },
-  components: {
-    Screen,
-    Item,
-    Map
-  },
-  metaInfo() {
-    return {
-      title: this.$t('communityMeta.tit'),
-      meta:[
-        {
-          name: "keywords",
-          content: this.$t('communityMeta.key')
+  export default {
+    data() {
+      return {
+        screenIndex: 0,
+        community: {},
+        cbdData: {
+          language: 0,
+          cityId: 0
         },
-        {
-          hid: "community",
-          name: "description",
-          content: this.$t('communityMeta.des')
-        }
-      ]
-    }
-  },
-  asyncData({route, router, store}) {
-    if ( !route.query.lang || !route.query.cityId ) {
-      return
-    }
-    let language = route.query.lang === 'en'? 1: 0
-    let cityId = route.query.cityId
-    let porCbdId = route.query.porCbdId || null
-    let openStatus = route.query.openStatus || 0
-    let portalPriceId = route.query.portalPriceId || 0
-    return Promise.all([
-      store.dispatch('getNewCommunityCbds', {language: language, cityId: cityId}),
-      store.dispatch('getNewCommunityStatus', {language: language, cityId: cityId, cbdId: porCbdId}),
-      store.dispatch('getNewCommunityList', {
-        language: language,
-        cityId: cityId,
-        porCbdId: porCbdId,
-        openStatus: openStatus,
-        portalPriceId: portalPriceId,
-        page: 1,
-        pageSize: 100
-      })
-    ])
-  },
-  watch: {
-    '$route.query'() {
-      this.setData(1)
-    }
-  },
-  created() {
-    this.community = this.$store.state.community
-  },
-  mounted() {
-    console.log(this.community)
-    this.setData(0)
-  },
-  methods: {
-    setData(state) {
-      let query = this.$route.query;
-      this.cbdData = {
-        language: query.lang === 'en' ? 1 : 0,
-        cityId: query.cityId || 0
-      }
-      this.priceData = {
-        language: query.lang === 'en' ? 1 : 0,
-        cbdId: query.porCbdId || null,
-        cityId: query.cityId || 0
-      }
-      this.listData = {
-        language: query.lang === 'en' ? 1 : 0,
-        cityId: query.cityId || 0,
-        porCbdId: query.porCbdId || null,
-        openStatus: query.openStatus || 0,
-        portalPriceId: query.portalPriceId || 0,
-        page: 1,
-        pageSize: 100
-      }
-      if ( this.listData.cityId === 0 ) {
-        this.mapShow = false
-      }
-      if ( !!state ) {
-        this.getNewData()
+        priceData: {
+          language: 0,
+          cbdId: 0,
+          cityId: 0
+        },
+        listData: {
+          language: 0,
+          cityId: 0,
+          porCbdId: 0,
+          openStatus: 0,
+          portalPriceId: 0,
+          page: 1,
+          pageSize: 100
+        },
+        all: false,
+        mapShow: false,
+        mapIndex: null,
+        dataChange: 1,
+        len: 0,
+        loading: true
       }
     },
-    getNewData() {
-      this.$store.dispatch('getNewCommunityCbds', this.cbdData)
-        .then(res => {
-          let list = this.community.cbdList.filter((val, i) => {
-            return val.cityId === this.listData.cityId
-          })
-          if ( !list[0].cbdList ) {
-            this.all = true
-            this.len = 0;
-          } else {
-            this.len = list[0].cbdList.length
+    components: {
+      Screen,
+      Item,
+      Map
+    },
+    metaInfo() {
+      return {
+        title: this.$t('communityMeta.tit'),
+        meta:[
+          {
+            name: "keywords",
+            content: this.$t('communityMeta.key')
+          },
+          {
+            hid: "community",
+            name: "description",
+            content: this.$t('communityMeta.des')
           }
-        })
-      this.$store.dispatch('getNewCommunityStatus', this.priceData)
-      this.$store.dispatch('getNewCommunityList', this.listData)
-        .then(res => {
-          this.mapIndex = null
-          this.mapChange = this.mapChange+1
-        })
+        ]
+      }
     },
-    changeScreenInde(data) {
-      this.screenIndex = data
+    asyncData({route, router, store}) {
+      if ( !route.query.lang || !route.query.cityId ) {
+        return
+      }
+      let language = route.query.lang === 'en'? 1: 0
+      let cityId = route.query.cityId
+      let porCbdId = route.query.porCbdId || null
+      let openStatus = route.query.openStatus || 0
+      let portalPriceId = route.query.portalPriceId || 0
+      return Promise.all([
+        store.dispatch('getNewCommunityCbds', {language: language, cityId: cityId}),
+        store.dispatch('getNewCommunityStatus', {language: language, cityId: cityId, cbdId: porCbdId}),
+        store.dispatch('getNewCommunityList', {
+          language: language,
+          cityId: cityId,
+          porCbdId: porCbdId,
+          openStatus: openStatus,
+          portalPriceId: portalPriceId,
+          page: 1,
+          pageSize: 100
+        })
+      ])
     },
-    changeMap(data) {
-      this.mapIndex = data
+    watch: {
+      '$route.query'() {
+        this.setData(1)
+      }
+    },
+    created() {
+      this.community = this.$store.state.community
+    },
+    mounted() {
+      console.log(this.community)
+      this.setData(0)
+    },
+    methods: {
+      setData(state) {
+        let query = this.$route.query;
+        this.cbdData = {
+          language: query.lang === 'en' ? 1 : 0,
+          cityId: query.cityId || 0
+        }
+        this.priceData = {
+          language: query.lang === 'en' ? 1 : 0,
+          cbdId: query.porCbdId || null,
+          cityId: query.cityId || 0
+        }
+        this.listData = {
+          language: query.lang === 'en' ? 1 : 0,
+          cityId: query.cityId || 0,
+          porCbdId: query.porCbdId || null,
+          openStatus: query.openStatus || 0,
+          portalPriceId: query.portalPriceId || 0,
+          page: 1,
+          pageSize: 100
+        }
+        if ( !!this.listData.lang || !!this.listData.cityId ) {
+          this.loading = false
+        }
+        if ( this.listData.cityId === 0 ) {
+          this.mapShow = false
+        }
+        if ( !!state ) {
+          this.getNewData()
+        }
+      },
+      getNewData() {
+        this.len = 100
+        this.$store.dispatch('getNewCommunityCbds', this.cbdData)
+          .then(res => {
+            let list = this.$store.state.community.cbdList.filter((val, i) => {
+              return val.cityId === this.listData.cityId
+            })
+            if ( !list[0].cbdList ) {
+              this.all = true
+              this.len = 0;
+            } else {
+              this.len = list[0].cbdList.length
+            }
+          })
+        this.$store.dispatch('getNewCommunityStatus', this.priceData)
+        this.$store.dispatch('getNewCommunityList', this.listData)
+          .then(res => {
+            this.loading = false
+            this.mapIndex = null
+            this.dataChange = this.dataChange+1
+            this.community = JSON.parse(JSON.stringify(this.$store.state.community));
+          })
+      },
+      changeScreenInde(data) {
+        this.screenIndex = data
+      },
+      changeMap(data) {
+        this.mapIndex = data
+      }
     }
   }
-}
 </script>
 
 <style lang="less">

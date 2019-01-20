@@ -4,7 +4,7 @@ export default {
   state: {
 
     communityData:[],
-    
+
   },
   actions: {
     getComter({commit} , data) {
@@ -12,7 +12,8 @@ export default {
         .then( res => {
 
           //计算商圈接口
-          var communityData = Object.assign({}, res.data);
+          var communityData = Object.assign({}, res);
+          console.log('communityData',res)
           communityData = communityData.items.map((item, index) => {
             //更改城市字段
             item.name = item.cityName;
@@ -37,7 +38,7 @@ export default {
   },
   mutations: {
     setComter(state, data) {
-      state.communityData = communityData
+      state.communityData = data
     },
   },
   getters: {

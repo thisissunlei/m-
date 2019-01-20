@@ -43,22 +43,22 @@
         <div class="menu-box" v-show="menuShow">
           <div class="menus clearfix">
             <div>
-              <a :href="'//'+origin+queryString">{{$t("nav.home")}}</a>
+              <a :href="'//'+$store.state.common.origin+$store.state.common.queryString">{{$t("nav.home")}}</a>
             </div>
             <div>
-              <a :href="'//'+origin+'/community'+queryString">{{$t("nav.community")}}</a>
+              <a :href="'//'+$store.state.common.origin+'/community'+$store.state.common.queryString">{{$t("nav.community")}}</a>
             </div>
             <div>
-              <a :href="'//'+origin+'/welfare'+queryString">{{$t("nav.welfare")}}</a>
+              <a :href="'//'+$store.state.common.origin+'/welfare'+$store.state.common.queryString">{{$t("nav.welfare")}}</a>
             </div>
             <div>
-              <a :href="'//'+origin+'/activity'+queryString">{{$t("nav.activity")}}</a>
+              <a :href="'//'+$store.state.common.origin+'/activity'+$store.state.common.queryString">{{$t("nav.activity")}}</a>
             </div>
             <div>
-              <a :href="'//'+origin+'/members'+queryString">{{$t("nav.members")}}</a>
+              <a :href="'//'+$store.state.common.origin+'/members'+$store.state.common.queryString">{{$t("nav.members")}}</a>
             </div>
             <div>
-              <a :href="'//'+origin+'/about'+queryString">{{$t("nav.about")}}</a>
+              <a :href="'//'+$store.state.common.origin+'/about'+$store.state.common.queryString">{{$t("nav.about")}}</a>
             </div>
             <div>
               <span>{{$t("nav.recommend")}}</span>
