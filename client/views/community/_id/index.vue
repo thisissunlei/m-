@@ -1,25 +1,7 @@
 <template>
   <div class="community-detail">
-    <div class="slide-picture">
-      <div v-swiper:mySwiper="swiperOption">
-        <div class="swiper-wrapper"
-          ref="swiper">
-          <div class="swiper-slide"
-            v-for="(item, index) in imgList"
-            :key="index">
-            <img :src="item">
-            <span class="env-name">{{item.envName}}</span>
-          </div>
-        </div>
-      </div>
-      <div class="tab-list">
-        <p v-for="(item,index) in tabList"
-          :class="[getActive(item) ? 'tab-active' : '']"
-          @click="goToImg(item)"
-          :key="index"> {{item.name}} </p>
-      </div>
-    </div>
-
+    <!-- 轮播图 -->
+    <Slides></Slides>
     <!-- 查看地图 -->
     <div class="see-map">
       <p class="community-name">{{detail.list.communityName}}</p>
@@ -193,14 +175,14 @@ import Welfare from '../../../components/index/welfare.vue'
 import Activity from '../../../components/index/activity.vue'
 import Member from '../../../components/index/member.vue'
 import Visit from 'components/common/visit.vue'
-// import Detailmap from './detailmap'
+import Slides from './slides.vue'
 export default {
   components: {
     Welfare,
     Activity,
     Member,
-    // Detailmap,
-    Visit
+    Visit,
+    Slides
   },
   data() {
     return {
@@ -211,25 +193,7 @@ export default {
       // showMap: false,
       bottomTagIndex: 0,
       bottomTagIndex1: 0,
-      showCode: false,
-      imgList: [],
-      tabList: [],
-      currentIndex: 0,
-      // mapChange: 1,
-      swiperOption: {
-        autoplay: true,
-        speed: 1500,
-        loop: true,
-        on: {
-          slideChange: () => {
-            let swiper = this.mySwiper;
-            // console.log(swiper.activeIndex)
-            this.currentIndex = swiper.activeIndex
-            // swiper.slideTo(this.currentIndex)
-          }
-        }
-      }
-
+      showCode: false
     }
   },
   asyncData({ route, router, store }) {
@@ -241,6 +205,12 @@ export default {
       store.dispatch('getNewOfficeType', { id: cmtId, language: lang })
     ])
   },
+  watch: {
+    // '$route.query.lang'(value) {
+    //   console.log(value)
+
+    // }
+  },
   methods: {
     hrefMap() {
       let cmtId = this.$route.params.id;
@@ -249,74 +219,7 @@ export default {
     jumpVisit() {
       this.isVisit = true;
     },
-    goToImg(tab) {
-      this.currentIndex = tab.index;
-      // console.log('111', this.mySwiper)
-      this.mySwiper.slideTo(tab.index);
-    },
-    getActive(list) {
-      let index = this.currentIndex;
-      let flag;
-      if (list.items.indexOf(index) != -1) {
-        flag = true;
-      } else {
-        flag = false;
-      }
-      return flag;
-    },
-    getImgList(detail) {
-      // console.log(detail)
-      let len1 = 0;
-      let len2 = 0;
-      let len3 = 0;
-      if (detail.COMMUNITY_INTERIOR && detail.COMMUNITY_INTERIOR.length > 0) {
-        len1 = detail.COMMUNITY_INTERIOR.length;
-        let arr = [];
-        let tabObj = {
-          name: '内景',
-          len: len1,
-          items: []
-        }
-        detail.COMMUNITY_INTERIOR.map((item, index) => {
-          tabObj.items.push(index);
-          tabObj.index = tabObj.items[0];
-          this.imgList.push(item.picUrl)
-        })
-        this.tabList.push(tabObj)
-      }
 
-      if (detail.OFFICE_STATION && detail.OFFICE_STATION.length > 0) {
-        len2 = detail.OFFICE_STATION.length;
-        let tabObj = {
-          name: '办公',
-          len: len1 + len2,
-          items: []
-        };
-        detail.OFFICE_STATION.map((item, index) => {
-          tabObj.items.push(index + len1);
-          tabObj.index = tabObj.items[0];
-          this.imgList.push(item.picUrl);
-        })
-        this.tabList.push(tabObj)
-      }
-
-      if (detail.COMMUNITY_ERIOR && detail.COMMUNITY_ERIOR.length > 0) {
-        len3 = detail.COMMUNITY_ERIOR.length;
-        let tabObj = {
-          name: '外景',
-          len: len1 + len2 + len3,
-          items: []
-        };
-        detail.COMMUNITY_ERIOR.map((item, index) => {
-          tabObj.items.push(index + len1 + len2);
-          tabObj.index = tabObj.items[0];
-          this.imgList.push(item.picUrl);
-        })
-
-        this.tabList.push(tabObj)
-
-      }
-    },
     toggleBottomTags(index) {
       this.bottomTagIndex = index;
     },
@@ -351,7 +254,6 @@ export default {
     this.detail = this.$store.state.detail
   },
   mounted() {
-    this.getImgList(this.detail.list.picTypeMap);
     console.log(this.detail)
     window.addEventListener('scroll', this.scroll)
 
@@ -367,41 +269,7 @@ export default {
     height: 10px;
     background: #f6f6f6;
   }
-  .slide-picture {
-    width: 100%;
-    height: 210.9px;
-    position: relative;
-    .swiper-container,
-    .swiper-wrapper,
-    .swiper-slide,
-    img {
-      width: 100%;
-      height: 100%;
-    }
-    .tab-list {
-      width: 100%;
-      height: 22px;
-      position: absolute;
-      bottom: 10.9px;
-      z-index: 20;
-      display: flex;
-      justify-content: center;
-      p {
-        opacity: 0.7;
-        background: #000000;
-        border-radius: 16px;
-        font-family: PingFangSC-Regular;
-        font-size: 13px;
-        color: #ffffff;
-        padding: 2px 8px;
-        margin-right: 24px;
-      }
-      .tab-active {
-        background: #ffeb00;
-        color: #666666;
-      }
-    }
-  }
+
   .see-map {
     width: 100%;
     padding: 21px 16px;
@@ -423,6 +291,18 @@ export default {
       color: #666666;
       display: inline-block;
       width: 80%;
+    }
+    .address-text:before {
+      content: "";
+      display: inline-block;
+      background: url("../../../assets/images/index/address.png") 0 0 no-repeat;
+      -webkit-background-size: 100% 100%;
+      background-size: 100% 100%;
+      flex-shrink: 0;
+      margin-right: 5px;
+      height: 14px;
+      width: 12px;
+      align-self: center;
     }
     .go-map {
       font-family: PingFangSC-Regular;
