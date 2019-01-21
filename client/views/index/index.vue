@@ -21,20 +21,9 @@
         </span>
       </div>
 
-<<<<<<< HEAD
       <Hot v-for="(item, i) in hotList" :key="i" :data="item" :query="query" v-if="i<3"></Hot>
       <div  class="hot-more">
         <a :href="'//'+$store.state.common.origin+'/community'+$store.state.common.queryString" class="more">{{$t('indexTitle.more')}}<i class="arror">>></i></a>
-=======
-      <Hot v-for="(item, i) in hotList"
-        :key="i"
-        :data="item"
-        :query="query"
-        v-if="i<3"></Hot>
-      <div class="hot-more">
-        <a href=""
-          class="more">{{$t('indexTitle.more')}}<i class="arror">>></i></a>
->>>>>>> 0e6e0a4711e0244d095ea2a1d85c8c788fdaede0
       </div>
     </div>
     <!-- 待开社区 -->
@@ -47,17 +36,8 @@
         </span>
       </div>
       <div class="soon-content">
-<<<<<<< HEAD
         <a :href="'//'+$store.state.common.origin+'/community/' + item.cmtId + $store.state.common.queryString" class="soon-item fl" v-for="(item,i) in waitList" :key="i">
           <img :src="item.recommendPicUrl+'?x-oss-process=image/resize,h_279,w_501,color_eeeeee,quality,q_80'" alt="">
-=======
-        <a href=""
-          class="soon-item fl"
-          v-for="(item,i) in waitList"
-          :key="i">
-          <img :src="item.recommendPicUrl"
-            alt="">
->>>>>>> 0e6e0a4711e0244d095ea2a1d85c8c788fdaede0
           <div class="soon-city">{{item.cityName}}</div>
           <div class="soon-cmt">{{item.cmtName}}</div>
           <!--大于30天显示 n天后 else 显示日期-->
@@ -67,14 +47,8 @@
             v-else>{{item.openTime}} {{$t('indexTitle.later')}}</div>
         </a>
       </div>
-<<<<<<< HEAD
        <div  class="hot-more" >
         <a :href="'//'+$store.state.common.origin+'/community'+$store.state.common.queryString+'&openStatus=2'" class="more">{{$t('indexTitle.more')}}<i class="arror">>></i></a>
-=======
-      <div class="hot-more">
-        <a href=""
-          class="more">{{$t('indexTitle.more')}}<i class="arror">>></i></a>
->>>>>>> 0e6e0a4711e0244d095ea2a1d85c8c788fdaede0
       </div>
     </div>
     <!-- 社区环境 -->
@@ -100,22 +74,12 @@
       <div class="more-little"></div>
     </div>
     <!-- 社区福利 -->
-<<<<<<< HEAD
     <Welfare
       :data="$store.state.welfare.recommend"
       v-if="!!$store.state.welfare.recommend && $store.state.welfare.recommend.length > 0" />
 
     <!-- 社区活动 -->
     <Activity :data="activityList" v-if="!!activityList && activityList.length > 0"/>
-=======
-    <Welfare :data="index.welfare"
-      :tags="index.welfareTags" />
-
-    <!-- 社区活动 -->
-    <Activity :data="activityList" />
-    <Activity :data="activityList"
-      v-if="activityList.length > 0" />
->>>>>>> 0e6e0a4711e0244d095ea2a1d85c8c788fdaede0
     <div class="divide-line"></div>
 
     <!-- 会员报道 -->
@@ -180,7 +144,6 @@ export default {
     hotList() {
       return this.$store.getters.throwIndexHotCommunity;
     },
-<<<<<<< HEAD
     computed: {
       hotList() {
         return this.$store.getters.throwIndexHotCommunity;
@@ -198,10 +161,6 @@ export default {
         return this.$store.getters.throwIndexMemberList;
       },
       ...mapState(['index', 'welfare']),
-=======
-    waitList() {
-      return this.$store.getters.throwIndexWaitCommunity;
->>>>>>> 0e6e0a4711e0244d095ea2a1d85c8c788fdaede0
     },
     envList() {
       return this.$store.getters.throwIndexOfficeEnv;
@@ -218,7 +177,14 @@ export default {
     '$route.query.cityId'(n, o) {
       this.getNewData(2, n, o);
     },
-<<<<<<< HEAD
+    '$route'(n, o) {
+      // this.setQuery();
+      this.getNewData(n, o);
+    },
+    'index.banner'(n, o) {
+      this.bannerFlag = !this.bannerFlag;
+    }
+  },
     mounted() {
       this.win = typeof window == "undefined" ? global : window;
       this.lang = this.$route.query.lang || 'zh';
@@ -227,15 +193,7 @@ export default {
       this.getData();
       console.log('state', this.memberList)
       window.addEventListener('scroll', this.scroll)
-=======
-    '$route'(n, o) {
-      // this.setQuery();
-      this.getNewData(n, o);
->>>>>>> 0e6e0a4711e0244d095ea2a1d85c8c788fdaede0
-    },
-    'index.banner'(n, o) {
-      this.bannerFlag = !this.bannerFlag;
-    }
+
   },
   created() {
     // this.getData();
@@ -250,7 +208,6 @@ export default {
     window.addEventListener('scroll', this.scroll)
   },
 
-<<<<<<< HEAD
     methods: {
       getData() {
         if (!this.$route.query.lang) {
@@ -312,72 +269,6 @@ export default {
           document.body.scrollTop;
         let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
         let elementHeight = document.querySelector("footer").offsetHeight;
-=======
-  methods: {
-    getData() {
-      if (!this.$route.query.lang) {
-        return
-      }
-      let lang = this.$route.query.lang
-      let cityId = this.$route.query.cityId
-      this.$store.dispatch('getFocusBanner', {
-        language: lang === 'en' ? 1 : 0,
-        cityId: cityId
-      })
-      this.$store.dispatch('getIndexHotCommunity', {
-        language: lang === 'en' ? 1 : 0,
-        cityId: cityId
-      })
-      this.$store.dispatch('getIndexWaitCommunity', {
-        language: lang === 'en' ? 1 : 0,
-        cityId: cityId
-      })
-      this.$store.dispatch('getIndexOfficeEnv', {
-        language: lang === 'en' ? 1 : 0
-      })
-      this.$store.dispatch('getIndexWelfare', {
-        language: lang === 'en' ? 1 : 0,
-        page: 1,
-        pageSize: 6,
-        sort: 1
-      })
-      this.$store.dispatch('getIndexActivityList', {
-        cityId: cityId,
-        page: 1,
-        pageSize: 4
-      })
-      this.$store.dispatch('getNewList', {
-        language: lang === 'en' ? 1 : 0,
-        newsType: 2,
-        page: 1,
-        pageSize: 3
-      })
-    },
-    getNewData(n, o) {
-      if (!n.query) return
-      this.language = n.query.lang === 'en' ? 1 : 0;
-      this.cityId = n.query.cityId;
-      this.lang = n.query.lang;
-      var query = ''
-      for (var key in this.$route.query) {
-        query += key + '=' + this.$route.query[key] + '&'
-      }
-      this.query = '?' + query.substr(0, query.length - 1)
-      this.$store.dispatch('getIndexHotCommunity', {
-        language: this.language,
-        cityId: this.cityId
-      });
-      this.getData()
-    },
-    scroll() {
-      let top =
-        document.documentElement.scrollTop ||
-        window.pageYOffset ||
-        document.body.scrollTop;
-
-      let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-      let elementHeight = document.querySelector("footer").offsetHeight;
->>>>>>> 0e6e0a4711e0244d095ea2a1d85c8c788fdaede0
 
       if (height - top <= elementHeight) {
         this.isFixed = false;
@@ -464,7 +355,6 @@ export default {
         background-color: #ffeb00;
         z-index: -10;
       }
-<<<<<<< HEAD
     .hot-title {
       padding: 20px 0 16px 16px;
       font-family: PingFang-SC-Medium;
@@ -491,16 +381,6 @@ export default {
           background-color: #ffeb00;
           z-index: -10;
         }
-=======
-      .en-line {
-        position: absolute;
-        width: 100%;
-        height: 9px;
-        left: 0;
-        bottom: 0;
-        background-color: #ffeb00;
-        z-index: -10;
->>>>>>> 0e6e0a4711e0244d095ea2a1d85c8c788fdaede0
       }
     }
   }
@@ -538,7 +418,6 @@ export default {
       position: relative;
       img {
         width: 167px;
-<<<<<<< HEAD
         margin: 0 9px 20px 0;
         position: relative;
         img {
@@ -558,9 +437,6 @@ export default {
           background-image: linear-gradient(48deg, #564f45 0%, #1c1b1b 100%);
           border-radius: 0px 0px 4px 4px;
         }
-=======
-        height: 93px;
->>>>>>> 0e6e0a4711e0244d095ea2a1d85c8c788fdaede0
       }
       .soon-city {
         position: absolute;
@@ -591,11 +467,7 @@ export default {
       line-height: 16px;
     }
   }
-  // .divide-line {
-  //   width: 100%;
-  //   height: 10px;
-  //   background: #f6f6f6;
-  // }
+
   .visit-btn {
     p {
       width: 100%;
@@ -614,6 +486,7 @@ export default {
     .bottom-visit-fixed {
       position: fixed;
       bottom: 0;
+      }
     }
   }
 }
