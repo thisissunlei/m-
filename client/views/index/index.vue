@@ -86,14 +86,16 @@
     </div>
 
     <!-- 社区福利 -->
-    <Welfare :data="index.welfare" :tags="index.welfareTags"/>
+    <Welfare
+      :data="$store.state.welfare.recommend"
+      v-if="!!$store.state.welfare.recommend && $store.state.welfare.recommend.length > 0" />
 
     <!-- 社区活动 -->
-    <Activity :data="activityList"/>
+    <Activity :data="activityList" v-if="!!activityList && activityList.length > 0"/>
     <div class="divide-line"></div>
 
     <!-- 会员报道 -->
-    <Member/>
+    <Member :data="memberList" v-if="!!memberList && memberList.length > 0"/>
     <!-- start 立即预约 -->
     <div class="visit-btn">
       <p :class="[isFixed ? 'bottom-visit-fixed' : '']">{{$t('indexTitle.order')}}</p>
@@ -160,6 +162,9 @@ export default {
     activityList() {
       return this.$store.getters.throwIndexActivityList;
     },
+     memberList(){
+        return this.$store.getters.throwIndexMemberList;
+      },
     ...mapState(["index", "welfare"])
   },
   watch: {
@@ -192,40 +197,42 @@ export default {
 
   methods: {
     getData() {
-      if (!this.$route.query.lang) {
-        return;
-      }
-      let lang = this.$route.query.lang;
-      let cityId = this.$route.query.cityId;
-
-      this.$store.dispatch("getFocusBanner", {
-        language: lang === "en" ? 1 : 0,
-        cityId: cityId
-      });
-      this.$store.dispatch("getIndexHotCommunity", {
-        language: lang === "en" ? 1 : 0,
-        cityId: cityId
-      });
-      this.$store.dispatch("getIndexWaitCommunity", {
-        language: lang === "en" ? 1 : 0,
-        cityId: cityId
-      });
-      this.$store.dispatch("getIndexOfficeEnv", {
-        language: lang === "en" ? 1 : 0
-      });
-      this.$store.dispatch("getIndexWelfare", {
-        language: lang === "en" ? 1 : 0,
-        page: 1,
-        pageSize: 6,
-        sort: 1
-      });
-      this.$store.dispatch("getPorCouponTags");
-      this.$store.dispatch("getIndexActivityList", {
-        cityId: cityId,
-        page: 1,
-        pageSize: 4
-      });
-    },
+        if (!this.$route.query.lang) {
+          return
+        }
+        let lang = this.$route.query.lang
+        let cityId = this.$route.query.cityId
+        this.$store.dispatch('getFocusBanner', {
+          language: lang === 'en' ? 1 : 0,
+          cityId: cityId
+        })
+        this.$store.dispatch('getIndexHotCommunity', {
+          language: lang === 'en' ? 1 : 0,
+          cityId: cityId
+        })
+        this.$store.dispatch('getIndexWaitCommunity', {
+          language: lang === 'en' ? 1 : 0,
+          cityId: cityId
+        })
+        this.$store.dispatch('getIndexOfficeEnv', {
+          language: lang === 'en' ? 1 : 0
+        })
+        this.$store.dispatch('getWelfareList', {
+          language: lang === 'en' ? 1 : 0,
+          page: 1,
+          pageSize: 3,
+          sort: 2
+        })
+        this.$store.dispatch('getActivityList', {
+          cityId: cityId,
+          page: 1,
+          pageSize: 3
+        })
+        this.$store.dispatch('getIndexMember',{
+          page:1,
+          pageSize:3
+        })
+      },
     getNewData(n, o) {
       if (!n.query) return;
       this.language = n.query.lang === "en" ? 1 : 0;
@@ -419,7 +426,7 @@ export default {
       font-size: 18px;
       color: #624d17;
       text-align: center;
-      z-index: 100;
+      z-index: 99;
     }
     p:nth-of-type(2) {
       background: none;

@@ -11,7 +11,7 @@
         <span class="star">*</span>
         <span class="text">{{$t("visitInfo.userName")}}</span>
       </div>
-      <div class="u-input">
+      <div class="u-input"> 
         <input type="text" placeholder="" v-model="username" >
       </div>
 
