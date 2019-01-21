@@ -68,7 +68,7 @@
               <span>{{$t("nav.calculator")}}</span>
             </div>
           </div>
-          <div class="order" @click="jumpVisit">立即预约</div>
+          <div class="order" @click="jumpVisit">{{$t('indexTitle.order')}}</div>
         </div>
         <!-- </div> -->
       </div>

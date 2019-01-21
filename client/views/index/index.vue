@@ -45,23 +45,35 @@
       </div>
     </div>
     <!-- 社区环境 -->
-    <div class="env" v-if="!!envList && envList.length > 0">
+
+
+
+    <div v-if="!!envList && envList.length > 0">
       <div class="hot-title">
         <span class="hot-text">
           {{$t('indexTitle.environment')}}
           <span :class="$route.query.lang === 'zh'? 'line' : 'en-line'"></span>
         </span>
       </div>
-       <div v-swiper:envSwiper="swiperOption" >
-        <div class="swiper-wrapper" ref="swiper">
-          <div class="swiper-slide" v-for="(item, index) in envList" :key="index">
-            <img :src="item.firstPic">
-            <span class="env-name">{{item.envName}}</span>
-          </div>
+       <div style="text-align:center;" v-swiper:envSwiper="swiperOption" >
+        <div class="swiper-wrapper swiper-cal"  ref="swiper">
+            <a
+            v-for="(item,index) in envList"
+            v-show="envList.length"
+            :key="index"
+            :href="`/community/1`"
+            class="swiper-slide"
+          >
+          <div class="image" :style="`background-image:url(${item.firstPic})` " name="“images”"></div>
+          <div class="text">{{item.envName}}</div>
+        </a>
         </div>
       </div>
       <div  class="more-little"></div>
     </div>
+
+
+
     <!-- 社区福利 -->
     <Welfare :data="index.welfare" :tags="index.welfareTags" />
 
@@ -112,8 +124,9 @@
         bannerFlag: false,
         loopLength:1,
         swiperOption:{
-          centeredSlides:false,
-          slidesPerView:'auto',
+          slidesPerView: 1.5,
+          spaceBetween: 10,
+          centeredSlides:true,
           loop:true,
           loopedSlides:this.loopLength,
           updateOnImagesReady:true,
@@ -243,6 +256,38 @@
 
 <style lang="less" scoped>
   .index {
+      .swiper-cal{
+      width:100%;
+      height:186px;
+      align-items: center;
+      .swiper-slide{
+        width: 200px;
+        height: 155px;
+        border-radius:10px;
+        overflow: hidden; 
+        .image{
+          width: 100%;
+          height: 100%;
+          position: relative;
+          background-repeat: no-repeat;
+          background-size: cover;
+        }
+      }   
+      .swiper-slide-active{
+        transform:scale(1.05,1.1);
+      }
+      .text{
+        position: absolute;
+        background: rgba(0,0,0,0.80);
+        height: 40px;
+        width: 100%;
+        line-height: 40px;
+        bottom:0;
+        text-align: center;
+        color:#fff;
+        font-size: 15px;
+      }
+  }
     .slider-item {
       float: left;
       a {
@@ -256,44 +301,6 @@
         width: 100%;
         height: 210px;
       }
-    .swiper-wrapper {
-      margin-left: 11px;
-      height: 180px;
-      .swiper-slide {
-        margin: 0 5px;
-        background: pink;
-        width: 284px!important;
-        height: 160px;
-        margin-top: 8px;
-        img {
-          position: relative;
-          display: block;
-          width: 284px;
-          height: 160px;
-        }
-        .env-name {
-          display: block;
-          position: absolute;
-          left: 131px;
-          bottom: 16px;
-          // width: 58px;
-          height: 28px;
-          padding: 4px 8px;
-          background: rgba(255,255,255,0.90);
-          border-radius: 4px;
-        }
-      }
-      .swiper-slide.swiper-slide-active {
-        width: 320px!important;
-        height: 180px;
-        margin-top: -4px;
-        img {
-          display: block;
-          width: 320px;
-          height: 180px;
-        }
-      }
-    }
     .more-little {
         margin-top: 20px;
         width: 100%;
