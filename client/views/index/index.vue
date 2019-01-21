@@ -408,11 +408,7 @@ export default {
       line-height: 16px;
     }
   }
-  // .divide-line {
-  //   width: 100%;
-  //   height: 10px;
-  //   background: #f6f6f6;
-  // }
+
   .visit-btn {
     p {
       width: 100%;
@@ -431,8 +427,8 @@ export default {
     .bottom-visit-fixed {
       position: fixed;
       bottom: 0;
+      }
     }
   }
-}
 </style>
 
