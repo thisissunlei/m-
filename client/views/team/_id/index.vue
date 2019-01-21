@@ -14,12 +14,12 @@
         </div>
         <div class="img-list" v-if="member.teamDetail.introPicList.length==2">
           <div v-for="item in member.teamDetail.introPicList" class="pic-two" :style="item?'background: url('+item+'?x-oss-process=image/resize,h_170,w_170,color_eeeeee,quality,q_90) center top / cover no-repeat' :''">
-             <img :src="item+'?x-oss-process=image/resize,w_170,color_eeeeee,quality,q_90'" alt="团队图片" class="pic-two" style="opacity: 0">
+             <!-- <img :src="item+'?x-oss-process=image/resize,w_170,color_eeeeee,quality,q_90'" alt="团队图片" class="pic-two" style="opacity: 0"> -->
           </div> 
         </div> 
         <div class="img-list" v-if="member.teamDetail.introPicList.length>2">
           <div v-for="item in member.teamDetail.introPicList" class="pic-list" :style="item?'background: url('+item+'?x-oss-process=image/resize,h_113,w_113,color_eeeeee,quality,q_90) center top / cover no-repeat' :''">
-             <img :src="item+'?x-oss-process=image/resize,h_113,w_113,color_eeeeee,quality,q_90'" alt="团队图片" class="pic-list" style="opacity: 0">
+             <!-- <img :src="item+'?x-oss-process=image/resize,h_113,w_113,color_eeeeee,quality,q_90'" alt="团队图片" class="pic-list" style="opacity: 0"> -->
           </div>
          
         </div>
@@ -242,6 +242,7 @@ export default {
       flex-wrap: wrap;
       .pic-list{
         width:113px;
+        height: 113px;
         display: inline-block;
         margin-bottom: 2px;
         margin-right: 2px;
@@ -255,6 +256,7 @@ export default {
       }
       .pic-two{
         width: 170px;
+        height: 170px;
         &:nth-child(1){
           margin-right: 2px;
         }
