@@ -140,10 +140,7 @@ export default {
       }
     }
   },
-  computed: {
-    hotList() {
-      return this.$store.getters.throwIndexHotCommunity;
-    },
+
     computed: {
       hotList() {
         return this.$store.getters.throwIndexHotCommunity;
@@ -161,14 +158,6 @@ export default {
         return this.$store.getters.throwIndexMemberList;
       },
       ...mapState(['index', 'welfare']),
-    },
-    envList() {
-      return this.$store.getters.throwIndexOfficeEnv;
-    },
-    activityList() {
-      return this.$store.getters.throwIndexActivityList;
-    },
-    ...mapState(['index', 'welfare']),
   },
   watch: {
     '$route.query.lang'(n, o) {
