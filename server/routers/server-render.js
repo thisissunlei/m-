@@ -21,7 +21,7 @@ promise.polyfill();
 
 let url = ''
 if ( process.env.NODE_ENV === 'development' ) {
-  url = 'http://optest02.krspace.cn/'
+  url = 'http://optest01.krspace.cn/'
 } else {
   url = 'https://i.krspace.cn/'
 }
@@ -68,8 +68,6 @@ module.exports = async (ctx, renderer, template) => {
 
   if ( ctx.url.indexOf('?') > 0 ) {
     queryList = ctx.url.split('?')[1].split('&')
-    console.log("queryList000",queryList);
-
     queryList.forEach((val, i) => {
       let name = val.split('=')[0]
       query[name] = val.split('=')[1]
@@ -77,8 +75,6 @@ module.exports = async (ctx, renderer, template) => {
       if (name != 'id' && name != 'tab' && name != 'porCbdId' && name != 'openStatus' && name != 'portalPriceId' ) {
         queryString += name + '=' + val.split('=')[1] + '&'
       }
-      console.log("queryString9999",queryString);
-
     })
   }
   language = query.lang === 'en' ? 1 : 0;

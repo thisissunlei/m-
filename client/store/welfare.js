@@ -6,10 +6,8 @@ export default {
     detail: {},
     list: [],
     tags: [],
-    others: [],
     recommend: [],
     totalCount: 0,
-    comList: [],
     totalPages:0,
     page:1
   },
@@ -31,7 +29,6 @@ export default {
                 obj.tagId = item.tagIds.join();
                 return obj;
             })
-            // console.log('=======>',data)
           commit('setTags', data)
         //   return dispatch('getActivityList',formData)
         })
@@ -45,12 +42,8 @@ export default {
             if(formData.sort){
                 commit('setRecommend',data) //推荐福利
             }else if(formData.tags){
-                data.getType = 'all'
+                // data.getType = 'all'
                 commit('setList', data) //福利列表
-            }else if(formData.otherId){
-                commit('setOthers',data) //详情页的其他福利
-            } else if (formData.cmtId) {
-              commit('setComList',data) //详情页的其他福利
             }
         })
         .catch(err => {
@@ -66,24 +59,20 @@ export default {
         state.tags = data;
     },
     setList(state,data) {
-      console.log("888",data.getType);
-
-      if(data.getType === 'all'){
-          // state.list = data.items;
+      // console.log("888",data.getType);
+      state.page = data.page
+      state.totalPages = data.totalPages;
+      state.totalCount = data.totalCount;
+      if(state.page < 2){
+          state.list = data.items;
+        }else{
           state.list = [].concat(state.list,data.items);
-          state.totalCount = data.totalCount
-          state.totalPages = data.totalPages;
         }
     },
     setRecommend(state,data){
         state.recommend = data.items;
     },
-    setOthers(state,data){
-        state.others = data.items;
-    },
-    setComList(state, data) {
-      state.comList = data.items;
-    }
+
   },
   getters: {
   }

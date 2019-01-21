@@ -1,23 +1,20 @@
 <template>
   <div :class="$route.name != 'welfare-id-index'?'warp':''">
     <div class="clearfix welfare-box">
-      <a :href="'//'+$store.state.common.origin+'/welfare/'+item.id+$store.state.common.queryString" target="_blank"
+      <a :href="'//'+$store.state.common.origin+'/welfare/'+item.id+$store.state.common.queryString"
          class="detail-info" v-for="(item, i) in list" :key="i">
         <div class="card-img" :style="item.couponCover?'background: url('+item.couponCover+'?x-oss-process=image/quality,q_80) center top / cover no-repeat' :''"></div>
         <div class="card-text">
           <p class="card-title">{{item.title}}</p>
           <p class="card-descr">{{item.descr}}</p>
-          <!-- <div class="tags">
-            <span class="text text-one">人气值{{welfare.detail.hotValue}}</span>
-            <span class="text text-two" v-for="(item,i) in welfare.detail.tagName" :key="i">{{item}}</span>
-          </div> -->
-           <div class="tags">
-            <span class="text text-two">打卡圣地</span>
-            <span class="text text-two">推荐美食</span>
+           <div class="tags" v-if="item.tagName.length>0">
+            <span class="text text-two" v-for="(tag,index) in item.tagName" :key="index">
+              {{tag}}
+            </span>
           </div>
           <p class="card-discount">
-            <span class="discount">满100减20</span>
-            <span class="text-one">人气值400</span>
+            <span class="discount">{{item.faceValue}}</span>
+            <span class="text-one">人气值{{item.hotValue}}</span>
           </p>
         </div>
       </a>

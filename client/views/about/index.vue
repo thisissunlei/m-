@@ -53,7 +53,7 @@ export default {
     // ])
   },
   mounted () {
-    // console.log('queryString', $store.state.common.origin,this.$store.state.common.queryString)
+    
     // this.lang = this.$route.query.lang;
     console.log("999999000");
 
@@ -77,13 +77,11 @@ export default {
       })
   },
   mounted(){
-    console.log("query",this.query,this.$route,this.$store.state);
+
 
   },
   // 在服务器端获取并渲染数据，渲染组件之前异步获取数据
   asyncData ({ route, store, router }) {
-    console.log("0000777");
-
     let lang = 0;
     if ( !!route.query.lang && route.query.lang === 'en' ) {
       lang = 1;
@@ -94,10 +92,7 @@ export default {
   },
   methods: {
     setQuery() {
-      console.log("000000");
-
         this.query = this.$t('aboutTab').map((val, i) => {
-          // console.log('queryString',this.$store.state.common.queryString)
           return this.$store.state.common.queryString+'&tab='+val.value
         })
       }
@@ -110,7 +105,6 @@ export default {
   padding: 0 16px;
   .tabs-list {
     margin-top: 38px;
-    // background:pink;
     padding-bottom: 3px;
       .tab {
         position: relative;

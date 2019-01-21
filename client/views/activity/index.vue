@@ -1,8 +1,7 @@
 <template>
   <div class="activity">
-  <!-- <div class="wrapper" ref="wrapper"> -->
-  <!-- <div class="bscroll-container"> -->
-    <PullDown :tipFlag= false  @getMore="getMore" ref="pull">
+
+
     <div class="activity-top">
       <div class="top-title">
         <span class="fl">精选活动</span>
@@ -14,12 +13,14 @@
       <div v-swiper:mySwiper="swiperOption" v-if="activity.recommendActivity.length>0" ref="swiper">
         <div class="swiper-wrapper">
           <div class="swiper-slide" v-for="(item, index) in activity.recommendActivity" :key="index">
-            <img :src="item.imgUrl" v-if="!!item.imgUrl">
-            <img class="default-img" v-else>
-            <div class="swiper-content">
-              <div class="swiper-title">{{item.title}}</div>
-              <div class="swiper-desr">{{item.time}}</div>
-            </div>
+            <a :href="'//'+$store.state.common.origin+'/welfare/'+item.id+$store.state.common.queryString">
+              <img :src="item.imgUrl" v-if="!!item.imgUrl">
+              <img class="default-img" v-else>
+              <div class="swiper-content">
+                <div class="swiper-title">{{item.title}}</div>
+                <div class="swiper-desr">{{item.time}}</div>
+              </div>
+            </a>
           </div>
         </div>
       </div>
@@ -31,30 +32,27 @@
             <div class="item-info">
               <p class="item-title">{{item.title}}</p>
               <p class="item-time">
-                <i class="time-img"></i>
+                <img src="../../assets/images/time.png" alt="">
                 <span class="time">{{item.time}}</span>
               </p>
               <p class="item-location">
-                <i class="adress-img"></i>
+                <img src="../../assets/images/location.png" alt="">
                 <span class="adress">{{item.communityName}}</span>
               </p>
             </div>
           </a>
         </div>
-    </PullDown>
+
   </div>
 </template>
 
 
 <script>
-import PullDown from '../../components/pullDown.vue'
-  import {
-    mapState,
-    mapActions
-  } from 'vuex'
+  import { mapState, mapActions } from 'vuex'
+  var interval = null;
   export default {
     components: {
-      PullDown
+
     },
     data() {
       return {
@@ -62,7 +60,6 @@ import PullDown from '../../components/pullDown.vue'
         lang: '',
         language: '',
         cityId: '',
-        pullupMsg:'加载更多',
         page:1,
         swiperOption: {
           centeredSlides: true,
@@ -123,32 +120,47 @@ import PullDown from '../../components/pullDown.vue'
       this.lang = this.$route.query.lang || 'zh';
       this.language = this.lang === 'en' ? 1 : 0;
       this.cityId = this.$route.query.cityId;
+      window.addEventListener('scroll',this.getMore);
       console.log("activityList",this.activity.activityList);
     },
     computed: {
       ...mapState(['activity'])
     },
     methods: {
-      getMore(params){
-        if(this.activity.page > this.activity.totalPages){
-          return
+      ...mapActions([
+        'getActivityList'
+      ]),
+      getMore(){
+        if(interval == null){
+          interval = setInterval(this.scrollMore,1000);
         }
-        if(!!params.tip){
-           this.page = ++this.page;
-          setTimeout(()=>{
-            this.$store.dispatch('getActivityList',{
-              page: this.page,
-              pageSize: 10,
-              language:1,
-              cityId:0
-            })
-            .then((res)=>{
-              this.$refs.pull.scroll.refresh();
-            })
-          },2000)
-        }
+        this.topValue = document.documentElement.scrollTop || window.pageYOffset || document.body.scrollTop;
       },
+      scrollMore(){
+      let scrollTop = document.documentElement.scrollTop || window.pageYOffset || document.body.scrollTop;
+      if(scrollTop!==this.topValue){
+            return ;
+      }
+      let winHeight = window.innerHeight;
+      let scrollHeight = document.documentElement.scrollHeight;
+      clearInterval(interval);
+      interval = null;
+      // console.log("page",this.activity.page,this.activity.totalPages);
 
+      if(scrollTop >= scrollHeight - winHeight - 327){
+        if(this.activity.page >= this.activity.totalPages){
+          return;
+        }
+        this.cityId = this.$route.query.cityId
+        // console.log("999",this.activity.page+1);
+        this.getActivityList({
+          page: this.activity.page+1,
+          pageSize: 10,
+          cityId:this.cityId
+        })
+        return ;
+      }
+    },
       getData(n,o) {
          if (!n.query) return
         this.language = n.query.lang === 'en' ? 1 : 0;
@@ -271,12 +283,11 @@ import PullDown from '../../components/pullDown.vue'
           font-family: PingFang-SC-Regular;
           font-size: 13px;
           color: #666666;
-          i {
+          img {
             display: inline-block;
             width: 12px;
             height: 12px;
-            background: url("../../assets/images/activity/time.png");
-            background-size: cover;
+            vertical-align: middle;
           }
           .time {
             font-size: 13px;
@@ -284,12 +295,11 @@ import PullDown from '../../components/pullDown.vue'
           }
         }
         .item-location {
-          i {
+          img {
             display: inline-block;
             width: 12px;
-            height: 12px;
-            background: url("../../assets/images/activity/location.png");
-            background-size: cover;
+            height: 13px;
+            vertical-align: middle;
           }
           .adress {
             font-size: 13px;

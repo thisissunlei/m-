@@ -1,5 +1,5 @@
 module.exports = {
-  getMore: '加载更多…',
+  getMore: '上滑加载更多…',
   newsMore: '其他新闻',
   end: '已经到了尽头...',
   address: '氪空间总部：北京朝阳区朝阳公园南路11号骏豪中央公园广场A2-10层',
@@ -212,14 +212,6 @@ module.exports = {
   ],
   activityDetail: '活动详情',
   activityOther: '其他活动',
-
-
-
-
-
-
-
-
   newsMeta: {
     tit: '联合办公行业新闻_氪空间社区报道_社区会员报道-氪空间',
     key: '联合办公行业新闻,氪空间社区报道,社区会员报道',
@@ -406,6 +398,11 @@ module.exports = {
     '值得一说的是，在社区内，运营同学也会为大家提供高频次的各种试吃和体验活动，让大小吃货都各饱口福，很多有意义的体验也是被赞不绝口。',
     '如此神奇的氪空间和众多优秀的小伙伴在等待着你，还在犹豫个啥子嘞~~',
   ],
+  teamList: '最新入驻团队',
+  joinCommunity: '入驻社区',
+  lowPrice: '工位最低价：',
+  priceUnit: '元起/月',
+  teamInfo: '团队介绍',
   // 预约参观英文信息
   visitInfo:{
     title : '预约参观',

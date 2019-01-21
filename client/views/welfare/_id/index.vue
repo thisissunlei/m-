@@ -1,8 +1,22 @@
 <template>
   <div class="welfare-detail">
-    <div class="welfare-swiper"></div>
-    <div class="item-detail">
+    <div class="welfare-swiper">
+      <div class="swiper" :style="welfare.detail.couponCover?'background: url('+welfare.detail.couponCover+'?x-oss-process=image/quality,q_80) center top / cover no-repeat;':''"></div>
+    <!-- <img :src="welfare.detail.couponCover" alt="" class="swiper"> -->
+    <!-- <div v-swiper:envSwiper="swiperOption" >
+        <div class="swiper-wrapper" ref="swiper">
+          <div class="swiper-slide" v-for="(item, index) in welfare.detail" :key="index">
+            <img :src="item.couponCover">
+            <span class="env-name">{{item.envName}}</span>
+          </div>
+        </div>
+    </div> -->
+    </div>
 
+      <img :src="welfare.detail.couponCover" alt="" class="small-img">
+      <span class="item-value" v-if="!!welfare.detail.faceValue">{{welfare.detail.faceValue}}</span>
+
+    <div class="item-detail">
       <div class="item-top">
         <p class="title">{{welfare.detail.title}}</p>
         <p class="desc">{{welfare.detail.descr}}</p>
@@ -23,12 +37,15 @@
         </div>
       </div>
 
-      <div class="item-tips">
+      <div class="item-tips" v-if="!!welfare.detail.useRule">
         <p class="intro-title">使用提示</p>
-        <p class="tip-rule">不与店内其他优惠同享</p>
+        <p class="tip-rule" >
+          <!-- 不与店内其他优惠同享 -->
+          {{welfare.detail.useRule}}
+        </p>
         <p class="tip-time">营业时间:09:00 - 23:00</p>
-        <div class="tip-adress">
-          朝阳公园路西门1号棕榈生活广场B1层 A4
+        <div class="tip-adress" v-if="!!welfare.detail.merchantAddress">
+          {{welfare.detail.merchantAddress}}
           <span></span>
           <span></span>
         </div>
@@ -46,7 +63,9 @@ import { mapState,mapActions } from 'vuex'
 export default {
   data(){
     return {
+      swiperOption:{
 
+      }
     }
   },
   asyncData({route, store}) {
@@ -75,12 +94,40 @@ export default {
 </script>
 
 <style lang="less" scoped>
+.welfare-detail {
+  position: relative;
+}
   .welfare-swiper {
-    height: 228px;
-    background: palegreen;
+    .swiper {
+      width: 375px;
+      height: 188px;
+    }
   }
+      .small-img {
+        position: absolute;
+        top: 148px;
+        right: 16px;
+        width: 80px;
+        height: 80px;
+        background: #FFFFFF;
+        border: 1px solid #EEEEEE;
+        border-radius: 8px;
+      }
+      .item-value {
+        position: absolute;
+        left: 16px;
+        top: 177px;
+        display: inline-block;
+        font-family: PingFangSC-Regular;
+        font-size: 17px;
+        color: #ECCB6F;
+        letter-spacing: 0;
+        line-height: 18px;
+        padding: 6px 10px;
+        background: #2E2E2E;
+      }
   .item-detail {
-    margin-top: 3px;
+    margin-top: 43px;
     padding:0 16px;
     .item-top {
       padding-bottom: 20px;
@@ -102,7 +149,7 @@ export default {
       }
       .tags{
         overflow: hidden;
-        margin: 0 -3px 20px;
+        margin: 0 -3px;
         .text{
           float: left;
           border-radius: 4px;
@@ -146,7 +193,6 @@ export default {
       .tip-adress {
         font-family: PingFangSC-Medium;
         line-height: 20px;
-        // margin-right: 5px;
         span {
           display: inline-block;
           width: 28px;

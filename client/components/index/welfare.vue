@@ -8,31 +8,33 @@
         <span class="vip">{{$t('indexTitle.vip')}}</span>
       </div>
     </div>
-    <a href="" class="item-content border-bottom" v-for="(item,index) in data" :key="index" v-if="index<3">
-      <img class="item-img" :src="item.couponCover" alt="">
+    <a :href="'//'+$store.state.common.origin+'/welfare/'+item.id+$store.state.common.queryString" class="item-content border-bottom" v-for="(item,index) in data" :key="index">
+      <div class="item-img" :style="item.couponCover?'background: url('+item.couponCover+'?x-oss-process=image/quality,q_80) center top / cover no-repeat' :''"></div>
       <div class="item-info">
         <p class="item-title">{{item.title}}</p>
         <p class="item-use">{{item.descr}}</p>
-        <span class="item-tab">推荐美食</span>
-        <div class="item-discount">6折</div>
+        <div class="item-tab" v-if="!!item.tagName && item.tagName.length > 0">
+            <span class="text " v-for="(tag,index) in item.tagName" :key="index">{{tag}}</span>
+        </div>
+        <div class="item-discount">{{item.faceValue}}</div>
       </div>
     </a>
     <div  class="hot-more" >
-        <a href="" class="more">{{$t('indexTitle.more')}}<i class="arror">>></i></a>
+        <a :href="'//'+$store.state.common.origin+'/welfare'+$store.state.common.queryString" class="more">{{$t('indexTitle.more')}}<i class="arror">>></i></a>
       </div>
   </div>
 </template>
 
 <script>
 export default {
-  props: ['data','tags'],
+  props: ['data'],
   data(){
     return {
 
     }
   },
   mounted(){
-    console.log('welfare',this.data,this.tags)
+    console.log('welfare666',this.data)
   }
 }
 </script>
@@ -41,23 +43,11 @@ export default {
 .border-bottom {
   border-bottom: 1px solid #F3F3F3;;
 }
-// .more {
-//   width: 153px;
-//   height: 44px;
-//   margin: 10px 111px 20px 111px;
-//   background: #FFFFFF;
-//   border: 1px solid #DFDFDF;
-//   border-radius: 4px;
-//   .item-more {
-//     line-height: 44px;
-//     display: block;
-//     font-family: PingFang-SC-Regular;
-//     font-size: 16px;
-//     color: #666666;
-//     letter-spacing: 0;
-//     text-align: center;
-//   }
-// }
+.welfare-box {
+  a:nth-child(4){
+    border-bottom: none;
+  }
+}
  .hot-more {
       padding: 10px 0 20px 111px;
       border-bottom: 10px solid #f6f6f6;
@@ -86,6 +76,7 @@ export default {
       padding: 20px 0 0 16px;
       font-family: PingFang-SC-Medium;
       font-size: 20px;
+      font-weight: bold;
       color: #333333;
       .line {
         position: absolute;
@@ -96,38 +87,42 @@ export default {
         background-color: #FFEB00;
         z-index:-10;
       }
-      .member-vip {
+       .member-vip {
         margin-right: 16px;
+        height: 28px;
+        line-height: 28px;
         .pic {
           display: inline-block;
           width: 15px;
           height: 13px;
-          margin-right: 4px;
-          background:url("../../assets/images/vip.png");
+          vertical-align: middle;
+          // margin-right: 4px;
+          background:url("../../assets/images/index-vip.svg") 50% no-repeat;
           background-size: cover;
         }
         .vip {
           display: inline-block;
-          font-family: PingFang-SC-Semibold;
           font-size: 14px;
+          font-weight: 700;
+          vertical-align: middle;
           color: #DBAE3C;
-          letter-spacing: 0;
+
         }
       }
     }
 .item-content {
   display: flex;
-  // padding-left: 16px;
-  // margin-bottom: 20px;
-  padding: 20px 0 20px 16px;
+  padding: 20px 0;
+  margin:0 16px;
 
-  img {
+  .item-img {
     width: 96px;
     height: 96px;
     margin-right: 10px;
     background: #FFFFFF;
     border: 1px solid #EEEEEE;
     border-radius: 8px;
+    overflow: hidden;
   }
   .item-info {
     flex: 1;
@@ -149,11 +144,20 @@ export default {
       color: #666666;
       line-height: 17px;
     }
-    .item-tab {
-      border: 1px solid #333;
-      color:#666;
-      line-height: 17px;
-    }
+     .item-tab{
+        overflow: hidden;
+        .text{
+          float: left;
+          border-radius: 4px;
+          // margin: 0 5px 5px;
+          margin: 0 3px 0 0;
+          padding: 1px 4px;
+          border: 1px solid #CCCCCC;
+          color: #999;
+          background: #fff;
+        }
+      }
+
     .item-discount {
       width: 142px;
       margin-top: 10px;
