@@ -163,6 +163,7 @@ export default {
   },
   memberReadCount(data){
     //阅读量
+    console.log('阅读量',data)
     return handleRequest(
       request.post("api/gateway/portalthree/add-news-read", { params: data })
     );
@@ -211,4 +212,5 @@ export default {
       request.get('api/gateway/get-all-cbd',{params: data})
     );
   },
+
 };

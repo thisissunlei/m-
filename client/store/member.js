@@ -50,7 +50,17 @@ export default {
         .catch(err => {
           console.log('cityList', err)
         })
-  	}
+  	},
+    setNewsCount({ commit }, data){
+      return model.memberReadCount(data)
+        .then(res => {
+          console.log('setNewsCount')
+          // commit('setTeamDetail', res)
+        })
+        .catch(err => {
+          console.log('cityList', err,data)
+        })
+    }
 
   },
   mutations:{

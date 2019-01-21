@@ -57,17 +57,24 @@ export default {
       console.log(route.params)
       return Promise.all([
         store.dispatch('getMemberDetail',{newsId:route.params.id}),
+        // store.dispatch('setNewsCount',{newsId:route.params.id}),
       ])
   },
   mounted() {
     console.log('member',this.member.memberDetail)
-    console.log('team',this.member.teamDetail)
+    console.log('team',this.member.teamDetail,this.$route.params.id)
+    // this.setNewsCount({newsId:this.$route.params.id})
   },
   computed: {
     ...mapState([
       'member'
     ])
   },
+  methods: {
+    ...mapActions([
+        'setNewsCount'
+    ]),
+  }
 }
 </script>
 <style>
