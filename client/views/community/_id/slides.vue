@@ -56,12 +56,47 @@ export default {
   mounted() {
 
     this.getImgList(this.detail.list.picTypeMap);
-    console.log(this.detail)
+    // console.log(this.detail)
 
+  },
+  watch: {
+    '$route.query.lang'(value) {
+      // console.log(value)
+      console.log(this.tabList)
+      if (value == 'en') {
+        this.tabList.map(item => {
+          if (item.name == '内景') {
+            item.name = 'Indoor'
+          }
+          if (item.name == '办公') {
+            item.name = 'Office'
+          }
+          if (item.name == '外景') {
+            item.name = 'Outdoor'
+          }
+        })
+      } else {
+        this.tabList.map(item => {
+          if (item.name == 'Indoor') {
+            item.name = '内景'
+          }
+          if (item.name == 'Office') {
+            item.name = '办公'
+          }
+          if (item.name == 'Outdoor') {
+            item.name = '外景'
+          }
+        })
+
+      }
+
+
+    }
   },
   methods: {
     goToImg(tab) {
       this.currentIndex = tab.index;
+      // console.log(this.mySwiper)
       this.mySwiper.slideTo(tab.index);
     },
     getActive(list) {
@@ -75,6 +110,7 @@ export default {
       return flag;
     },
     getImgList(detail) {
+
       // console.log(detail)
       let len1 = 0;
       let len2 = 0;
@@ -84,7 +120,7 @@ export default {
         len1 = detail.COMMUNITY_INTERIOR.length;
         let arr = [];
         let tabObj = {
-          name: '内景',
+          name: this.$route.query.lang == 'zh' ? '内景' : 'Indoor',
           len: len1,
           items: []
         }
@@ -99,7 +135,7 @@ export default {
       if (detail.OFFICE_STATION && detail.OFFICE_STATION.length > 0) {
         len2 = detail.OFFICE_STATION.length;
         let tabObj = {
-          name: '办公',
+          name: this.$route.query.lang == 'zh' ? '办公' : 'Office',
           len: len1 + len2,
           items: []
         };
@@ -114,7 +150,7 @@ export default {
       if (detail.COMMUNITY_ERIOR && detail.COMMUNITY_ERIOR.length > 0) {
         len3 = detail.COMMUNITY_ERIOR.length;
         let tabObj = {
-          name: '外景',
+          name: this.$route.query.lang == 'zh' ? '外景' : 'Outdoor',
           len: len1 + len2 + len3,
           items: []
         };
@@ -127,9 +163,10 @@ export default {
         this.tabList.push(tabObj)
 
       }
-      // if ((detail.COMMUNITY_ERIOR && detail.COMMUNITY_ERIOR.length > 0) || (detail.OFFICE_STATION && detail.OFFICE_STATION.length > 0) || (detail.COMMUNITY_INTERIOR && detail.COMMUNITY_INTERIOR.length > 0)) {
-      //   this.showSlides = true;
-      // }
+      if ((!detail.COMMUNITY_ERIOR || detail.COMMUNITY_ERIOR.length <= 0) || (!detail.OFFICE_STATION || detail.OFFICE_STATION.length <= 0) || (!detail.COMMUNITY_INTERIOR || detail.COMMUNITY_INTERIOR.length <= 0)) {
+        this.showSlides = false;
+
+      }
 
     },
   },
