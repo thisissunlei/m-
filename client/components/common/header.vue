@@ -19,7 +19,7 @@
         <div class="img jiao fl"></div>
       </div>
       <!-- 下拉城市菜单 -->
-      <div class="citys-box" v-show="citysShow">
+      <div class="citys-box" v-if="citysShow">
         <div class="citys-title">当前选择:{{selectCityName}}</div>
         <mt-picker :slots="areaCommunity" @change="onValuesChange"></mt-picker>
         <span class="currentOption" v-if="showOption">
@@ -147,7 +147,10 @@ export default {
     this.getCityName();
   },
   updated(){
-    document.getElementsByClassName("picker-selected")[0].classList.add("color");
+    let dom = document.getElementsByClassName("picker-selected")
+    if ( dom.length > 0 ) {
+      dom[0].classList.add("color");
+    }
   },
   methods: {
     //获取头部的默认展示城市信息
