@@ -178,6 +178,7 @@
       <p v-show="isFixed"></p>
     </div>
     <!-- end 立即预约 -->
+    <!-- 预定 -->
     <div class="qr-code"
       v-if="showCode">
       <div class="code-img">
