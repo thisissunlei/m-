@@ -62,18 +62,18 @@ module.exports = {
     "© 2011-2018 氪空间(北京)信息技术有限公司 | 京ICP备16012805号 | ",
 
   indexTitle: {
-    order: '立即预约',
-    more: '查看更多',
-    vip: '入驻会员专享',
-    hot: '热门社区',
-    soon: '待开社区',
-    environment: '社区环境',
-    welfare: '社区福利',
-    activity: '社区活动',
-    members: '会员报道',
-    detail: '查看详情',
-    later: '天后',
-    currentChoice : "当前选择"
+    order: "立即预约",
+    more: "查看更多",
+    vip: "入驻会员专享",
+    hot: "热门社区",
+    soon: "待开社区",
+    environment: "社区环境",
+    welfare: "社区福利",
+    activity: "社区活动",
+    members: "会员报道",
+    detail: "查看详情",
+    later: "天后",
+    currentChoice: "当前选择"
   },
   indexPriceType: {
     long: "起/工位•月",
@@ -173,6 +173,7 @@ module.exports = {
     map: "查看地图",
     long: "高效办公",
     short: "分时办公",
+    order: "预约",
     QRcode: "手机扫一扫，快速体验自由座",
     shortBtn: "预订",
     activity: "社区活动",

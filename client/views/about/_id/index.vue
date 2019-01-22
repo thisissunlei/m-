@@ -15,14 +15,15 @@
           <span class="city-name">{{about.newsDetail.relateCommunity.cityName}}·</span>
           <span class="cmt-name">{{about.newsDetail.relateCommunity.cmtName}}</span>
         </div>
-        <!-- <span class="low-price" v-if="!!about.newsDetail.relateCommunity.porPriceVo.levelPrice">
+        <span class="low-price" >
           工位最低价：
-          <span class="num">{{about.newsDetail.relateCommunity.porPriceVo.levelPrice}}</span>元起/月
-        </span> -->
+          <span class="num" v-if="!!about.newsDetail.relateCommunity.porPriceVo.levelPrice">
+            {{about.newsDetail.relateCommunity.porPriceVo.levelPrice}}
+          </span>
+          <span class="num" v-else>{{about.newsDetail.relateCommunity.porPriceVo.price}}</span>
+          元起/月
+        </span>
       </div>
-      <!-- <div class="rel-pics" v-for="(item,i) of about.newsDetail.relateCommunity.rightImageUrl" :key="i">
-        <img :src="item" alt="">
-      </div> -->
       <div v-swiper:mySwiper="swiperOption">
         <div class="swiper-wrapper">
           <div class="swiper-slide" v-for="banner in about.newsDetail.relateCommunity.rightImageUrl" :key="banner.index">
@@ -33,7 +34,7 @@
     </div>
 
     <div class="other-news">
-      <div class="other-title">{{$t('newsMore')}}</div>
+      <div class="other-title">其他新闻</div>
         <div class="others-lists">
         <a class="other-detail fl" v-for="(item, i) in about.more" :key="i"
            :href="'//'+$store.state.common.origin+'/about/'+item.id+$store.state.common.queryString">
@@ -64,9 +65,7 @@ export default {
     ])
   },
   mounted () {
-    console.log("111", this.about);
-      // console.log(this.mySwiper)
-      // this.mySwiper.slideTo(3, 1000, false)
+    // console.log("111", this.about);
   },
   asyncData ({ router, route, store }) {
     let lang = 0;
@@ -195,6 +194,11 @@ export default {
       }
       .content {
         padding: 10px 5px 0 6px;
+        overflow: hidden;
+        -webkit-line-clamp: 2;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
         font-family: PingFangSC-Regular;
         font-size: 13px;
         color: #333333;

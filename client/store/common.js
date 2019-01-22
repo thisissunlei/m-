@@ -3,7 +3,6 @@ import model from 'model'
 
 export default {
   state: {
-    rightConter111: false,
     origin: '',
     queryString: '',
     query: {},
@@ -42,12 +41,6 @@ export default {
     }
   },
   mutations: {
-    openRightConter:(state , data) =>{
-      state.rightConter111 = data;
-    },
-    closseRightConter:(state,data) =>{
-      state.rightConter111 = data;
-    },
     setDistinctId: (state, data) => {
       state.distinctId = data
     },
@@ -62,7 +55,6 @@ export default {
       state.headerCityList = data;
     },
     setHeaderCityId: (state, data) => {
-      console.log("data",data);
       state.headerCityId = data;
       let query = state.query
       let queryString = '/?'
@@ -102,7 +94,6 @@ export default {
       }
       state.queryString = queryString.substr(0,queryString.length-1)
       state.query = query
-      console.log('query',query)
     },
     setPageQuery(state) {
       let query = state.query

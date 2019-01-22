@@ -75,7 +75,7 @@ module.exports = {
     members: "Members",
     detail: "Learn More",
     later: "Days Later",
-    currentChoice : "Current Choice"
+    currentChoice: "Current Choice"
   },
   indexPriceType: {
     long: "Per Month",
@@ -176,6 +176,7 @@ module.exports = {
     map: "Map",
     long: "Efficient Office",
     short: "Time-sharing Office",
+    order: "Book A Tour",
     shortBtn: "Reserve Now",
     activity: "Community Events",
     QRcode: "Scan QR Code to experience",
@@ -211,7 +212,7 @@ module.exports = {
     periphery: "Surrounding area"
   },
 
-  activityTitle: "Recommended",
+  activityTitle: "Recommend",
   activityPageSize: "15 per page",
   activityMeta: {
     tit: "Kr Space-Community activities",

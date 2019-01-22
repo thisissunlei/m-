@@ -2,7 +2,9 @@ import model from 'model'
 
 export default {
   state: {
-    cbdList: [],
+    isVisit:false,
+    rightConter: false,
+    cbdList: [], 
     priceList: {},
     list: {}
   },
@@ -40,6 +42,14 @@ export default {
     },
   },
   mutations: {
+    // 切换箭头
+    openRightConter:(state , data) =>{
+      state.rightConter = data;
+    },
+    // 打开参观页面
+    optionVisit:(state , data) =>{
+      state.isVisit = data;
+    },
     setNewCommunityCbds(state, data) {
       state.cbdList = data
     },

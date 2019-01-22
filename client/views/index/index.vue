@@ -95,7 +95,7 @@
     <!-- 社区活动 -->
     <Activity :data="activityList" v-if="!!activityList && activityList.length > 0"/>
     <div class="divide-line"></div>
-    <Visit :Close="jumpVisit" :areaDisabled="areaDisabled" v-if="isVisit" />
+    <Visit :Close="jumpVisit" :areaDisabled="areaDisabled" v-if="this.$store.state.community.isVisit" />
     <!-- 会员报道 -->
     <Member :data="memberList" v-if="!!memberList && memberList.length > 0"/>
     <!-- start 立即预约 -->
@@ -132,7 +132,6 @@ export default {
       language: "",
       cityId: "",
       query: "",
-      isVisit: false,
       areaDisabled: false,
       isFixed: true,
       bannerFlag: false,
@@ -201,7 +200,8 @@ export default {
 
   methods: {
      jumpVisit() {
-      this.isVisit = true;
+      this.$store.commit('optionVisit', true);
+      this.$store.commit('openRightConter', true);
     },
     getData() {
         if (!this.$route.query.lang) {

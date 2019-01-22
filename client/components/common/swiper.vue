@@ -24,7 +24,7 @@
       },
       autoPlay: {
         type: Boolean,
-        default: false,
+        default: true,
       },
       click: {
         type: Boolean,

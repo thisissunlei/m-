@@ -17,7 +17,7 @@
       <div class="sharing-office-title"
         v-if="detail.officeType.longTerm.length > 0">
         <p>{{$t('CMNT_DTL_Title.long')}}</p>
-        <p @click="jumpVisit">{{$t('indexTitle.order')}}</p>
+        <p @click="jumpVisit">{{$t('CMNT_DTL_Title.order')}}</p>
       </div>
       <div class="sharing-office-detail"
         v-for="(item,index) in detail.officeType.longTerm">
@@ -130,13 +130,11 @@
         </div>
       </div>
     </div>
+    <!-- 立即预约 -->
     <Visit :Close="jumpVisit"
       :areaDisabled="areaDisabled"
-      v-if="isVisit" />
+      v-if="this.$store.state.community.isVisit" />
 
-    <!-- 详情地图 -->
-    <!-- <Detailmap v-if="showMap"
-      :change="mapChange"></Detailmap> -->
     <!-- 社区福利 -->
     <Welfare :data="$store.state.welfare.recommend"
       v-if="!!$store.state.welfare.recommend && $store.state.welfare.recommend.length > 0" />
@@ -154,17 +152,22 @@
     <div class="same-city-community">
       <p class="common-title">{{$t('CMNT_DTL_Title.community')}}</p>
       <div class="same-city-tab">
-        <p>
+        <p :class="showCmlType=='cmt'?'line activity-tab':'line'"
+          @click="communitySameCmt">
           <span>{{$t('CMNT_DTL_Title.sameCity')}}</span>
           <span class="activity-line"
             v-if="showCmlType=='cmt'"></span>
         </p>
-        <p>
+        <p :class="showCmlType=='ip'?'activity-tab':''"
+          @click="ipSameCmt">
           <span>{{$t('CMNT_DTL_Title.sameLocation')}}</span>
           <span class="activity-line"
             v-if="showCmlType=='ip'"></span>
         </p>
       </div>
+      <Recommend :communityList="detail.sameCommunity"
+        v-if="!!detail.sameCommunity && (!!detail.sameCommunity.cmtDistanceVo.length || !!detail.sameCommunity.localDistanceVo.length)"
+        :type="showCmlType" />
     </div>
     <div class="divide-line"></div>
 
@@ -200,6 +203,8 @@ import Activity from '../../../components/index/activity.vue'
 import Member from '../../../components/index/member.vue'
 import Visit from 'components/common/visit.vue'
 import Slides from './slides.vue'
+import Recommend from './recommend'
+import BaiduMap from '../../../util/map.js';
 import { mapState, mapActions } from "vuex";
 
 export default {
@@ -208,19 +213,23 @@ export default {
     Activity,
     Member,
     Visit,
-    Slides
+    Slides,
+    Recommend
   },
   data() {
     return {
       areaDisabled: false,
-      isVisit: false,
       isFixed: true,
       detail: {},
       // showMap: false,
       bottomTagIndex: 0,
       bottomTagIndex1: 0,
       showCode: false,
-      showCmlType: 'cmt'
+      showCmlType: 'cmt',
+      position: {
+        latitude: null,
+        longitude: null
+      }
     }
   },
   asyncData({ route, router, store }) {
@@ -260,18 +269,65 @@ export default {
   },
   watch: {
     '$route.query.lang'(value) {
-      console.log(value)
+      // console.log(value)
       this.getNewData()
 
     }
   },
   methods: {
+    defaultMap() {
+      let lang = this.$route.query.lang;
+      var x = this.detail.list.longitude;
+      var y = this.detail.list.latitude;
+      var cmtName = this.detail.list.communityName;
+      let _this = this;
+      BaiduMap.init()
+        .then((BMap) => {
+          // 获取定位 start
+          var geolocation = new BMap.Geolocation();
+          geolocation.getCurrentPosition(function (r) {
+            if (this.getStatus() == BMAP_STATUS_SUCCESS) {
+              _this.position = {
+                longitude: r.point.lng,
+                latitude: r.point.lat
+              }
+            } else {
+              _this.position = {
+                latitude: 30.285115,
+                longitude: 220.131686
+              }
+            }
+          }, { enableHighAccuracy: true });
+        })
+    },
+    communitySameCmt() {
+      this.showCmlType = 'cmt'
+    },
+    ipSameCmt() {
+      let cmtId = this.$route.params.id;
+      let lang = this.$route.query.lang == 'en' ? 1 : 0;
+      let data = {
+        latitude: this.position.latitude,
+        longitude: this.position.longitude,
+        id: cmtId,
+        language: lang
+      }
+      if (!this.detail.sameCommunity.localDistanceVo.length) {
+        this.$store.dispatch('getNewSameCommunity', data)
+          .then(res => {
+            this.showCmlType = 'ip'
+          })
+      } else {
+        this.showCmlType = 'ip'
+      }
+    },
     hrefMap() {
       let cmtId = this.$route.params.id;
       location.href = `/community/${cmtId}/detailmap`;
     },
     jumpVisit() {
-      this.isVisit = true;
+      this.$store.commit('optionVisit', true);
+      this.$store.commit('openRightConter', true);
     },
 
     toggleBottomTags(index) {
@@ -290,9 +346,27 @@ export default {
     },
     getNewData() {
       let cmtId = this.$route.params.id;
+      let cityId = this.$route.query.cityId
       let lang = this.$route.query.lang == 'en' ? 1 : 0;
+      let form = Object.assign(this.position, { id: cmtId, language: lang })
       this.$store.dispatch('getNewCommunityDetails', { id: cmtId, language: lang })
       this.$store.dispatch('getNewOfficeType', { id: cmtId, language: lang })
+      this.$store.dispatch('getNewSameCommunity', form)
+      this.$store.dispatch('getWelfareList', {
+        language: lang,
+        page: 1,
+        pageSize: 3,
+        sort: 2
+      })
+      this.$store.dispatch('getActivityList', {
+        cityId: cityId,
+        page: 1,
+        pageSize: 3
+      })
+      this.$store.dispatch('getIndexMember', {
+        page: 1,
+        pageSize: 3
+      })
     },
     scroll() {
       let top =
@@ -315,6 +389,7 @@ export default {
   },
   mounted() {
     console.log(this.detail)
+    this.defaultMap();
     window.addEventListener('scroll', this.scroll)
 
   }
@@ -547,6 +622,7 @@ export default {
     }
     .bottom-visit-fixed {
       position: fixed;
+      z-index: 20;
       bottom: 0;
     }
   }
@@ -613,6 +689,51 @@ export default {
     }
     .same-city-tab {
       display: flex;
+      font-family: PingFang-SC-Regular;
+      font-size: 14px;
+      color: #666666;
+      margin-bottom: 16px;
+      p {
+        display: inline-block;
+        line-height: 22px;
+        margin: 0 10px;
+        span {
+          z-index: 10;
+          display: inline-block;
+          position: relative;
+          padding: 0;
+        }
+      }
+      .line {
+        position: relative;
+        &::after {
+          content: "";
+          width: 1px;
+          height: 20px;
+          display: inline-block;
+          position: absolute;
+          top: 0;
+          right: -6px;
+          background: #979797;
+        }
+      }
+      .activity-tab {
+        color: #333;
+        font-size: 16px;
+        position: relative;
+        display: inline-block;
+        z-index: 9;
+      }
+      .activity-line {
+        display: inline-block;
+        position: absolute;
+        background: #ffeb00;
+        width: 100%;
+        height: 9px;
+        left: 0;
+        bottom: 2px;
+        z-index: 9;
+      }
     }
   }
 }
