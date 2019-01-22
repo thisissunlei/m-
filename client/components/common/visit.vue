@@ -20,7 +20,7 @@
         <span class="text">{{$t("visitInfo.mobileNumber")}}</span>
       </div>
       <div class="u-input">
-        <input type = "text" v-model = "mobile" onkeyup="value=value.replace(/[^\d]/g,'') " placeholder="请输入您的联系方式"  maxlength=11 @blur="checkPhone">
+        <input type = "text" v-model = "mobile" onkeyup="value=value.replace(/[^\d]/g,'') " placeholder="请输入您的联系方式"  maxlength=11>
       </div>
 
       <div class="name">
@@ -170,19 +170,8 @@ export default {
       this.areaVisible = false;
       // history.go(-1);
     },
-    checkPhone() {
-      var _this = this;
-      if (this.mobile == "" || !/^1[345678]\d{9}$/.test(this.mobile)) {
-        Toast('请输入正确的手机号码');
-        return true;
-      }
-      return false;
-    },
     // 提交
     submit() {
-      if(this.checkPhone()){
-        return false
-      }
       var nowDate = new Date();
       var appionttime = nowDate.getFullYear() + "-" + nowDate.getMonth()+1 +"-" + nowDate.getDate()
       var data = {
