@@ -15,7 +15,7 @@
           <div class="text">核心商圈超值办公室</div>
           <div class="line"></div>
         </div>
-        <div class="u-input">
+        <div class="u-input" @click="changeCity('city')">
           <span class="u-city-icon"></span>
           <input
             id="area1"
@@ -29,7 +29,7 @@
           <input id="areaValue1" type="hidden" />
           <span class="u-triangle"></span>
         </div>
-        <div class="u-input">
+        <div class="u-input" @click="changeCity('comm')">
           <span class="u-build-icon"></span>
           <input
             id="area2"
@@ -43,7 +43,7 @@
           <input id="areaValue2" type="hidden" />
           <span class="u-triangle"></span>
         </div>
-        <div class="u-input">
+        <div class="u-input" @click="changeCity('num')">
           <span class="u-count-icon"></span>
           <input
             id="area3"
@@ -159,6 +159,14 @@
 
     <Dialog :personName="dialogName" :isShow="isShow" :dialogType="dialogType" :Close="dialogClose"/>
 
+    <div class="city-list-dialog" v-if="modeShow">
+      <div class="close" @click="changeCity"></div>
+      <ul>
+        <li v-for="item, i in modeList" :key="i" @click="cityListClick(item)"
+            :class="cityId === item.id? 'select': ''">{{item.name}}</li>
+      </ul>
+    </div>
+
   </div>
 </template>
 <script>
@@ -190,6 +198,8 @@ import model from 'model'
     },
     data(){
       return{
+        modeList: [],
+        modeShow: false,
         cityIndex:0,
         mobile:'',
         areaValue:'',
@@ -285,6 +295,22 @@ import model from 'model'
 
     },
     methods:{
+      changeCity(type) {
+        console.log(type)
+        if ( type === 'city' ) {
+          this.modeList = this.cityList
+        }
+        if ( type === 'comm' ) {
+          this.modeList = this.buildList
+        }
+        if ( type === 'num' ) {
+          this.modeList = this.countList
+        }
+        this.modeShow = !this.modeShow
+      },
+      cityListClick(item) {
+        console.log(item)
+      },
       dialogClose(){
         this.isShow = !this.isShow;
       },
@@ -426,6 +452,7 @@ import model from 'model'
           default:
             return ;
         }
+        this.buildList = buildList;
 //        this.initArea2(buildList);
         this.buildValue = buildList[0].name;
       },
@@ -529,6 +556,51 @@ import model from 'model'
   }
 </script>
 <style lang="less" >
+  .city-list-dialog {
+    width:100%;
+    height:100%;
+    position: fixed;
+    left:0;
+    top:0;
+    background: rgba(40,38,36,0.90);
+    z-index:899;
+    .close {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      left:50%;
+      top:50%;
+      margin-left: 132px;
+      margin-top: -120px;
+      background: url('../../assets/images/icon/icon_close.svg') no-repeat center center;
+      background-size:cover;
+      z-index: 1;
+    }
+    ul {
+      background:#fff;
+      border-radius: 8px;
+      width:315px;
+      height:247px;
+      position: absolute;
+      left:50%;
+      top:50%;
+      z-index: 0;
+      margin-left: -157.5px;
+      margin-top:-123.5px;
+      overflow-y: scroll;
+      li {
+        text-align: center;
+        height: 38px;
+        line-height: 38px;
+        color: #666666;
+        font-size: 14px;
+        &.select {
+          color: #333333;
+          font-weight: bold;
+        }
+      }
+    }
+  }
   .footer{
     display:none;
   }
@@ -617,6 +689,7 @@ import model from 'model'
         }
       }
       .u-input{
+        display: flex;
         width:100%;
         height: 40px;
         line-height: 40px;
@@ -626,7 +699,7 @@ import model from 'model'
         font-size: 14px;
         z-index:10;
         span{
-          display: inline-block;
+          /*display: inline-block;*/
         }
         .u-triangle{
           width:0;
@@ -813,7 +886,7 @@ import model from 'model'
         width:325px;
         height:325px;
         background: url('../../assets/images/market/globalmain.png') no-repeat center center;
-        background-size:cover;
+        background-size: 100% auto;
         margin:0 auto;
       }
     }

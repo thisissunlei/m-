@@ -8,7 +8,7 @@ if ( typeof window == "undefined" ) {
 let Router = require('koa-router')
 let send = require('koa-send')
 
-let staticRouter = new Router({ prefix: process.env.NODE_ENV === 'development'? '/public' :'/kr-web-new' })
+let staticRouter = new Router({ prefix: process.env.NODE_ENV === 'development'? '/public' :'/public' })
 
 staticRouter.get('/*', async ctx => {
   await send(ctx, ctx.path)
