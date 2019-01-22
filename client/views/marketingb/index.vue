@@ -167,6 +167,7 @@
 //  import dateFormat from '~/filters/dateFormat';
   import Dialog from '../../components/Dialog';
   import Baidu from '../../util/baidu';
+import model from 'model'
   export default {
     components:{
 //      KrImage,
@@ -256,7 +257,7 @@
       this.getAllCity();
       this.getParams();
       this.getLocaCity();
-      this.initArea3(this.countList);
+//      this.initArea3(this.countList);
       var _this = this;
       window.onscroll = function(){
         let top= document.documentElement.scrollTop || window.pageYOffset || document.body.scrollTop;
@@ -290,11 +291,17 @@
       //获取定位城市
       getLocaCity(){
         var that = this;
-        this.$http.get('get-visit-community').then(function(response){
-          that.cityId = response.data.items.cityVo.cityId;
-          that.areaValue = response.data.items.cityVo.cityName;
-          that.initBuild(response.data.items.cityVo.cityId);
-        });
+        model.getVisitCommunity()
+          .then(res => {
+            that.cityId = res.items.cityVo.cityId;
+            that.areaValue = res.items.cityVo.cityName;
+            that.initBuild(res.items.cityVo.cityId);
+          })
+//        this.$http.get('get-visit-community').then(function(response){
+//          that.cityId = response.data.items.cityVo.cityId;
+//          that.areaValue = response.data.items.cityVo.cityName;
+//          that.initBuild(response.data.items.cityVo.cityId);
+//        });
       },
       //SEM
       getParams(){
@@ -419,7 +426,7 @@
           default:
             return ;
         }
-        this.initArea2(buildList);
+//        this.initArea2(buildList);
         this.buildValue = buildList[0].name;
       },
       onSubmit(){
@@ -446,33 +453,57 @@
 
         form.cityId =areaValue || this.cityId;
         form.from_type = this.GetQueryString('source') || 'krspace_visit';
-        form.appionttime = dateFormat(new Date(),'YYYY-MM-dd');;
+        let day = new Date
+        let yy = day.getFullYear()
+        let mm = day.getMonth()+1 >= 10? day.getMonth()+1: '0'+(day.getMonth()+1)
+        let dd = day.getDate() >= 10? day.getDate(): '0'+day.getDate()
+        form.appionttime = yy + '-' + mm + '-' + dd;
         form.promoCode = this.GetQueryString('key') || '';
         if(this.visitParams.from && this.visitParams.terminal){
           form.from = this.visitParams.from;
           form.terminal = this.visitParams.terminal;
         }
 
-        this.$http.post('post-city-visit',form).then((res)=>{
-          this.isShow = true;
-          this.disableSubmit = false;
-          this.dialogName = this.username;
-          this.dialogType = 'success';
-          this.mobile='';
-          // this.areaValue='';
-          _taq.push({convert_id:"1597892806975534", event_type:"form"});
-          _taq.push({convert_id:"1600058262413320", event_type:"form"});
-        }).catch((err)=>{
-          if(err.code == -2){
-            this.dialogType = 'warn';
-          }else{
-            this.dialogType = 'error';
-          }
-
-          this.isShow = true;
-          this.dialogName = this.username;
-
-        })
+        model.postCityVisit(form)
+          .then(res => {
+            this.isShow = true;
+            this.disableSubmit = false;
+            this.dialogName = this.username;
+            this.dialogType = 'success';
+            this.mobile='';
+            // this.areaValue='';
+            _taq.push({convert_id:"1597892806975534", event_type:"form"});
+            _taq.push({convert_id:"1600058262413320", event_type:"form"});
+          })
+          .catch(err => {
+            if(err.code == -2){
+              this.dialogType = 'warn';
+            }else{
+              this.dialogType = 'error';
+            }
+            this.isShow = true;
+            this.dialogName = this.username;
+          })
+//        this.$http.post('post-city-visit',form).then((res)=>{
+//          this.isShow = true;
+//          this.disableSubmit = false;
+//          this.dialogName = this.username;
+//          this.dialogType = 'success';
+//          this.mobile='';
+//          // this.areaValue='';
+//          _taq.push({convert_id:"1597892806975534", event_type:"form"});
+//          _taq.push({convert_id:"1600058262413320", event_type:"form"});
+//        }).catch((err)=>{
+//          if(err.code == -2){
+//            this.dialogType = 'warn';
+//          }else{
+//            this.dialogType = 'error';
+//          }
+//
+//          this.isShow = true;
+//          this.dialogName = this.username;
+//
+//        })
       },
       stopAreaSwiper(){
         this.myAreaPicSwiper.autoplay.stop();
@@ -482,11 +513,17 @@
       },
 
       getAllCity(){
-        this.$http.get('get-city-list').then((res)=>{
-          var data = Object.assign({},res);
-          this.cityList = data.data;
-          this.initArea(this.cityList)
-        });
+        model.getCityList()
+          .then(res => {
+            this.cityList = res;
+//            that.initArea(res);
+//            that.initArea2(res);
+          })
+//        this.$http.get('get-city-list').then((res)=>{
+//          var data = Object.assign({},res);
+//          this.cityList = data.data;
+//          this.initArea(this.cityList)
+//        });
       },
     }
   }
