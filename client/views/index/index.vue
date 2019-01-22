@@ -6,13 +6,16 @@
       v-if="!!index.banner && index.banner.length>0"
     >
       <div class="slider-item" v-for="(item,index) in index.banner" :key="index">
-        <a :href="item.linkUrl">
-          <img :src="item.banerPicUrl" :alt="item.linkUrl" ref="sliderItemImg" class="banner-img">
-          <img src="../../assets/images/bd/banner.jpg" alt>
+
+        <a :href="item.banerLink"
+         target="_blank">
+          <div class="img" :style="!!item.banerPicUrl? 'background: url('+item.banerPicUrl+') center top / cover no-repeat': ''">
+          {{item.linkUrl}}
+          </div>
         </a>
       </div>
     </Swiper>
-    <img src="../../assets/images/bd/banner.jpg" alt v-else class="banner-img">
+    <div v-else class="banner-img"></div>
     <!-- 热门社区 -->
     <div class="hot-community" v-if="!!hotList && hotList.length > 0">
       <div class="hot-title">
@@ -317,11 +320,16 @@ export default {
       width: 100%;
       height: 210px;
     }
+    .img {
+      width: 100%;
+      height: 210px;
+    }
   }
   .banner-img {
-    display: block;
+
     width: 100%;
     height: 210px;
+    background: url("../../assets/images/bd/banner.jpg");
   }
   .more-little {
     margin-top: 20px;

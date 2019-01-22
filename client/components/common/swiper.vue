@@ -114,14 +114,13 @@
 
         for (let i = 0; i < this.children.length; i++) {
           let child = this.children[i]
-          // child.style.width = slideWidth + 'px';
-           child.style.width = (slideWidth/37.5) + 'rem'
+          child.style.width = slideWidth + 'px';
           width += slideWidth
         }
         if (this.loop && !isResize) {
           width += 2 * slideWidth
         }
-        this.$refs.slideGroup.style.width = (width/37.5) + 'rem'
+        this.$refs.slideGroup.style.width = width + 'px'
       },
       _initSlide() {
         this.slide = new BScroll(this.$refs.slider, {
@@ -136,7 +135,8 @@
           },
           // snapLoop:true,
           stopPropagation: true,
-          click: this.click
+          // click: this.click
+          click:true
         })
 
         this.slide.on('scrollEnd', this._onScrollEnd)

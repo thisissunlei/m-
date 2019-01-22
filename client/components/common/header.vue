@@ -405,7 +405,7 @@ header {
       height: 28px;
       width: 76px;
       &.select {
-        background: url("../../assets/images/header/en.svg") center center
+        background: url("../../assets/images/header/en.svg") center top/contain
           no-repeat;
       }
     }
