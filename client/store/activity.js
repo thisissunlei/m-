@@ -105,8 +105,6 @@ export default {
   },
   getters: {
     throwActivityList(state){
-      console.log("state",state);
-
       return state.activityList;
     }
   }
