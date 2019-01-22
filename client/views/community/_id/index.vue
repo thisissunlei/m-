@@ -166,7 +166,7 @@
 
     <!-- start 立即预约 -->
     <div class="visit-btn"
-      @click="jumpVisit">
+      @click="jumpVisit"> 
       <p :class="[isFixed ? 'bottom-visit-fixed' : '']">{{$t('indexTitle.order')}}</p>
       <p v-show="isFixed"></p>
     </div>
