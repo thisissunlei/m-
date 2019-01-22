@@ -12,7 +12,8 @@
       </p>
     </div>
     <!-- 办公 -->
-    <div class="time-sharing-office">
+    <div class="time-sharing-office"
+      v-if="!!detail.officeType.longTerm.length || !!detail.officeType.timeShare.length">
       <div class="sharing-office-title"
         v-if="detail.officeType.longTerm.length > 0">
         <p>{{$t('CMNT_DTL_Title.long')}}</p>
@@ -86,7 +87,8 @@
 
     </div>
     <!-- 服务配套 -->
-    <div class="service-pack">
+    <div class="service-pack"
+      v-if="!!detail.list.supportingServices.BASICSERVICE.length || !!detail.list.supportingServices.INFRASTRUCTURE.length || !!detail.list.supportingServices.SPECIALSERVICE.length">
       <p class="common-title"
         v-if="!!detail.list.supportingServices.BASICSERVICE.length || !!detail.list.supportingServices.INFRASTRUCTURE.length || !!detail.list.supportingServices.SPECIALSERVICE.length">{{$t('CMNT_DTL_Title.service')}}</p>
       <div class="pack-info">
@@ -144,6 +146,24 @@
     <!-- 会员报道 -->
     <Member />
     <div class="divide-line"></div>
+    <!-- 同城社区 -->
+    <div class="same-city-community">
+      <p class="common-title">{{$t('CMNT_DTL_Title.community')}}</p>
+      <div class="same-city-tab">
+        <p>
+          <span>{{$t('CMNT_DTL_Title.sameCity')}}</span>
+          <span class="activity-line"
+            v-if="showCmlType=='cmt'"></span>
+        </p>
+        <p>
+          <span>{{$t('CMNT_DTL_Title.sameLocation')}}</span>
+          <span class="activity-line"
+            v-if="showCmlType=='ip'"></span>
+        </p>
+      </div>
+    </div>
+    <div class="divide-line"></div>
+
     <!-- start 立即预约 -->
     <div class="visit-btn"
       @click="jumpVisit">
@@ -193,23 +213,26 @@ export default {
       // showMap: false,
       bottomTagIndex: 0,
       bottomTagIndex1: 0,
-      showCode: false
+      showCode: false,
+      showCmlType: 'cmt'
     }
   },
   asyncData({ route, router, store }) {
     let cmtId = route.params.id;
     let lang = route.query.lang == 'en' ? 1 : 0;
-    console.log(cmtId)
+    // console.log(cmtId)
     return Promise.all([
       store.dispatch('getNewCommunityDetails', { id: cmtId, language: lang }),
-      store.dispatch('getNewOfficeType', { id: cmtId, language: lang })
+      store.dispatch('getNewOfficeType', { id: cmtId, language: lang }),
+      store.dispatch('getNewSameCommunity', { id: cmtId, language: lang })
     ])
   },
   watch: {
-    // '$route.query.lang'(value) {
-    //   console.log(value)
+    '$route.query.lang'(value) {
+      console.log(value)
+      this.getNewData()
 
-    // }
+    }
   },
   methods: {
     hrefMap() {
@@ -233,6 +256,12 @@ export default {
       } else {
         document.body.style.overflow = '';
       }
+    },
+    getNewData() {
+      let cmtId = this.$route.params.id;
+      let lang = this.$route.query.lang == 'en' ? 1 : 0;
+      this.$store.dispatch('getNewCommunityDetails', { id: cmtId, language: lang })
+      this.$store.dispatch('getNewOfficeType', { id: cmtId, language: lang })
     },
     scroll() {
       let top =
@@ -541,6 +570,18 @@ export default {
           text-align: center;
         }
       }
+    }
+  }
+  .same-city-community {
+    padding: 20px 16px;
+    .common-title {
+      font-family: PingFang-SC-Medium;
+      font-size: 20px;
+      color: #333333;
+      margin-bottom: 16px;
+    }
+    .same-city-tab {
+      display: flex;
     }
   }
 }
