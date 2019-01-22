@@ -18,7 +18,7 @@
       <div class="hot-title">
         <span class="hot-text">
           {{$t('indexTitle.hot')}}
-          <span :class="$route.query.lang === 'zh'? 'line' : 'en-line'"></span>
+          <span class="line"></span>
         </span>
       </div>
 
@@ -35,7 +35,7 @@
       <div class="hot-title">
         <span class="hot-text">
           {{$t('indexTitle.soon')}}
-          <span :class="$route.query.lang === 'zh'? 'line' : 'en-line'"></span>
+          <span class="line"></span>
         </span>
       </div>
       <div class="soon-content">
@@ -63,9 +63,7 @@
       <div class="hot-title">
         <span class="hot-text">
           {{$t('indexTitle.environment')}}
-          <span
-            :class="$route.query.lang === 'zh'? 'line' : 'en-line'"
-          ></span>
+          <span class="line"></span>
         </span>
       </div>
       <div style="text-align:center;" v-swiper:envSwiper="swiperOption">
@@ -74,7 +72,7 @@
             v-for="(item,index) in envList"
             v-show="envList.length"
             :key="index"
-            :href="`/community/1`"
+            href="#"
             class="swiper-slide"
           >
             <div class="image" :style="`background-image:url(${item.firstPic})` " name="“images”"></div>
@@ -143,7 +141,6 @@ export default {
           imagesReady: () => {
             let swiper = this.$refs.swiper;
             this.loopLength = swiper.children.length;
-            // console.log("111",this.loopLength);
           }
         }
       }
@@ -191,7 +188,7 @@ export default {
     this.language = this.lang === "en" ? 1 : 0;
     this.cityId = this.$route.query.cityId;
     this.getData();
-    console.log("index", this.index, this.envList, 1111111);
+    // console.log("index", this.index, this.envList, 1111111);
     window.addEventListener("scroll", this.scroll);
   },
 
@@ -294,14 +291,22 @@ export default {
     }
     .text {
       position: absolute;
-      background: rgba(0, 0, 0, 0.8);
-      height: 40px;
-      width: 100%;
-      line-height: 40px;
-      bottom: 0;
-      text-align: center;
-      color: #fff;
-      font-size: 15px;
+      left: 93px;
+      bottom: 15px;
+      background: rgba(255,255,255,0.90);
+      border-radius: 4px;
+      padding: 4px 8px;
+      font-family: PingFang-SC-Regular;
+      font-size: 14px;
+      color: #333333;
+      // background: rgba(0, 0, 0, 0.8);
+      // height: 40px;
+      // width: 100%;
+      // line-height: 40px;
+      // bottom: 0;
+      // text-align: center;
+      // color: #fff;
+      // font-size: 15px;
     }
   }
   .slider-item {
@@ -339,15 +344,15 @@ export default {
         background-color: #ffeb00;
         z-index: -10;
       }
-      .en-line {
-        position: absolute;
-        width: 100%;
-        height: 9px;
-        left: 0;
-        bottom: 0;
-        background-color: #ffeb00;
-        z-index: -10;
-      }
+      // .en-line {
+      //   position: absolute;
+      //   width: 100%;
+      //   height: 9px;
+      //   left: 0;
+      //   bottom: 0;
+      //   background-color: #ffeb00;
+      //   z-index: -10;
+      // }
     }
   }
   .hot-more {

@@ -1,5 +1,5 @@
 import axios from "axios";
-// import Qs from "qs";
+import Qs from "qs";
 import Es6Promise from "es6-promise";
 require("es6-promise").polyfill();
 Es6Promise.polyfill();
@@ -261,4 +261,10 @@ export default {
       })
     );
   },
+  setNewsRead(data) {
+    // 增加阅读人数
+    return handleRequest(
+      request.post('api/gateway/portalthree/add-news-read',
+       Qs.stringify(data)))
+  }
 };

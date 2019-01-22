@@ -59,6 +59,7 @@ export default {
   mounted() {
     var lang = this.$route.query.lang;
     var cityId = this.$route.query.cityId;
+    console.log('cityId666',cityId,lang)
     if ( !!lang && !!cityId ) {
       this.$store.commit('setCommonLang', lang);
       this.$store.commit('setHeaderCityId', cityId);
@@ -87,6 +88,7 @@ export default {
   },
   methods: {
     pushUrl() {
+      console.log("cityid",this.cityId);
       var path = this.$route.path;
       var query = this.$route.query;
       var newQuery = JSON.parse(JSON.stringify(query));

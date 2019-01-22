@@ -1,41 +1,46 @@
 <template>
   <div class="detail-box">
     <div class="detail-title">
-      <!-- {{about.newsDetail.title}} -->
-      氪空间完成6亿元Pre-B轮融资
+      {{about.newsDetail.title}}
     </div>
     <div class="detail-time">
-      <!-- {{about.newsDetail.publishedAt}} -->
-      2018-01-11
+      {{about.newsDetail.publishedAt}}
     </div>
     <div class="detail-content" v-html="about.newsDetail.desc"></div>
 
-    <div class="relative-community">
+    <div class="relative-community" v-if="!!about.newsDetail.relateCommunity.cityName">
       <div class="rel-title oth">相关社区</div>
       <div class="small-title">
         <div class="name">
-          <!-- <span class="city-name">{{about.newsDetail.relateCommunity.cityName}}·</span> -->
-          <!-- <span class="cmt-name">{{about.newsDetail.relateCommunity.cmtName}}</span> -->
+          <span class="city-name">{{about.newsDetail.relateCommunity.cityName}}·</span>
+          <span class="cmt-name">{{about.newsDetail.relateCommunity.cmtName}}</span>
         </div>
-        <span class="low-price">
-          <!-- <span class="num">{{about.newsDetail.relateCommunity.porPriceVo.levelPrice}}</span>元起/月 -->
-        </span>
+        <!-- <span class="low-price" v-if="!!about.newsDetail.relateCommunity.porPriceVo.levelPrice">
+          工位最低价：
+          <span class="num">{{about.newsDetail.relateCommunity.porPriceVo.levelPrice}}</span>元起/月
+        </span> -->
       </div>
       <!-- <div class="rel-pics" v-for="(item,i) of about.newsDetail.relateCommunity.rightImageUrl" :key="i">
         <img :src="item" alt="">
-      </div>-->
-      <!-- <div v-swiper:mySwiper="swiperOption">
+      </div> -->
+      <div v-swiper:mySwiper="swiperOption">
         <div class="swiper-wrapper">
           <div class="swiper-slide" v-for="banner in about.newsDetail.relateCommunity.rightImageUrl" :key="banner.index">
             <img :src="banner">
           </div>
         </div>
-        <div class="swiper-pagination"></div>
-      </div> -->
+      </div>
     </div>
 
     <div class="other-news">
-      <div class="other-title oth">其他新闻</div>
+      <div class="other-title">{{$t('newsMore')}}</div>
+        <div class="others-lists">
+        <a class="other-detail fl" v-for="(item, i) in about.more" :key="i"
+           :href="'//'+$store.state.common.origin+'/about/'+item.id+$store.state.common.queryString">
+          <div class="img"  :style="item.photoUrl?'background: url('+item.photoUrl+'?x-oss-process=image/resize,h_290,w_516,color_eeeeee,quality,q_80) center center / cover no-repeat;':''" ></div>
+           <div class="content">{{item.intro}}</div>
+        </a>
+      </div>
     </div>
   </div>
 </template>
@@ -45,14 +50,12 @@ import { mapState, mapActions } from 'vuex'
 export default {
   data () {
     return {
-      // swiperOption: {
-      //     pagination: {
-      //       el: '.swiper-pagination'
-      //     },
-      //     width: 162,
-      //     height: 92,
-      //     // some swiper options...
-      //   }
+      swiperOption: {
+        // centeredSlides:false,
+        slidesPerView:2.5,
+        slidesOffsetBefore:16,
+        slidesOffsetAfter:16
+        }
     }
   },
   computed: {
@@ -61,8 +64,7 @@ export default {
     ])
   },
   mounted () {
-    // console.log("111", this.about);
-
+    console.log("111", this.about);
       // console.log(this.mySwiper)
       // this.mySwiper.slideTo(3, 1000, false)
   },
@@ -71,10 +73,16 @@ export default {
     if (!!route.query.lang && route.query.lang === 'en') {
       lang = 1;
     }
+    let more = {
+        page:1,
+        pageSize:2,
+        language: lang
+      }
     let params = route.params;
     params.language = lang;
     return Promise.all([
       store.dispatch('getNewsDetail', params),
+       store.dispatch('getMoreNews',more),
     ])
   },
 }
@@ -127,12 +135,12 @@ export default {
   .relative-community {
     margin-top: 30px;
     .small-title {
+      height: 20px;
       margin-top: 10px;
       margin-bottom: 20px;
       font-family: PingFangSC-Regular;
       font-size: 14px;
       color: #666666;
-      letter-spacing: 0;
       line-height: 20px;
       .name {
         float: left;
@@ -144,12 +152,53 @@ export default {
         color: red;
       }
     }
-    .rel-pics {
-      width: 162px;
+    .swiper-container {
+      margin-right: -16px;
+      margin-left: -16px;
+    }
+    .swiper-wrapper {
+      .swiper-slide{
+      width: 162px!important;
       height: 92px;
-      img {
-        width: 100%;
-        height: 100%;
+      margin-right: 10px;
+      border: 1px solid #EEEEEE;
+      border-radius: 4px;
+        img {
+          width: 100%;
+          height: 100%;
+        }
+      }
+    }
+  }
+  .other-news {
+    .other-title {
+      margin: 33px 0 15px 0;
+      font-family: PingFangSC-Semibold;
+      font-size: 18px;
+      color: #333333;
+      line-height: 24px;
+    }
+    .other-detail {
+      display: inline-block;
+      width: 168px;
+      height: 153px;
+      background: #FAFAFA;
+      border-radius: 4px;
+      margin-right: 9px;
+       &:nth-child(2){
+        margin-right: -9px;
+      }
+      .img {
+        width: 166px;
+        height: 93px;
+        background: pink;
+      }
+      .content {
+        padding: 10px 5px 0 6px;
+        font-family: PingFangSC-Regular;
+        font-size: 13px;
+        color: #333333;
+        letter-spacing: 0;
       }
     }
   }

@@ -43,7 +43,7 @@ export default {
     }
   },
   mounted(){
-    console.log('activity',this.data)
+    console.log('data6666',data);
   }
 }
 </script>

@@ -71,7 +71,7 @@ export default {
 
     // this.lang = this.$route.query.lang;
 
-    // this.setQuery()
+    this.setQuery()
   },
   watch:{
     '$route'(n, o) {
@@ -81,7 +81,7 @@ export default {
       },
 
       '$store.state.common.queryString'() {
-        // this.setQuery()
+        this.setQuery()
       }
   },
   created(){
@@ -112,7 +112,6 @@ export default {
         })
       },
       selectType(item) {
-        console.log('item', item);
         this.activeTab = item.value;
     },
   },

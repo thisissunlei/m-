@@ -20,23 +20,23 @@
       <img src="../../assets/images/about/scope/pic1.png" alt="" class="pic-info"/>
       <div class="pic-text">
         <span class="info">社区分布</span>
-        <span><span class="num">12</span><span class="line line1"></span><span class="text">{{$t('aboutProfile.sectionOne')}}</span></span>
+        <span><span class="num">12</span><span :class="$route.query.lang=='zh'?'line line1':'line en-line1'"></span><span class="text">{{$t('aboutProfile.sectionOne')}}</span></span>
       </div>
       <img src="../../assets/images/about/scope/pic2.png" alt="" class="pic-info"/>
       <div class="pic-text">
-        <span><span class="num">60</span><span class="line line2"></span><span class="text">{{$t('aboutProfile.sectionTwo')}}</span></span>
+        <span><span class="num">60</span><span :class="$route.query.lang=='zh'?'line line2':'line en-line2'"></span><span class="text">{{$t('aboutProfile.sectionTwo')}}</span></span>
       </div>
       <img src="../../assets/images/about/scope/pic4.png" alt="" class="pic-info"/>
       <div class="pic-text">
-        <span><span class="num">40,000</span><span class="line line3"></span><span class="text">{{$t('aboutProfile.sectionTwo')}}</span></span>
+        <span><span class="num">40,000</span><span :class="$route.query.lang=='zh'?'line line3':'line en-line3'"></span><span class="text">{{$t('aboutProfile.sectionTwo')}}</span></span>
       </div>
       <img src="../../assets/images/about/scope/pic5.png" alt="" class="pic-info"/>
       <div class="pic-text">
-        <span><span class="num">20,000</span><span class="line line4"></span><span class="text">{{$t('aboutProfile.sectionFour')}}</span></span>
+        <span><span class="num">20,000</span><span :class="$route.query.lang=='zh'?'line line4':'line en-line4'"></span><span class="text">{{$t('aboutProfile.sectionFour')}}</span></span>
       </div>
       <img src="../../assets/images/about/scope/pic6.png" alt="" class="pic-info"/>
       <div class="pic-text">
-        <span><span class="num">3000</span><span class="line line5"></span><span class="text">{{$t('aboutProfile.sectionFive')}}</span></span>
+        <span><span class="num">3000</span><span :class="$route.query.lang=='zh'?'line line5':'line en-line5'"></span><span class="text">{{$t('aboutProfile.sectionFive')}}</span></span>
       </div>
     </div>
 
@@ -146,10 +146,22 @@ export default {
         right: 145px;
         bottom: 14px;
       }
+      .en-line1 {
+        width: 40px;
+        height: 9px;
+        right: 155px;
+        bottom: 14px;
+      }
       .line2 {
         width: 38px;
         height: 9px;
         right: 180px;
+        bottom: 14px;
+      }
+      .en-line2{
+        width: 38px;
+        height: 9px;
+        right: 219px;
         bottom: 14px;
       }
       .line3 {
@@ -158,10 +170,22 @@ export default {
         right: 165px;
         bottom: 14px;
       }
+      .en-line3 {
+        width: 78px;
+        height: 9px;
+        right: 202px;
+        bottom: 14px;
+      }
       .line4 {
         width: 75px;
         height: 9px;
         right: 150px;
+        bottom: 14px;
+      }
+      .en-line4 {
+        width: 75px;
+        height: 9px;
+        right: 197px;
         bottom: 14px;
       }
       .line5 {
@@ -170,6 +194,7 @@ export default {
         right: 175px;
         bottom: 14px;
       }
+      
     }
   }
 
