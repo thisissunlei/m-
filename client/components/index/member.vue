@@ -4,7 +4,10 @@
       {{$t('indexTitle.members')}}
       <span class="line"></span>
     </div>
-    <a :href="'//'+$store.state.common.origin+'/members/'+item.id+$store.state.common.queryString" class="item-content border-bottom" v-for="(item,index) in data" :key="index">
+    <a :href="'//'+$store.state.common.origin+'/members/'+item.id+$store.state.common.queryString"
+      class="item-content border-bottom"
+      v-for="(item,index) in data" :key="index"
+      @click="addRead(item.id)">
       <div class="img fr"
              :style="item.photoUrl?'background: url('+item.photoUrl+'?x-oss-process=image/resize,h_240,w_321,color_eeeeee,quality,q_80) center top / cover no-repeat' :''"></div>
       <div class="item-info">
@@ -25,6 +28,7 @@
 </template>
 
 <script>
+import model from 'model'
 export default {
   props: ['data'],
   data(){
@@ -34,7 +38,19 @@ export default {
   },
   mounted(){
     console.log('member',this.data)
-  }
+  },
+   methods: {
+      addRead(id) {
+        model.setNewsRead({newsId: id})
+          .then(res => {
+            this.$store.dispatch('getUserNewsList', {
+              language: this.$route.query.lang === 'en'? 1: 0,
+              page: 1,
+              pageSize: 4
+            })
+          })
+      },
+    }
 }
 </script>
 

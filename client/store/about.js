@@ -7,6 +7,7 @@ export default {
     newsDetail:{},
     totalPages:0,
     page:1,
+    more:[]
   },
   // action去commit哪个mutation
   actions: {
@@ -14,6 +15,15 @@ export default {
       return model.getNewsList(formData)
         .then(data => {
           commit('setList', data)
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
+    getMoreNews({ commit },formData){
+      return model.getNewsList(formData)
+        .then(data => {
+          commit('setMore', data.items)
         })
         .catch(err => {
           console.log(err)
@@ -38,6 +48,9 @@ export default {
     },
     setDetail(state,data){
       state.newsDetail = data.items;
+    },
+    setMore(state,data){
+      state.more = data
     },
   }
 }
