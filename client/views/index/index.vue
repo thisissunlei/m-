@@ -24,7 +24,7 @@
 
       <Hot v-for="(item, i) in hotList" :key="i" :data="item" :query="query" v-if="i<3"></Hot>
       <div class="hot-more">
-        <a href class="more">
+        <a :href="'//'+$store.state.common.origin+'/community'+$store.state.common.queryString" class="more">
           {{$t('indexTitle.more')}}
           <i class="arror">>></i>
         </a>
@@ -39,7 +39,8 @@
         </span>
       </div>
       <div class="soon-content">
-        <a href class="soon-item fl" v-for="(item,i) in waitList" :key="i">
+        <a :href="'//'+$store.state.common.origin+'/community/' + item.cmtId + $store.state.common.queryString"
+         class="soon-item fl" v-for="(item,i) in waitList" :key="i">
           <img :src="item.recommendPicUrl" alt>
           <div class="soon-city">{{item.cityName}}</div>
           <div class="soon-cmt">{{item.cmtName}}</div>
@@ -52,7 +53,7 @@
         </a>
       </div>
       <div class="hot-more">
-        <a href class="more">
+        <a :href="'//'+$store.state.common.origin+'/community'+$store.state.common.queryString+'&openStatus=2'" class="more">
           {{$t('indexTitle.more')}}
           <i class="arror">>></i>
         </a>
