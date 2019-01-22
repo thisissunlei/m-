@@ -273,18 +273,15 @@ export default {
   getComter(data) {
     //高效、分时办公
     return handleRequest(
-      request.get("/api/gateway/get-all-cbd", {
+      request.get("api/gateway/get-all-cbd", {
         params: data
       })
     );
-<<<<<<< HEAD
-=======
   },
   setNewsRead(data) {
     // 增加阅读人数
     return handleRequest(
-      request.post('api/gateway/portalthree/add-news-read',
-       Qs.stringify(data)))
->>>>>>> c21bdaf0753db5ec8869ec4a438d068d11ee0640
+      request.post("api/gateway/portalthree/add-news-read", Qs.stringify(data))
+    );
   }
 };
