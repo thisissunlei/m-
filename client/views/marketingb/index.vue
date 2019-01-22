@@ -200,6 +200,8 @@ import model from 'model'
       return{
         modeList: [],
         modeShow: false,
+        modeType: '',
+        modeId: 0,
         cityIndex:0,
         mobile:'',
         areaValue:'',
@@ -297,14 +299,18 @@ import model from 'model'
     methods:{
       changeCity(type) {
         console.log(type)
+        this.modeType = type
         if ( type === 'city' ) {
           this.modeList = this.cityList
+          this.modeId = this.cityId
         }
         if ( type === 'comm' ) {
           this.modeList = this.buildList
+          this.modeId = this.cityId
         }
         if ( type === 'num' ) {
           this.modeList = this.countList
+          this.modeId = this.cityId
         }
         this.modeShow = !this.modeShow
       },

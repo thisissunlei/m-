@@ -146,7 +146,7 @@
         this.$store.dispatch('getNewCommunityCbds', this.cbdData)
           .then(res => {
             let list = this.$store.state.community.cbdList.filter((val, i) => {
-              return val.cityId === this.listData.cityId
+              return val.cityId*1 === this.listData.cityId*1
             })
             if ( !list[0].cbdList ) {
               this.all = true

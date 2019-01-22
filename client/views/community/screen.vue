@@ -25,7 +25,7 @@
         </li>
         <li class="city-community" v-for="item, i in community.cbdList" :key="i" v-if="$route.query.cityId*1 === item.cityId*1">
           <div :class="all? 'select': ''"
-               @click="changeUrl('porCbdId', '', '全部', '办公位置')">{{$t('communityOpenStatus')[0]}}</div>
+               @click="changeUrl('porCbdId', '', '全部', '办公位置')">{{$t('communityOpenStatus')[0]}}{{all}}</div>
           <div v-for="cbdListItem, cbdListI in item.cbdList" :key="cbdListI"
                @click="changeUrl('porCbdId', cbdListItem.id, cbdListItem.cbdName, '办公位置')"
                :class="listData.porCbdId*1 === cbdListItem.id*1? 'select': ''">{{cbdListItem.cbdName}}</div>
@@ -91,8 +91,10 @@
           this.setIndex()
         }
       },
-      '$route.query'() {
-        this.all = false
+      '$route.query'(n, o) {
+        if ( !!n.porCbdId ) {
+          this.all = false
+        }
         this.setData(1)
       }
     },

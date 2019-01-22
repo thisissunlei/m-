@@ -63,9 +63,9 @@ export default {
    */
   getVisitInfo(data) {
     return handleRequest(
-      request.post("api/gateway/portals/save-visit-info", {
-        params: data
-      })
+      request.post("api/gateway/portals/save-visit-info",
+        Qs.stringify(data)
+      )
     );
   },
 
@@ -194,9 +194,9 @@ export default {
     //阅读量
     console.log('阅读量',data)
     return handleRequest(
-      request.post("api/gateway/portalthree/add-news-read", {
-        params: data
-      })
+      request.post("api/gateway/portalthree/add-news-read",
+        Qs.stringify(data)
+      )
     );
   },
   getCometTeamList(data) {
@@ -283,7 +283,9 @@ export default {
     // 增加阅读人数
     return handleRequest(
       request.post('api/gateway/portalthree/add-news-read',
-       Qs.stringify(data)))
+       Qs.stringify(data)
+      )
+    )
   },
 
   // 推广页面接口 start
