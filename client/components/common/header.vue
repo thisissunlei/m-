@@ -13,7 +13,7 @@
 
     <!-- 城市选择哪个地方 -->
     <div class="city fl" v-if="!!listenCityList && listenCityList.length > 0">
-      <div class="clearfix" v-if="rightConter">
+      <div class="clearfix" v-if="this.$store.state.community.rightConter">
         <div class="img fl icon"></div>
         <span class="fl">{{selectCityName}}</span>
         <div class="img jiao fl"></div>
@@ -46,7 +46,7 @@
         <span class="fl" @click="changeLang('en', 1)"></span>
       </div>
       <div class="other fl">
-        <div class="img select" @click="setMenuClose" v-if="rightConter"></div>
+        <div class="img select" @click="setMenuClose" v-if="this.$store.state.community.rightConter"></div>
         <div class="img" @click="setMenuOpen" v-else ></div>
         
         <!-- 下拉菜单 -->
@@ -81,8 +81,8 @@
         </div>
       </div>
     </div>
-    <div class="menu-mask" v-if="rightConter" @click="closeCityDoenPage"></div>
-    <Visit :Close="jumpVisit" :areaDisabled="areaDisabled" v-if="isVisit"/>
+    <div class="menu-mask" v-if="this.menuShow || this.citysShow" @click="closeCityDoenPage"></div>
+    <Visit :Close="jumpVisit" :areaDisabled="areaDisabled" v-if="this.$store.state.community.isVisit"/>
   </header>
 </template>
 
@@ -101,9 +101,7 @@ export default {
       language: 0, // 0:中文 1:英文
       cityId: Number, //路由上面的city,只能在路由传参的时候修改
       menuShow: false,//办公首页
-      isVisit: false, //是不是展示立即预约哪个窗口
-      areaDisabled: false,
-      rightConter : false//控制右侧
+      areaDisabled: false
     };
   },
   computed: {
@@ -140,7 +138,6 @@ export default {
     }
   },
   mounted() {
-    console.log(this.$store.state.common)
     this.language = this.$route.query.lang == "zh" ? 0 : 1;
     // 如果路由有城市id然后进行回调
     this.getHeadShowCity();
@@ -166,17 +163,17 @@ export default {
     //打开城市下拉页面
     openCityDoenPage() {
       this.citysShow = true;
-      this.rightConter = true;
+      this.$store.commit('openRightConter', true);
     },
     //关闭后面的阴影
     closeCityDoenPage() {
       if(this.citysShow){
         this.citysShow = false;
-        this.rightConter = false;
+        this.$store.commit('openRightConter', false);
       }
       if(this.menuShow){
         this.menuShow = false;
-        this.rightConter = false;
+        this.$store.commit('openRightConter', false);
       }
     },
     // 切换城市
@@ -190,7 +187,7 @@ export default {
       } else {
         this.pushUrl(lang);
       }
-      this.rightConter = false;
+      this.$store.commit('openRightConter', false);
       this.citysShow = false;
     },
     pushUrl(lang) {
@@ -216,28 +213,33 @@ export default {
       win.location.href = path + "?" + url.substr(0, url.length - 1);
     },
     setMenuOpen(){
-       if(this.isVisit==false && this.menuShow==false && this.citysShow==false){
+       if(this.menuShow==false && this.citysShow==false){
         this.menuShow = true;
-        this.rightConter = true;
+        this.$store.commit('openRightConter', true);
       }
     },
     setMenuClose(){
-       if(this.isVisit){
-        this.isVisit = false;
+       if(this.$store.state.community.isVisit){
+        this.$store.commit('optionVisit', false);
+        if(this.menuShow){
+          this.$store.commit('openRightConter', true);
+        }else{
+          this.$store.commit('openRightConter', false);
+        }
         return false
       }
       if(this.menuShow){
         this.menuShow = false;
-        this.rightConter = false;
+        this.$store.commit('openRightConter', false);
       }
       if(this.citysShow){
-        this.rightConter = false;
+        this.$store.commit('openRightConter', false);
         this.citysShow = false;
       }
     },
     // 弹出立即预约窗口
     jumpVisit() {
-      this.isVisit = true;
+      this.$store.commit('optionVisit', true);
     }
   }
 };
