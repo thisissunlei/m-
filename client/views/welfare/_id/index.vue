@@ -1,16 +1,16 @@
 <template>
   <div class="welfare-detail">
     <div class="welfare-swiper">
-      <div class="swiper" :style="welfare.detail.couponCover?'background: url('+welfare.detail.couponCover+'?x-oss-process=image/quality,q_80) center top / cover no-repeat;':''"></div>
+
     <!-- <img :src="welfare.detail.couponCover" alt="" class="swiper"> -->
-    <!-- <div v-swiper:envSwiper="swiperOption" >
+    <!-- <div v-swiper:envSwiper="swiperOption" v-if="!!welfare.detail.couponImgs && welfare.detail.couponImgs.length > 0">
         <div class="swiper-wrapper" ref="swiper">
-          <div class="swiper-slide" v-for="(item, index) in welfare.detail" :key="index">
-            <img :src="item.couponCover">
-            <span class="env-name">{{item.envName}}</span>
+          <div class="swiper-slide" v-for="(item, index) in welfare.detail.couponImgs" :key="index">
+            <div class="img" :style="item?'background: url('+item+'?x-oss-process=image/quality,q_80) center top / cover no-repeat;':''"></div>
           </div>
         </div>
     </div> -->
+      <div class="swiper" :style="welfare.detail.couponCover?'background: url('+welfare.detail.couponCover+'?x-oss-process=image/quality,q_80) center top / cover no-repeat;':''"></div>
     </div>
 
       <img :src="welfare.detail.couponCover" alt="" class="small-img">
@@ -36,9 +36,6 @@
           {{welfare.detail.couponDetail}}
         </div>
       </div>
-
-      <!-- <div class="content-title use-title" v-if="welfare.detail.useRule">{{$t('welfare.warn')}}</div>
-        <div class="activity-richText" v-html="welfare.detail.useRule"></div> -->
 
       <div class="item-tips" v-if="!!welfare.detail.useRule">
         <p class="intro-title">使用提示</p>
@@ -101,8 +98,12 @@ export default {
   position: relative;
 }
   .welfare-swiper {
-
-    // background: palegreen;
+    .swiper-wrapper {
+      height: 188px;
+      .swiper-slide {
+        height: 188px;
+      }
+    }
     .swiper {
       width: 375px;
       height: 188px;
@@ -198,7 +199,6 @@ export default {
       .tip-adress {
         font-family: PingFangSC-Medium;
         line-height: 20px;
-        // margin-right: 5px;
         span {
           display: inline-block;
           width: 28px;

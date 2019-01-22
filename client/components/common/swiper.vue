@@ -1,11 +1,6 @@
 <template>
   <div class="slide" ref="slider">
     <div class="slide-group" ref='slideGroup'>
-      <!-- <div class="slider-item" v-for="(item,index) in list" :key="index">
-        <a :href="item.linkUrl">
-          <img :src="item.banerPicUrl" :alt="item.linkUrl" ref="sliderItemImg">
-        </a>
-      </div> -->
       <slot></slot>
     </div>
     <div v-if="showDot" class="dots">
@@ -115,11 +110,11 @@
         this.children = this.$refs.slideGroup.children
         let width = 0
         let slideWidth = this.$refs.slider.clientWidth
-        // console.log("length111",this.children.length,this.children);
+
 
         for (let i = 0; i < this.children.length; i++) {
           let child = this.children[i]
-          child.style.width = slideWidth + 'px'
+          child.style.width = slideWidth + 'px';
           width += slideWidth
         }
         if (this.loop && !isResize) {
@@ -140,7 +135,8 @@
           },
           // snapLoop:true,
           stopPropagation: true,
-          click: this.click
+          // click: this.click
+          click:true
         })
 
         this.slide.on('scrollEnd', this._onScrollEnd)

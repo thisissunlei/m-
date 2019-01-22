@@ -4,19 +4,23 @@
       {{$t('indexTitle.members')}}
       <span class="line"></span>
     </div>
-    <a href="" class="item-content border-bottom">
-      <img src="" alt="">
+    <a :href="'//'+$store.state.common.origin+'/members/'+item.id+$store.state.common.queryString"
+      class="item-content border-bottom"
+      v-for="(item,index) in data" :key="index"
+      @click="addRead(item.id)">
+      <div class="img fr"
+             :style="item.photoUrl?'background: url('+item.photoUrl+'?x-oss-process=image/resize,h_240,w_321,color_eeeeee,quality,q_80) center top / cover no-repeat' :''"></div>
       <div class="item-info">
-        <p class="item-title">星巴克全国通用全国通用全国通用全国通用全国通用全国通用全国通用</p>
+        <p class="item-title">{{item.title}}</p>
         <p class="item-bottom">
           <!-- <span class="fire fl"></span> -->
-          <span class="num fl">100049 阅读</span>
-          <span class="time fr">2018-12-20</span>
+          <span class="num fl">{{item.totalReadCunt}} 阅读</span>
+          <span class="time fr">{{item.publishedAt}}</span>
         </p>
       </div>
     </a>
     <div class="more">
-      <a href="" class="item-more">
+      <a :href="'//'+$store.state.common.origin+'/members'+$store.state.common.queryString" class="item-more">
         {{$t('indexTitle.more')}}<i class="arror">>></i>
       </a>
     </div>
@@ -24,6 +28,7 @@
 </template>
 
 <script>
+import model from 'model'
 export default {
   props: ['data'],
   data(){
@@ -33,13 +38,30 @@ export default {
   },
   mounted(){
     console.log('member',this.data)
-  }
+  },
+   methods: {
+      addRead(id) {
+        model.setNewsRead({newsId: id})
+          .then(res => {
+            this.$store.dispatch('getUserNewsList', {
+              language: this.$route.query.lang === 'en'? 1: 0,
+              page: 1,
+              pageSize: 4
+            })
+          })
+      },
+    }
 }
 </script>
 
 <style lang="less" scoped>
 .border-bottom {
   border-bottom: 1px solid #F3F3F3;;
+}
+.member-box {
+   a:nth-child(4){
+    border-bottom: none;
+  }
 }
 .more {
   width: 153px;
@@ -76,20 +98,19 @@ export default {
     }
 .item-content {
   display: flex;
-  // padding-left: 16px;
-  // margin-bottom: 20px;
-  padding:15px 16px;
-  img {
+  padding: 15px 0;
+  margin: 0 16px;
+  .img {
     width: 107px;
     height: 80px;
     margin-right: 10px;
-    background: palegreen;
+    border-radius: 4px;
   }
   .item-info {
     flex: 1;
     .item-title {
       max-width: 220px;
-      max-height: 48px;
+      height: 48px;
       overflow: hidden;
       -webkit-line-clamp: 2;
       text-overflow: ellipsis;

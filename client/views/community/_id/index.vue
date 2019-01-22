@@ -1,37 +1,21 @@
 <template>
   <div class="community-detail">
-    <div class="slide-picture">
-      <div v-swiper:mySwiper="swiperOption">
-        <div class="swiper-wrapper"
-          ref="swiper">
-          <div class="swiper-slide"
-            v-for="(item, index) in imgList"
-            :key="index">
-            <img :src="item">
-            <span class="env-name">{{item.envName}}</span>
-          </div>
-        </div>
-      </div>
-      <div class="tab-list">
-        <p v-for="(item,index) in tabList"
-          :class="[getActive(item) ? 'tab-active' : '']"
-          @click="goToImg(item)"
-          :key="index"> {{item.name}} </p>
-      </div>
-    </div>
-
+    <!-- 轮播图 -->
+    <Slides></Slides>
     <!-- 查看地图 -->
     <div class="see-map">
       <p class="community-name">{{detail.list.communityName}}</p>
       <p>
         <span class="address-text">{{detail.list.address}}</span>
         <span class="go-map"
-          @click="mapShow">{{$t('CMNT_DTL_Title.map')}}</span>
+          @click="hrefMap">{{$t('CMNT_DTL_Title.map')}}</span>
       </p>
     </div>
     <!-- 办公 -->
-    <div class="time-sharing-office">
-      <div class="sharing-office-title">
+    <div class="time-sharing-office"
+      v-if="!!detail.officeType.longTerm.length || !!detail.officeType.timeShare.length">
+      <div class="sharing-office-title"
+        v-if="detail.officeType.longTerm.length > 0">
         <p>{{$t('CMNT_DTL_Title.long')}}</p>
         <p @click="jumpVisit">{{$t('indexTitle.order')}}</p>
       </div>
@@ -65,7 +49,8 @@
 
         </div>
       </div>
-      <div class="sharing-office-title">
+      <div class="sharing-office-title"
+        v-if="detail.officeType.timeShare.length > 0">
         <p>{{$t('CMNT_DTL_Title.short')}}</p>
         <p @click="showQRcode">{{$t('CMNT_DTL_Title.shortBtn')}}</p>
       </div>
@@ -102,7 +87,8 @@
 
     </div>
     <!-- 服务配套 -->
-    <div class="service-pack">
+    <div class="service-pack"
+      v-if="!!detail.list.supportingServices.BASICSERVICE.length || !!detail.list.supportingServices.INFRASTRUCTURE.length || !!detail.list.supportingServices.SPECIALSERVICE.length">
       <p class="common-title"
         v-if="!!detail.list.supportingServices.BASICSERVICE.length || !!detail.list.supportingServices.INFRASTRUCTURE.length || !!detail.list.supportingServices.SPECIALSERVICE.length">{{$t('CMNT_DTL_Title.service')}}</p>
       <div class="pack-info">
@@ -149,8 +135,8 @@
       v-if="isVisit" />
 
     <!-- 详情地图 -->
-    <Detailmap v-if="showMap"
-      :change="mapChange"></Detailmap>
+    <!-- <Detailmap v-if="showMap"
+      :change="mapChange"></Detailmap> -->
     <!-- 社区福利 -->
     <Welfare />
     <div class="divide-line"></div>
@@ -160,6 +146,24 @@
     <!-- 会员报道 -->
     <Member />
     <div class="divide-line"></div>
+    <!-- 同城社区 -->
+    <div class="same-city-community">
+      <p class="common-title">{{$t('CMNT_DTL_Title.community')}}</p>
+      <div class="same-city-tab">
+        <p>
+          <span>{{$t('CMNT_DTL_Title.sameCity')}}</span>
+          <span class="activity-line"
+            v-if="showCmlType=='cmt'"></span>
+        </p>
+        <p>
+          <span>{{$t('CMNT_DTL_Title.sameLocation')}}</span>
+          <span class="activity-line"
+            v-if="showCmlType=='ip'"></span>
+        </p>
+      </div>
+    </div>
+    <div class="divide-line"></div>
+
     <!-- start 立即预约 -->
     <div class="visit-btn"
       @click="jumpVisit">
@@ -191,14 +195,14 @@ import Welfare from '../../../components/index/welfare.vue'
 import Activity from '../../../components/index/activity.vue'
 import Member from '../../../components/index/member.vue'
 import Visit from 'components/common/visit.vue'
-import Detailmap from './detailmap'
+import Slides from './slides.vue'
 export default {
   components: {
     Welfare,
     Activity,
     Member,
-    Detailmap,
-    Visit
+    Visit,
+    Slides
   },
   data() {
     return {
@@ -206,113 +210,39 @@ export default {
       isVisit: false,
       isFixed: true,
       detail: {},
-      showMap: false,
+      // showMap: false,
       bottomTagIndex: 0,
       bottomTagIndex1: 0,
       showCode: false,
-      imgList: [],
-      tabList: [],
-      currentIndex: 0,
-      mapChange: 1,
-      swiperOption: {
-        autoplay: true,
-        speed: 1500,
-        loop: true,
-        on: {
-          slideChange: () => {
-            let swiper = this.mySwiper;
-            // console.log(swiper.activeIndex)
-            this.currentIndex = swiper.activeIndex
-            // swiper.slideTo(this.currentIndex)
-          }
-        }
-      }
-
+      showCmlType: 'cmt'
     }
   },
   asyncData({ route, router, store }) {
-    let cmtId = 1 || route.params.id;
+    let cmtId = route.params.id;
     let lang = route.query.lang == 'en' ? 1 : 0;
+    // console.log(cmtId)
     return Promise.all([
       store.dispatch('getNewCommunityDetails', { id: cmtId, language: lang }),
-      store.dispatch('getNewOfficeType', { id: cmtId, language: lang })
+      store.dispatch('getNewOfficeType', { id: cmtId, language: lang }),
+      store.dispatch('getNewSameCommunity', { id: cmtId, language: lang })
     ])
   },
+  watch: {
+    '$route.query.lang'(value) {
+      console.log(value)
+      this.getNewData()
+
+    }
+  },
   methods: {
-    mapShow() {
-      this.showMap = true;
+    hrefMap() {
+      let cmtId = this.$route.params.id;
+      location.href = `/community/${cmtId}/detailmap`;
     },
     jumpVisit() {
       this.isVisit = true;
     },
-    goToImg(tab) {
-      this.currentIndex = tab.index;
-      // console.log('111', this.mySwiper)
-      this.mySwiper.slideTo(tab.index);
-    },
-    getActive(list) {
-      let index = this.currentIndex;
-      let flag;
-      if (list.items.indexOf(index) != -1) {
-        flag = true;
-      } else {
-        flag = false;
-      }
-      return flag;
-    },
-    getImgList(detail) {
-      // console.log(detail)
-      let len1 = 0;
-      let len2 = 0;
-      let len3 = 0;
-      if (detail.COMMUNITY_INTERIOR && detail.COMMUNITY_INTERIOR.length > 0) {
-        len1 = detail.COMMUNITY_INTERIOR.length;
-        let arr = [];
-        let tabObj = {
-          name: '内景',
-          len: len1,
-          items: []
-        }
-        detail.COMMUNITY_INTERIOR.map((item, index) => {
-          tabObj.items.push(index);
-          tabObj.index = tabObj.items[0];
-          this.imgList.push(item.picUrl)
-        })
-        this.tabList.push(tabObj)
-      }
 
-      if (detail.OFFICE_STATION && detail.OFFICE_STATION.length > 0) {
-        len2 = detail.OFFICE_STATION.length;
-        let tabObj = {
-          name: '办公',
-          len: len1 + len2,
-          items: []
-        };
-        detail.OFFICE_STATION.map((item, index) => {
-          tabObj.items.push(index + len1);
-          tabObj.index = tabObj.items[0];
-          this.imgList.push(item.picUrl);
-        })
-        this.tabList.push(tabObj)
-      }
-
-      if (detail.COMMUNITY_ERIOR && detail.COMMUNITY_ERIOR.length > 0) {
-        len3 = detail.COMMUNITY_ERIOR.length;
-        let tabObj = {
-          name: '外景',
-          len: len1 + len2 + len3,
-          items: []
-        };
-        detail.COMMUNITY_ERIOR.map((item, index) => {
-          tabObj.items.push(index + len1 + len2);
-          tabObj.index = tabObj.items[0];
-          this.imgList.push(item.picUrl);
-        })
-
-        this.tabList.push(tabObj)
-
-      }
-    },
     toggleBottomTags(index) {
       this.bottomTagIndex = index;
     },
@@ -326,6 +256,12 @@ export default {
       } else {
         document.body.style.overflow = '';
       }
+    },
+    getNewData() {
+      let cmtId = this.$route.params.id;
+      let lang = this.$route.query.lang == 'en' ? 1 : 0;
+      this.$store.dispatch('getNewCommunityDetails', { id: cmtId, language: lang })
+      this.$store.dispatch('getNewOfficeType', { id: cmtId, language: lang })
     },
     scroll() {
       let top =
@@ -347,7 +283,6 @@ export default {
     this.detail = this.$store.state.detail
   },
   mounted() {
-    this.getImgList(this.detail.list.picTypeMap);
     console.log(this.detail)
     window.addEventListener('scroll', this.scroll)
 
@@ -363,41 +298,7 @@ export default {
     height: 10px;
     background: #f6f6f6;
   }
-  .slide-picture {
-    width: 100%;
-    height: 210.9px;
-    position: relative;
-    .swiper-container,
-    .swiper-wrapper,
-    .swiper-slide,
-    img {
-      width: 100%;
-      height: 100%;
-    }
-    .tab-list {
-      width: 100%;
-      height: 22px;
-      position: absolute;
-      bottom: 10.9px;
-      z-index: 20;
-      display: flex;
-      justify-content: center;
-      p {
-        opacity: 0.7;
-        background: #000000;
-        border-radius: 16px;
-        font-family: PingFangSC-Regular;
-        font-size: 13px;
-        color: #ffffff;
-        padding: 2px 8px;
-        margin-right: 24px;
-      }
-      .tab-active {
-        background: #ffeb00;
-        color: #666666;
-      }
-    }
-  }
+
   .see-map {
     width: 100%;
     padding: 21px 16px;
@@ -419,6 +320,18 @@ export default {
       color: #666666;
       display: inline-block;
       width: 80%;
+    }
+    .address-text:before {
+      content: "";
+      display: inline-block;
+      background: url("../../../assets/images/index/address.png") 0 0 no-repeat;
+      -webkit-background-size: 100% 100%;
+      background-size: 100% 100%;
+      flex-shrink: 0;
+      margin-right: 5px;
+      height: 14px;
+      width: 12px;
+      align-self: center;
     }
     .go-map {
       font-family: PingFangSC-Regular;
@@ -657,6 +570,18 @@ export default {
           text-align: center;
         }
       }
+    }
+  }
+  .same-city-community {
+    padding: 20px 16px;
+    .common-title {
+      font-family: PingFang-SC-Medium;
+      font-size: 20px;
+      color: #333333;
+      margin-bottom: 16px;
+    }
+    .same-city-tab {
+      display: flex;
     }
   }
 }

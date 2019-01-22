@@ -6,12 +6,12 @@
 </style>
 <template>
   <div id="app">
-    <Header></Header>
-    <div class="empty"></div>
+    <Header v-if="hfShow"></Header>
+    <div class="empty" v-if="hfShow"></div>
     <article class="re-article">
       <router-view @sensors="setSensors"></router-view>
     </article>
-    <Footer></Footer>
+    <Footer v-if="hfShow"></Footer>
     <Sa :sensors="sensorsData"></Sa>
   </div>
 </template>
@@ -33,7 +33,8 @@ export default {
       lang: null,
       language: null,
       cityId: null,
-      sensorsData: {}
+      sensorsData: {},
+      hfShow: true
     }
   },
   watch: {
@@ -59,6 +60,14 @@ export default {
   mounted() {
     var lang = this.$route.query.lang;
     var cityId = this.$route.query.cityId;
+    console.log('cityId666',cityId,lang,this.$route)
+    if ( this.$route.name.indexOf('marketing') >= 0 ) {
+      this.hfShow = false
+    }
+    if ( !!lang && !!cityId ) {
+      this.$store.commit('setCommonLang', lang);
+      this.$store.commit('setHeaderCityId', cityId);
+    }
     this.win = typeof window == "undefined" ? global : window
     if (!this.$store.state.common.ip || this.$store.state.common.ip.length == 0) {
       this.$store.dispatch('getHeaderCommunityByip')
@@ -69,7 +78,6 @@ export default {
           if (!lang || !cityId) {
             this.pushUrl()
           } else {
-            // console.log("this.lllll",this.language);
             this.$store.dispatch('getHeaderCityDownList', { language: this.language })
           }
         })
@@ -84,6 +92,7 @@ export default {
   },
   methods: {
     pushUrl() {
+      console.log("cityid",this.cityId);
       var path = this.$route.path;
       var query = this.$route.query;
       var newQuery = JSON.parse(JSON.stringify(query));

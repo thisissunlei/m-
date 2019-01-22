@@ -69,7 +69,7 @@ module.exports = {
     vip: "VIP exclusive",
     hot: "Recommended Community",
     soon: "Launch Soon",
-    welfare: 'welfare',
+    welfare: "welfare",
     environment: "Office Environment",
     activity: "Community Events",
     members: "Members",
@@ -172,7 +172,7 @@ module.exports = {
   },
 
   CMNT_DTL_Title: {
-    map:'Map',
+    map: "Map",
     long: "Efficient Office",
     short: "Time-sharing Office",
     shortBtn: "Reserve Now",
@@ -182,13 +182,15 @@ module.exports = {
     service: "Services and Facilities",
     location: "Location",
     community: "Other communities",
+    sameCity: "Nearby community",
+    sameLocation: "Near your location",
     spFacilities: "Amenities",
     spService: "Services",
     spCharacteristic: "Features",
     m: "sq.m",
     work: "desks",
     poUnit: "Per Month",
-    poUnitMor:'Per Month',
+    poUnitMor: "Per Month",
     seatUnit0: "Per day",
     seatUnit1: "Half hour",
     allImg: "All images",
@@ -208,7 +210,7 @@ module.exports = {
     periphery: "Surrounding area"
   },
 
-  activityTitle: "Recommended Events",
+  activityTitle: "Recommended",
   activityPageSize: "15 per page",
   activityMeta: {
     tit: "Kr Space-Community activities",
@@ -477,24 +479,24 @@ module.exports = {
     sectionThree: "Comfortable environment"
   },
   aboutWelfare: [
-    'Kr Space provide five social insurance and one housing fund,and enterprise supplementary medical insurance.',
-    'The Ministry of administration has also prepared breakfast and lunch for everyone.',
-    'And provide paid annual leave and paid sick leave,all other holidays are implemented in accordance with Chinese regulations.',
+    "Kr Space provide five social insurance and one housing fund,and enterprise supplementary medical insurance.",
+    "The Ministry of administration has also prepared breakfast and lunch for everyone.",
+    "And provide paid annual leave and paid sick leave,all other holidays are implemented in accordance with Chinese regulations."
   ],
-  teamList:'New team',
-  joinCommunity:'Community',
-  lowPrice:'￥',
-  priceUnit:'Per Month',
-  teamInfo: 'Team Introduction',
+  teamList: "New team",
+  joinCommunity: "Community",
+  lowPrice: "￥",
+  priceUnit: "Per Month",
+  teamInfo: "Team Introduction",
   // 预约参观英文信息
-  visitInfo:{
-    title : 'Book A Tour',
-    discriptFirstLine : 'Please leave your appointment',
-    discriptSecondLine : 'information ,our consultants will provid you ',
-    discriptThreeLine : 'with professional office solutions.',
-    userName:'Name',
-    mobileNumber : 'Mobile Number',
-    community : 'Community',
-    confirmText : 'OK'
+  visitInfo: {
+    title: "Book A Tour",
+    discriptFirstLine: "Please leave your appointment",
+    discriptSecondLine: "information ,our consultants will provid you ",
+    discriptThreeLine: "with professional office solutions.",
+    userName: "Name",
+    mobileNumber: "Mobile Number",
+    community: "Community",
+    confirmText: "OK"
   }
-}
+};

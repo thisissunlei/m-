@@ -1,17 +1,16 @@
 <template>
   <div class="g-market-a" ref="best">
     <div v-if="ifError" class="u-error-tip">{{errorMessage}}</div>
-    <a href='https://m.krspace.cn' v-if="$route.query.source != 'fir'">
-      <section class="u-banner" ref="banner"></section>
-
+    <a href='https://m.krspace.cn' v-if="$route.query.source != 'fir'" ref="banner">
+      <section class="u-banner"></section>
     </a>
-    <div class="banner" v-swiper:mybannerSwiper="swiperBannerOption" v-else>
+    <div class="banner" v-swiper:mybannerSwiper="swiperBannerOption"  ref="banner" v-else>
       <div class="swiper-wrapper">
         <a href='javascript:;' class="swiper-slide">
-          <section class="u-banner-fir" ref="banner"></section>
+          <section class="u-banner-fir"></section>
         </a>
         <a href='https://m.krspace.cn' class="swiper-slide">
-          <section class="u-banner" ref="banner"></section>
+          <section class="u-banner"></section>
         </a>
       </div>
       <div class="swiper-pagination swiper-pagination-bullets"></div>
@@ -28,42 +27,41 @@
     <section class="main-point" ref="commity">
 
     </section>
-    <!--<section class="u-visit" ref="visit">-->
-
-      <!--<div class="u-best-visit">-->
-        <!--<div class="visit-title">-->
-          <!--<div class="line"></div>-->
-          <!--<div class="text">现在您可亲自体验联合办公</div>-->
-          <!--<div class="line"></div>-->
-        <!--</div>-->
-        <!--<div class="u-input">-->
-          <!--<input-->
-            <!--id="area1"-->
-            <!--type="text"-->
-            <!--name="input_area"-->
-            <!--v-model="areaValue"-->
-            <!--placeholder="请选择所在的城市"-->
-            <!--readOnly="readOnly"-->
-            <!--onfocus="this.blur()"-->
-          <!--/>-->
-          <!--<input id="areaValue1" type="hidden" />-->
-          <!--<span class="u-triangle"></span>-->
-        <!--</div>-->
-        <!--<div class="u-input">-->
-          <!--<input-->
-            <!--type="number"-->
-            <!--placeholder="手机号码"-->
-            <!--v-model="mobile"-->
-          <!--&gt;-->
-        <!--</div>-->
-        <!--<div class="visit-tip">-->
-          <!--注：我们将保障您的信息安全，可放心填写。-->
-        <!--</div>-->
-        <!--<div class="u-button" @click="onSubmit" id="best">-->
-          <!--<button>马上申请体验名额</button>-->
-        <!--</div>-->
-      <!--</div>-->
-    <!--</section>-->
+    <section class="u-visit" ref="visit">
+      <div class="u-best-visit">
+        <div class="visit-title">
+          <div class="line"></div>
+          <div class="text">现在您可亲自体验联合办公</div>
+          <div class="line"></div>
+        </div>
+        <div class="u-input" @click="changeCity">
+          <input
+            id="area1"
+            type="text"
+            name="input_area"
+            v-model="areaValue"
+            placeholder="请选择所在的城市"
+            readOnly="readOnly"
+            onfocus="this.blur()"
+          />
+          <input id="areaValue1" type="hidden" />
+          <span class="u-triangle"></span>
+        </div>
+        <div class="u-input">
+          <input
+            type="number"
+            placeholder="手机号码"
+            v-model="mobile"
+          >
+        </div>
+        <div class="visit-tip">
+          注：我们将保障您的信息安全，可放心填写。
+        </div>
+        <div class="u-button" @click="onSubmit" id="best">
+          <button>马上申请体验名额</button>
+        </div>
+      </div>
+    </section>
 
     <section class="real">
       <div class="real-title">
@@ -77,7 +75,7 @@
           <ul class="swiper-wrapper" >
             <li class="swiper-slide">
               <div class="outer">
-                <img class="real-pic" src="/images/market/real1.jpg" alt="联合办公众创空间共享办公"/>
+                <img class="real-pic" src="../../assets/images/market/real1.jpg" alt="联合办公众创空间共享办公"/>
                 <div class="intro">
                   <div class="top">全国社区随意坐</div>
                   <div class="bottom">舒适共享区，洽谈商务休息好选择</div>
@@ -87,7 +85,7 @@
             </li>
             <li class="swiper-slide">
               <div class="outer">
-                <img class="real-pic" src="/images/market/real3.jpg" alt="联合办公众创空间共享办公"/>
+                <img class="real-pic" src="../../assets/images/market/real3.jpg" alt="联合办公众创空间共享办公"/>
                 <div class="intro">
                   <div class="top">专属办公桌与私密空间</div>
                   <div class="bottom">固定办公区，1-20人间多种选择</div>
@@ -96,7 +94,7 @@
             </li>
             <li class="swiper-slide" v-if='false'>
               <div class="outer">
-                <img class="real-pic" src="/images/market/real3.jpg" alt="联合办公众创空间共享办公"/>
+                <img class="real-pic" src="../../assets/images/market/real3.jpg" alt="联合办公众创空间共享办公"/>
                 <div class="intro">
                   <div class="top">休息区域</div>
                   <div class="bottom">所有人都可以自由使用的共享区域，提供免费茶水</div>
@@ -105,7 +103,7 @@
             </li>
             <li class="swiper-slide">
               <div class="outer">
-                <img class="real-pic" src="/images/market/real4.jpg" alt="联合办公众创空间共享办公"/>
+                <img class="real-pic" src="../../assets/images/market/real4.jpg" alt="联合办公众创空间共享办公"/>
                 <div class="intro">
                   <div class="top">智能设备成就高效会议</div>
                   <div class="bottom">专享会议室，手机一键预约即可使用</div>
@@ -127,42 +125,41 @@
       <div class="global-main"></div>
 
     </section>
-    <!--<section class="u-visit" style="margin-top:20px">-->
-
-      <!--<div class="u-best-visit">-->
-        <!--<div class="visit-title">-->
-          <!--<div class="line"></div>-->
-          <!--<div class="text">现在您可亲自体验联合办公</div>-->
-          <!--<div class="line"></div>-->
-        <!--</div>-->
-        <!--<div class="u-input">-->
-          <!--<input-->
-            <!--id="area2"-->
-            <!--type="text"-->
-            <!--name="input_area"-->
-            <!--v-model="areaValue"-->
-            <!--placeholder="请选择所在的城市"-->
-            <!--readOnly="readOnly"-->
-            <!--onfocus="this.blur()"-->
-          <!--/>-->
-          <!--<input id="areaValue2" type="hidden" />-->
-          <!--<span class="u-triangle"></span>-->
-        <!--</div>-->
-        <!--<div class="u-input">-->
-          <!--<input-->
-            <!--type="number"-->
-            <!--placeholder="手机号码"-->
-            <!--v-model="mobile"-->
-          <!--&gt;-->
-        <!--</div>-->
-        <!--<div class="visit-tip">-->
-          <!--注：我们将保障您的信息安全，可放心填写。-->
-        <!--</div>-->
-        <!--<div class="u-button" @click="onSubmit('bottom')" id="best">-->
-          <!--<button>马上申请体验名额</button>-->
-        <!--</div>-->
-      <!--</div>-->
-    <!--</section>-->
+    <section class="u-visit" style="margin-top:20px">
+      <div class="u-best-visit">
+        <div class="visit-title">
+          <div class="line"></div>
+          <div class="text">现在您可亲自体验联合办公</div>
+          <div class="line"></div>
+        </div>
+        <div class="u-input" @click="changeCity">
+          <input
+            id="area2"
+            type="text"
+            name="input_area"
+            v-model="areaValue"
+            placeholder="请选择所在的城市"
+            readOnly="readOnly"
+            onfocus="this.blur()"
+          />
+          <input id="areaValue2" type="hidden" />
+          <span class="u-triangle"></span>
+        </div>
+        <div class="u-input">
+          <input
+            type="number"
+            placeholder="手机号码"
+            v-model="mobile"
+          >
+        </div>
+        <div class="visit-tip">
+          注：我们将保障您的信息安全，可放心填写。
+        </div>
+        <div class="u-button" @click="onSubmit('bottom')" id="best">
+          <button>马上申请体验名额</button>
+        </div>
+      </div>
+    </section>
     <div class="u-best-footer">
       <div class="u-footer-contnet">
         <p>© 2011-2018 氪空间（北京）信息技术有限公司</p>
@@ -173,33 +170,43 @@
       </div>
     </div>
     <!--<BestDialog-->
-      <!--:personName="dialogBestName"-->
-      <!--:communityId="BestId"-->
-      <!--v-if="isBestShow"-->
-      <!--:type="bestType"-->
-      <!--:Close="dialogBestClose"-->
-      <!--:isBottom.sync="bestDialogBottom"-->
+    <!--:personName="dialogBestName"-->
+    <!--:communityId="BestId"-->
+    <!--v-if="isBestShow"-->
+    <!--:type="bestType"-->
+    <!--:Close="dialogBestClose"-->
+    <!--:isBottom.sync="bestDialogBottom"-->
     <!--/>-->
 
-    <!--<Dialog :personName="dialogName" :isShow="isShow" :dialogType="dialogType" :Close="dialogClose"/>-->
+    <Dialog :personName="dialogName" :isShow="isShow" :dialogType="dialogType" :Close="dialogClose"/>
+
+    <div class="city-list-dialog" v-if="cityPS">
+      <div class="close" @click="changeCity"></div>
+      <ul>
+        <li v-for="item, i in cityList" :key="i" @click="cityListClick(item)"
+            :class="cityId === item.id? 'select': ''">{{item.name}}</li>
+      </ul>
+    </div>
 
   </div>
 </template>
 <script>
-//  import KrImage from '~/components/KrImage';
-//  import BestDialog from '~/components/BestDialog';
-//  import dateFormat from '~/filters/dateFormat';
-//  import Dialog from '~/components/Dialog';
-//  import Baidu from '~/plugins/utils/baidu';
+//    import KrImage from '../../components/KrImage';
+  //  import BestDialog from '~/components/BestDialog';
+  //  import dateFormat from '~/filters/dateFormat';
+    import Dialog from '../../components/Dialog';
+    import Baidu from '../../util/baidu';
+  import model from 'model'
   export default {
     components:{
 //      KrImage,
 //      BestDialog,
-//      Dialog,
+      Dialog,
 //      Baidu
     },
     data(){
       return{
+        cityPS: false,
         cityIndex:0,
         mobile:'',
         areaValue:'',
@@ -291,26 +298,36 @@
         }
       }
 
-      window.WEIXINSHARE = {
-        shareTitle: '预约参观「氪空间」，体验全新工作方式！',
-        shareDesc: '北京、上海、南京、杭州、天津、武汉、成都、苏州、广州、厦门、合肥，全面开放！',
-        shareImg: location.origin+'/images/ico.png',
-        // shareImg: '//sta.krspace.cn/web-h5-static/images/logofav.png',
-      }
-      InitWechat();
+
+//      window.WEIXINSHARE = {
+//        shareTitle: '预约参观「氪空间」，体验全新工作方式！',
+//        shareDesc: '北京、上海、南京、杭州、天津、武汉、成都、苏州、广州、厦门、合肥，全面开放！',
+//        shareImg: location.origin+'/images/ico.png',
+//        // shareImg: '//sta.krspace.cn/web-h5-static/images/logofav.png',
+//      }
+//      InitWechat();
 
     },
     methods:{
+      changeCity() {
+        this.cityPS = !this.cityPS
+      },
+      cityListClick(item) {
+        this.cityPS = false
+        this.cityId = item.id;
+        this.areaValue = item.name;
+      },
       dialogClose(){
         this.isShow = !this.isShow;
       },
       //获取定位城市
       getLocaCity(){
         var that = this;
-        this.$http.get('get-visit-community').then(function(response){
-          that.cityId = response.data.items.cityVo.cityId;
-          that.areaValue = response.data.items.cityVo.cityName;
-        });
+        model.getVisitCommunity()
+          .then(res => {
+            that.cityId = res.items.cityVo.cityId;
+            that.areaValue = res.items.cityVo.cityName;
+          })
       },
       //SEM
       getParams(){
@@ -403,37 +420,41 @@
 
         form.cityId =areaValue || this.cityId;
         form.from_type = this.GetQueryString('source') || 'krspace_visit';
-        form.appionttime = dateFormat(new Date(),'YYYY-MM-dd');;
+        let day = new Date
+        let yy = day.getFullYear()
+        let mm = day.getMonth()+1 >= 10? day.getMonth()+1: '0'+(day.getMonth()+1)
+        let dd = day.getDate() >= 10? day.getDate(): '0'+day.getDate()
+        form.appionttime = yy + '-' + mm + '-' + dd;
         form.promoCode = this.GetQueryString('key') || '';
         if(this.visitParams.from && this.visitParams.terminal){
           form.from = this.visitParams.from;
           form.terminal = this.visitParams.terminal;
         }
 
-        this.$http.post('post-city-visit',form).then((res)=>{
-          window._agl  &&  window._agl.push(['track',  ['success',  {t:  3}]]);
-          this.isShow = true;
-          this.disableSubmit = false;
-          this.dialogName = this.username;
-          this.dialogType = 'success';
-          this.mobile='';
-          // this.areaValue='';
-          _taq.push({convert_id:"1597892806975534", event_type:"form"});
-          _taq.push({convert_id:"1600058262413320", event_type:"form"});
-          _taq.push({convert_id:"1602584012684340", event_type:"form"});
-          _taq.push({convert_id:"1602492776885256", event_type:"form"});
-          gdt('track', 'RESERVATION');
-        }).catch((err)=>{
-          if(err.code == -2){
-            this.dialogType = 'warn';
-          }else{
-            this.dialogType = 'error';
-          }
-
-          this.isShow = true;
-          this.dialogName = this.username;
-
-        })
+        model.postCityVisit(form)
+          .then(res => {
+            window._agl  &&  window._agl.push(['track',  ['success',  {t:  3}]]);
+            this.isShow = true;
+            this.disableSubmit = false;
+            this.dialogName = this.username;
+            this.dialogType = 'success';
+            this.mobile='';
+            // this.areaValue='';
+            _taq.push({convert_id:"1597892806975534", event_type:"form"});
+            _taq.push({convert_id:"1600058262413320", event_type:"form"});
+            _taq.push({convert_id:"1602584012684340", event_type:"form"});
+            _taq.push({convert_id:"1602492776885256", event_type:"form"});
+            gdt('track', 'RESERVATION');
+          })
+          .catch(err => {
+            if(err.code == -2){
+              this.dialogType = 'warn';
+            }else{
+              this.dialogType = 'error';
+            }
+            this.isShow = true;
+            this.dialogName = this.username;
+          })
       },
       stopAreaSwiper(){
         this.myAreaPicSwiper.autoplay.stop();
@@ -444,17 +465,62 @@
 
       getAllCity(){
         var that = this;
-        this.$http.get('get-city-list').then((res)=>{
-          var data = Object.assign({},res);
-          that.cityList = data.data;
-          that.initArea(data.data);
-          that.initArea2(data.data);
-        });
+        model.getCityList()
+          .then(res => {
+            that.cityList = res;
+//            that.initArea(res);
+//            that.initArea2(res);
+          })
       },
     }
   }
 </script>
 <style lang="less" >
+  .city-list-dialog {
+    width:100%;
+    height:100%;
+    position: fixed;
+    left:0;
+    top:0;
+    background: rgba(40,38,36,0.90);
+    z-index:899;
+    .close {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      left:50%;
+      top:50%;
+      margin-left: 132px;
+      margin-top: -120px;
+      background: url('../../assets/images/icon/icon_close.svg') no-repeat center center;
+      background-size:cover;
+      z-index: 1;
+    }
+    ul {
+      background:#fff;
+      border-radius: 8px;
+      width:315px;
+      height:247px;
+      position: absolute;
+      left:50%;
+      top:50%;
+      z-index: 0;
+      margin-left: -157.5px;
+      margin-top:-123.5px;
+      overflow-y: scroll;
+      li {
+        text-align: center;
+        height: 38px;
+        line-height: 38px;
+        color: #666666;
+        font-size: 14px;
+        &.select {
+          color: #333333;
+          font-weight: bold;
+        }
+      }
+    }
+  }
   .footer{
     display:none;
   }
@@ -502,7 +568,7 @@
     .u-banner{
       width:100%;
       height: 225px;
-      background: url('/images/market/banner_A.jpg') no-repeat center center;
+      background: url('../../assets/images/market/banner_A.jpg') no-repeat center center;
       background-size:cover;
       position: relative;
       .logo-href{
@@ -520,14 +586,14 @@
     .u-banner-fir {
       width:100%;
       height:225px;
-      background: url('/images/market/bn_a.png') no-repeat center center;
+      background: url('../../assets/images/market/bn_a.png') no-repeat center center;
       background-size:cover;
       position: relative;
     }
     .main-point{
       width:100%;
       height: 98px;
-      background: url('/images/market/mainpoint.svg') no-repeat center center;
+      background: url('../../assets/images/market/mainpoint.svg') no-repeat center center;
       background-size:100% 100%;
       margin: 20px 0;
     }
@@ -621,7 +687,7 @@
       width:100%;
       height:318px;
       padding-top: 10px;
-      background: url('/images/market/realban.jpg') no-repeat 50% 0.5px;
+      background: url('../../assets/images/market/realban.jpg') no-repeat 50% 0.5px;
       background-size:cover;
       .real-title{
         text-align:center;
@@ -696,7 +762,7 @@
       width:100%;
       height:370px;
       padding-top: 3px;
-      background: url('/images/market/globalban.jpg') no-repeat 50% 0.005px;
+      background: url('../../assets/images/market/globalban.jpg') no-repeat 50% 0.005px;
       background-size:cover;
       .global-title{
         text-align:center;
@@ -715,7 +781,7 @@
       .global-main{
         width:325px;
         height:275px;
-        background: url('/images/market/globalmain.png') no-repeat center center;
+        background: url('../../assets/images/market/globalmain.png') no-repeat center center;
         background-size:100% 100%;
         margin:0 auto;
       }
@@ -738,4 +804,3 @@
     }
   }
 </style>
-

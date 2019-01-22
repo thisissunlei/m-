@@ -15,14 +15,16 @@
                     height: 71
                   }
                 }">
-          <!-- <bm-label :content="detail.list.communityName"
-            :offset="{width: -20, height: -30}" /> -->
         </bm-marker>
       </baidu-map>
     </div>
     <div class="bottom">
-      <p>{{detail.list.communityName}}</p>
-      <p>{{detail.list.address}}</p>
+      <div class="left">
+        <div class="name">{{detail.list.communityName}}</div>
+        <div class="address">{{detail.list.address}}</div>
+      </div>
+      <div class="right"
+        @click="jumpMap"></div>
     </div>
 
   </div>
@@ -31,16 +33,12 @@
 <script>
 import BaiduMap from 'components/vue-baidu-map/components/map/Map.vue'
 import BmMarker from 'components/vue-baidu-map/components/overlays/Marker.vue'
-// import BmLabel from 'components/vue-baidu-map/components/overlays/Label.vue'
 
 
 export default {
-  props: ['change'],
-
   components: {
     BaiduMap,
     BmMarker,
-    // BmLabel
   },
   data() {
     return {
@@ -49,17 +47,19 @@ export default {
       detail: {}
     }
   },
-  watch: {
-    'change'(n, o) {
-      this.detail = this.$store.state.detail
-      // this.centerAndZoom()
-    },
-  },
   created() {
     this.detail = this.$store.state.detail
 
   },
   mounted() {
+    console.log(this.detail)
+  },
+  asyncData({ route, router, store }) {
+    let cmtId = route.params.id;
+    let lang = route.query.lang == 'en' ? 1 : 0;
+    return Promise.all([
+      store.dispatch('getNewCommunityDetails', { id: cmtId, language: lang })
+    ])
   },
   methods: {
     handler({ BMap, map }) {
@@ -69,6 +69,25 @@ export default {
       this.center.lat = this.detail.list.latitude
       this.zoom = 15
     },
+    jumpMap() {
+      var lat_start, lng_start;
+      var _this = this;
+      var geolocation = new BMap.Geolocation();
+      geolocation.getCurrentPosition(function (r) {
+        if (this.getStatus() == BMAP_STATUS_SUCCESS) {
+          lat_start = r.point.lat;
+          lng_start = r.point.lng;
+          var map_uri = "https://api.map.baidu.com/direction?origin=latlng:" + lat_start + "," + lng_start +
+            "|name:我的位置&destination=latlng:" + _this.center.lat + "," + _this.center.lng + "|name:" + _this.detail.list.address
+            + "&&mode=driving&region=" + _this.detail.list.communityName + "&output=html";
+          window.location.href = map_uri;
+        }
+        else {
+          alert('failed' + this.getStatus());
+        }
+      }, { enableHighAccuracy: true })
+
+    }
   }
 }
 </script>
@@ -94,19 +113,32 @@ export default {
     right: 0;
     bottom: 0;
     height: 60px;
-    background: #ffffff;
+    display: flex;
     padding: 0 12px;
-    padding-top: 8px;
-    p:nth-child(1) {
-      font-size: 17px;
-      color: #333333;
+    justify-content: space-between;
+    align-items: center;
+    .left {
+      flex: 1;
+      .name {
+        font-size: 17px;
+        color: #333333;
+      }
+      .address {
+        font-size: 13px;
+        color: #666666;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        width: 310px;
+      }
     }
-    p:nth-child(2) {
-      font-size: 13px;
-      color: #666666;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
+    .right {
+      width: 34px;
+      height: 34px;
+      background: url("../../../assets/images/communityDetail/daohang.png")
+        no-repeat center center;
+      background-size: cover;
+      border-radius: 50%;
     }
   }
 }

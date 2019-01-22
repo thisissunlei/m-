@@ -1,12 +1,28 @@
 <template>
   <div class="news-content">
-    <ul>
+    <!-- item border-bottom -->
+    <div class="item">
+      <a :href="'//'+$store.state.common.origin+'/about/'+item.id+$store.state.common.queryString"
+       v-for="(item,index) in about.newsList" :key="index" target="_blank" @click="addRead(item.id)">
+        <div class="item-info">
+          <p class="item-title">
+            {{item.title}}
+            </p>
+          <span class="item-time">{{item.publishedAt}}</span>
+          <span class="item-read">{{item.totalReadCunt}}人阅读</span>
+        </div>
+        <img class="item-img" :src="item.photoUrl"/>
+      </a>
+    </div>
+      <!--  @click="addRead(item.id)" -->
+    <!-- <ul>
       <router-link
         tag="li"
         class="item border-bottom"
         v-for="item of about.newsList"
         :key="item.index"
-        :to="'/about/' + item.id"
+        :to="'/about/'+item.id+$store.state.common.queryString"
+
       >
         <div class="item-info">
           <p class="item-title">{{item.title}}</p>
@@ -16,7 +32,7 @@
 
         <img class="item-img" :src="item.photoUrl"/>
       </router-link>
-    </ul>
+    </ul> -->
 
     <div class="get-more" v-if="about.page < about.totalPages">{{$t("getMore")}}</div>
     <div class="get-more" v-else>{{$t("end")}}</div>
@@ -24,6 +40,7 @@
 </template>
 
 <script>
+import model from 'model'
 import {mapState,mapActions} from 'vuex'
  var interval = null;
 export default {
@@ -39,13 +56,16 @@ export default {
 
   },
   mounted(){
-  console.log('about',this.about.newsList)
+  // console.log('about',this.about.newsList)
   window.addEventListener('scroll',this.getMore);
   },
   methods: {
     ...mapActions([
         'getNewsList'
       ]),
+    addRead(id) {
+      model.setNewsRead({newsId: id})
+    },
     getMore(){
       if(interval == null){
         interval = setInterval(this.scrollMore,1000);
@@ -78,10 +98,16 @@ export default {
   border-bottom: 1px solid #F3F3F3;
 }
 .item {
-  display: flex;
-  height: 118px;
-  padding: 17px 0 13px 0;
+
   overflow: hidden;
+  a {
+    // display: block;
+    display: flex;
+    width: 100%;
+    height: 118px;
+    padding: 17px 0 13px 0;
+    border-bottom: 2px solid #F3F3F3;
+  }
   .item-img{
     width: 114px;
     height: 85px;

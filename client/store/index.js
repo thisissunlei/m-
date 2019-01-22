@@ -7,11 +7,8 @@ export default {
     hot: [],
     wait: [],
     env: [],
-    activity: [],
     banner: [],
-    welfare: [],
-    welfareTags: [],
-    welfareDetail: []
+    member:[]
   },
   actions: {
     getIndexCityList({ commit }, data) {
@@ -53,47 +50,6 @@ export default {
           console.log('officeList', err)
         })
     },
-    // 福利列表
-    getIndexWelfare({ commit },data) {
-      return model.getWelfareList(data)
-      .then (res => {
-        commit('setWelfareList',res.items)
-      })
-      .catch(err => {
-        console.log('welfareList', err)
-      })
-    },
-    // 福利标签
-    getPorCouponTags({ commit }, data ) {
-      return model.getPorCouponTags(data)
-      .then (res => {
-        // console.log("welfareList",res);
-        commit('setPorCouponTags',res)
-      })
-      .catch(err => {
-        console.log('welfareList', err)
-      })
-    },
-    // 福利详情
-    getBenefitsDetail({ commit }, data ) {
-      return model.getBenefitsDetail(data)
-      .then (res => {
-        // console.log("welfareList",res);
-        commit('setBenefitsDetail',res)
-      })
-      .catch(err => {
-        console.log('welfareList', err)
-      })
-    },
-    getIndexActivityList({ commit }, data) {
-      return model.getIndexActivityList(data)
-        .then(res => {
-          commit('setIndexActivityList', res.items)
-        })
-        .catch(err => {
-          console.log('activityList', err)
-        })
-    },
     getFocusBanner({commit}, data) {
       return model.getFocusBanner(data)
         .then(res => {
@@ -101,6 +57,15 @@ export default {
         })
         .catch(err => {
           console.log('focusBanner', err)
+        })
+    },
+    getIndexMember({commit},data) {
+      return model.getIndexMember(data)
+        .then(res => {
+          commit('setIndexMember',res.items)
+        })
+        .catch(err => {
+          console.log('indexMember',err);
         })
     }
   },
@@ -117,22 +82,14 @@ export default {
     setIndexOfficeEnv( state, data ) {
       state.env = data
     },
-    setWelfareList( state,data ) {
-      state.welfare = data;
+    setIndexMember(state,data){
+      console.log(data)
+      state.member = data;
     },
-    setPorCouponTags( state,data) {
-      state.welfareTags = data;
-    },
-    setBenefitsDetail(state,data) {
-      state.welfareDetail = data;
-    },
-    setIndexActivityList( state, data ) {
-      data.forEach((val, i) => {
-        let start = dealDate.dateToArray(val.beginTime);
-        val.time = `${start[0]}年${start[1]}月${start[2]}日 ${start[3]}:${start[4]}:${start[5]}`;
-      })
-      state.activity = data
-    },
+    // setWelfareList( state,data ) {
+    //   state.welfare = data;
+    // },
+
     setFocusBanner( state, data ) {
       state.banner = data
     }
@@ -150,8 +107,8 @@ export default {
     throwIndexOfficeEnv(state) {
       return state.env
     },
-    throwIndexActivityList(state) {
-      return state.activity
+    throwIndexMemberList(state){
+      return state.member
     }
   }
 }

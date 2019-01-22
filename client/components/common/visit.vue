@@ -11,8 +11,8 @@
         <span class="star">*</span>
         <span class="text">{{$t("visitInfo.userName")}}</span>
       </div>
-      <div class="u-input">
-        <input type="text" placeholder="客户" v-model="username" >
+      <div class="u-input"> 
+        <input type="text" placeholder="" v-model="username" >
       </div>
 
       <div class="name">
@@ -31,7 +31,7 @@
           id="area"
           type="text"
           name="input_area"
-          placeholder="社区"
+          placeholder=""
           v-model="areaValue"
           readonly="readOnly"
           readonlyunselectable="on"
@@ -269,7 +269,7 @@ export default {
       input {
         margin: 15px 0 0 10px;
         font-size: 16px;
-        color: #cccccc;
+        color: #333;
         line-height: 20px;
       }
     }

@@ -47,7 +47,7 @@ let devServer = {
   },
   proxy: {
     '/api': {
-      target: 'http://optest02.krspace.cn',
+      target: 'http://optest01.krspace.cn',
       changeOrigin: true
     }
   },

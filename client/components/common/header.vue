@@ -19,7 +19,7 @@
         <div class="img jiao fl"></div>
       </div>
       <!-- 下拉城市菜单 -->
-      <div class="citys-box" v-show="citysShow">
+      <div class="citys-box" v-if="citysShow">
         <div class="citys-title">当前选择:{{selectCityName}}</div>
         <mt-picker :slots="areaCommunity" @change="onValuesChange"></mt-picker>
         <span class="currentOption" v-if="showOption">
@@ -40,26 +40,25 @@
         <div class="img" @click="setMenuState(true)" v-if="menuShow == false && isVisit == false"></div>
         <div class="img select" @click="setMenuState(false)" v-else></div>
         <!-- 下拉菜单 -->
-        <!-- <div class="menu-mask" > -->
         <div class="menu-box" v-show="menuShow">
           <div class="menus clearfix">
             <div>
-              <a :href="'//'+origin+queryString">{{$t("nav.home")}}</a>
+              <a :href="'//'+$store.state.common.origin+$store.state.common.queryString">{{$t("nav.home")}}</a>
             </div>
             <div>
-              <a :href="'//'+origin+'/community'+queryString">{{$t("nav.community")}}</a>
+              <a :href="'//'+$store.state.common.origin+'/community'+$store.state.common.queryString">{{$t("nav.community")}}</a>
             </div>
             <div>
-              <a :href="'//'+origin+'/welfare'+queryString">{{$t("nav.welfare")}}</a>
+              <a :href="'//'+$store.state.common.origin+'/welfare'+$store.state.common.queryString">{{$t("nav.welfare")}}</a>
             </div>
             <div>
-              <a :href="'//'+origin+'/activity'+queryString">{{$t("nav.activity")}}</a>
+              <a :href="'//'+$store.state.common.origin+'/activity'+$store.state.common.queryString">{{$t("nav.activity")}}</a>
             </div>
             <div>
-              <a :href="'//'+origin+'/members'+queryString">{{$t("nav.members")}}</a>
+              <a :href="'//'+$store.state.common.origin+'/members'+$store.state.common.queryString">{{$t("nav.members")}}</a>
             </div>
             <div>
-              <a :href="'//'+origin+'/about'+queryString">{{$t("nav.about")}}</a>
+              <a :href="'//'+$store.state.common.origin+'/about'+$store.state.common.queryString">{{$t("nav.about")}}</a>
             </div>
             <div>
               <span>{{$t("nav.recommend")}}</span>
@@ -68,9 +67,8 @@
               <span>{{$t("nav.calculator")}}</span>
             </div>
           </div>
-          <div class="order" @click="jumpVisit">立即预约</div>
+          <div class="order" @click="jumpVisit">{{$t('indexTitle.order')}}</div>
         </div>
-        <!-- </div> -->
       </div>
     </div>
     <div class="menu-mask" v-if="menuShow || citysShow" @click="closeCityDoenPage"></div>
@@ -149,7 +147,10 @@ export default {
     this.getCityName();
   },
   updated(){
-    document.getElementsByClassName("picker-selected")[0].classList.add("color");
+    let dom = document.getElementsByClassName("picker-selected")
+    if ( dom.length > 0 ) {
+      dom[0].classList.add("color");
+    }
   },
   methods: {
     //获取头部的默认展示城市信息
@@ -399,12 +400,12 @@ header {
       position: absolute;
       top: 0;
       left: 0;
-      background: url("../../assets/images/header/cn.svg") center center
+      background: url("../../assets/images/header/cn.svg") center top/contain
         no-repeat;
       height: 28px;
       width: 76px;
       &.select {
-        background: url("../../assets/images/header/en.svg") center center
+        background: url("../../assets/images/header/en.svg") center top/contain
           no-repeat;
       }
     }

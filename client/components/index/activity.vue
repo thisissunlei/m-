@@ -12,26 +12,24 @@
     </div>
     <div class="content-box">
        <a :href="'//'+$store.state.common.origin+'/activity/' + item.id + $store.state.common.queryString" class="item-content" v-for="(item,i) in data" :key="i">
-        <img :src="item.imgUrl" alt="" class="item-img" v-if="!!item.imgUrl">
-        <img src="../../assets/images/activity/default.png" alt="" class="item-img" v-else>
+        <div v-if="!!item.imgUrl" :style="'background: url('+item.imgUrl+'?x-oss-process=image/resize,h_399,w_300,color_eeeeee,quality,q_80) center top / cover no-repeat'" class="item-img"></div>
+        <div v-else class="default-img"></div>
         <div class="item-info">
           <p class="item-title">{{item.title}}</p>
           <p class="item-time">
-            <!-- <i class="time-img"></i> -->
-            <img src="../../assets/images/activity/time.png" alt="">
+            <img src="../../assets/images/time.png" alt="">
             <span class="time">{{item.time}}</span>
           </p>
           <p class="item-location">
-            <!-- <i class="adress-img"></i> -->
-            <img src="../../assets/images/activity/location.png" alt="">
+            <img src="../../assets/images/location.png" alt="">
             <span class="adress">{{item.communityName}}</span>
           </p>
-
+          <p class="item-price" v-if="item.cost == 0">免费</p>
         </div>
       </a>
     </div>
     <div  class="hot-more" >
-        <a href="" class="more">{{$t('indexTitle.more')}}<i class="arror">>></i></a>
+        <a :href="'//'+$store.state.common.origin+'/activity'+$store.state.common.queryString" class="more">{{$t('indexTitle.more')}}<i class="arror">>></i></a>
     </div>
   </div>
 </template>
@@ -45,30 +43,12 @@ export default {
     }
   },
   mounted(){
-    console.log('welfare',this.data)
+    // console.log('data6666',this.data);
   }
 }
 </script>
 
 <style lang="less" scoped>
-
-// .more {
-//   width: 153px;
-//   height: 44px;
-//   margin: 10px 111px 20px 111px;
-//   background: #FFFFFF;
-//   border: 1px solid #DFDFDF;
-//   border-radius: 4px;
-//   .item-more {
-//     line-height: 44px;
-//     display: block;
-//     font-family: PingFang-SC-Regular;
-//     font-size: 16px;
-//     color: #666666;
-//     letter-spacing: 0;
-//     text-align: center;
-//   }
-// }
  .hot-more {
       padding: 0 0 20px 111px;
       border-bottom: 10px solid #f6f6f6;
@@ -120,20 +100,24 @@ export default {
       }
        .member-vip {
         margin-right: 16px;
+        height: 28px;
+        line-height: 28px;
         .pic {
           display: inline-block;
           width: 15px;
           height: 13px;
-          margin-right: 4px;
-          background:url("../../assets/images/vip.png");
+          vertical-align: middle;
+          // margin-right: 4px;
+          background:url("../../assets/images/index-vip.svg") 50% no-repeat;
           background-size: cover;
         }
         .vip {
           display: inline-block;
-          font-family: PingFang-SC-Semibold;
           font-size: 14px;
+          font-weight: 700;
+          vertical-align: middle;
           color: #DBAE3C;
-          letter-spacing: 0;
+
         }
       }
     }
@@ -151,6 +135,16 @@ export default {
         width: 100px;
         height: 133px;
         margin: 10px;
+        border: 1px solid #F3F3F3;
+        border-radius: 4px;
+      }
+      .default-img {
+        width: 100px;
+        height: 133px;
+        margin: 10px;
+        border: 1px solid #F3F3F3;
+        border-radius: 4px;
+        background: url("../../assets/images/activity/default.png") center top / cover no-repeat;
       }
       .item-info {
         flex: 1;
@@ -176,8 +170,7 @@ export default {
             display: inline-block;
             width: 12px;
             height: 12px;
-            background: url("../../assets/images/activity/time.png");
-            background-size: cover;
+            vertical-align: middle;
           }
           .time {
             font-size: 13px;
@@ -189,84 +182,21 @@ export default {
             display: inline-block;
             width: 12px;
             height: 12px;
-            background: url("../../assets/images/activity/location.png");
-            background-size: cover;
+            vertical-align: middle;
           }
           .adress {
             font-size: 13px;
             color: #666666;
           }
         }
+        .item-price {
+          position: absolute;
+          bottom: 0;
+          font-family: PingFangSC-Regular;
+          font-size: 15px;
+          color: #333333;
+          line-height: 21px;
+        }
       }
     }
-// .item-content {
-//   display: flex;
-//   background: #F6F6F6;
-//   border-radius: 4px;
-//   img {
-//     width: 100px;
-//     height: 133px;
-//     border: 1px solid #F3F3F3;
-//     border-radius: 4px;
-//     margin-right: 10px;
-//     background: palegreen;
-//   }
-//   .item-info {
-//     flex: 1;
-//     .item-title {
-//       width: 215px;
-//       font-family: PingFangSC-Medium;
-//       font-size: 17px;
-//       color: #333333;
-//       line-height: 20px;
-//       overflow: hidden;
-//       -webkit-line-clamp: 2;
-//       text-overflow: ellipsis;
-//       display: -webkit-box;
-//       -webkit-box-orient: vertical;
-//     }
-//     .item-use {
-//       width: 198px;
-//       margin: 10px 0 4px 0;
-//       font-family: PingFangSC-Regular;
-//       font-size: 13px;
-//       color: #666666;
-//       line-height: 18px;
-//       .item-clock {
-//         display: inline-block;
-//         width: 12px;
-//         height: 12px;
-//         background:url("../../assets/images/index/time.png");
-//         background-size: cover;
-//         margin-right: 8px;
-//       }
-//     }
-//     .item-address {
-//       font-family: PingFangSC-Regular;
-//       font-size: 13px;
-//       color: #666666;
-//       .address-icon {
-//         display: inline-block;
-//         width: 12px;
-//         height: 13px;
-//         background:url("../../assets/images/index/address.png");
-//         background-size: cover;
-//         margin-right: 8px;
-//       }
-//     }
-//     .item-status {
-//       margin-top: 14px;
-//       .free {
-//         font-family: PingFangSC-Regular;
-//         font-size: 15px;
-//         color: #333333;
-//       }
-//       .sign,.pending {
-//         width: 50px;
-//         height: 20px;
-//         margin-left: 10px;
-//       }
-//     }
-//   }
-// }
 </style>

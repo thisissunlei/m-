@@ -32,37 +32,7 @@
             <div class="sign-info" v-if="false">已有123人报名</div>
           </div> -->
         </div>
-      <!-- <div class="item-time">
-
-        <img src="../../../assets/images/activity/time.png" alt="" class="fl icon">
-        <span class="text fl">时   间</span>
-        <span class="rl-text fl">
-          2018-09-11  12:00:00
-        </span>
-      </div>
-      <div class="item-cmt">
-        <span class="icon fl"></span>
-        <span class="text fl">社   区</span>
-        <span class="rl-text fl">
-          {{activity.activityDetail.communityName}}
-        </span>
-      </div>
-      <div class="item-address">
-        <span class="icon fl"></span>
-        <span class="text fl">地   址</span>
-        <span class="rl-text fl">
-          {{activity.activityDetail.address}}
-        </span>
-      </div>
-      <div class="item-sponsor">
-        <span class="icon fl"></span>
-        <span class="text fl">主办方</span>
-        <span class="rl-text fl">
-          {{activity.activityDetail.sponsor}}
-        </span>
-      </div>
-    </div> -->
-    <div class="item-content" v-html="activity.activityDetail.richText"></div>
+    <div class="item-content activity-richText" v-html="activity.activityDetail.richText"></div>
 
     <!-- <div class="sign-box">
       <div class="sign-up">
@@ -103,7 +73,7 @@ export default {
   },
   mounted(){
 
-    console.log('this.store6666',this.activity.activityDetail)
+    // console.log('this.store6666',this.activity.activityDetail)
   }
 }
 
@@ -119,7 +89,7 @@ export default {
         font-family:PingFang-SC-Medium;
         font-size: 18px;
         color: #333333;
-        letter-spacing: 0;
+        font-weight: bold;
         overflow: hidden;
         -webkit-line-clamp: 2;
         text-overflow: ellipsis;
@@ -149,23 +119,10 @@ export default {
           margin-left: 16px;
           color: #333;
         }
-        // .city-name{
-        //   position: relative;
-        //   margin-right:6px;
-        //   &::after{
-        //     content:'';
-        //     display: inline-block;
-        //     border:2px solid #666;
-        //     border-radius:2px;
-        //     position: absolute;
-        //     top: 8px;
-        //     margin-left:2px;
-        //   }
-        // }
         .logo{
-          height:12px;
-          width:13px;
-          margin-top: 3px;
+          height:14px;
+          width:14px;
+          // margin-top: 3px;
           margin-right: 6px;
         }
       }

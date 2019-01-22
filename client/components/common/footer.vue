@@ -55,6 +55,7 @@
 
 <style lang="less" scoped>
 footer {
+  border-top: 1px #f6f6f6 solid;
   // position: absolute;
   // bottom: 0;
   // left: 0;

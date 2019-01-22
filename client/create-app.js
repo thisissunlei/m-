@@ -14,13 +14,7 @@ import createStore from './store/store';
 import createRouter from './config/router';
 
 import VueI18n from 'vue-i18n';
-// import BScroll from 'better-scroll'
 
-// 在入口文件中引入(暂时不支持单组件引入的方式):
-
-// import wcSwiper from 'wc-swiper'
-// import 'wc-swiper/style.css'
-// Vue.use(wcSwiper);
 
 
 
