@@ -1,6 +1,7 @@
 <template>
   <div class="recommend-item">
-    <div class="item"
+    <a class="item"
+      :href="'//'+$store.state.common.origin+'/community/' + item.communityId + $store.state.common.queryString"
       v-for="(item,i) in communityList.cmtDistanceVo"
       :key="i"
       v-if="type == 'cmt'">
@@ -12,8 +13,9 @@
       <div class="con">
         <p>{{item.communityName}}</p>
       </div>
-    </div>
-    <div class="item"
+    </a>
+    <a class="item"
+      :href="'//'+$store.state.common.origin+'/community/' + item.communityId + $store.state.common.queryString"
       v-for="(item,i) in communityList.localDistanceVo"
       :key="i"
       v-if="type == 'ip'">
@@ -25,40 +27,8 @@
       <div class="con">
         <p>{{item.communityName}}</p>
       </div>
-    </div>
+    </a>
   </div>
-  <!-- <div class="c-same clearfix">
-    <a v-for="item, i in communityList.cmtDistanceVo"
-      :key="i"
-      class="item fl"
-      :href="'//'+$store.state.common.origin+'/community/' + item.communityId + $store.state.common.queryString"
-      target="_blank"
-      v-if="type=='cmt'">
-      <div class="img-box">
-        <div class="img"
-          :style="!!item.homeUrl? 'background: url('+item.homeUrl+'?x-oss-process=image/resize,h_600,w_1080,color_eeeeee,quality,q_80) center top / cover no-repeat': ''"></div>
-      </div>
-      <div class="clearfix con">
-        <span class="over-point fl">{{item.communityName}}</span>
-        <span class="fr">{{item.distance}}</span>
-      </div>
-    </a>
-    <a v-for="item, i in communityList.localDistanceVo"
-      :key="i"
-      class="item fl"
-      :href="'//'+$store.state.common.origin+'/community/' + item.communityId + $store.state.common.queryString"
-      target="_blank"
-      v-if="type=='ip'">
-      <div class="img-box">
-        <div class="img"
-          :style="!!item.homeUrl? 'background: url('+item.homeUrl+'?x-oss-process=image/resize,h_600,w_1080,color_eeeeee,quality,q_80) center top / cover no-repeat': ''"></div>
-      </div>
-      <div class="clearfix con">
-        <span class="over-point fl">{{item.communityName}}</span>
-        <span class="fr">{{item.localDistance}}</span>
-      </div>
-    </a>
-  </div> -->
 </template>
 <script>
 
@@ -106,41 +76,4 @@ export default {
     color: #333333;
   }
 }
-// .c-same {
-//   margin: 0 -10px;
-//   .item {
-//     color: #333333;
-//     display: block;
-//     margin: 0 10px 20px;
-//     width: 270px;
-//     .img-box {
-//       border-radius: 8px;
-//       overflow: hidden;
-//       margin-bottom: 16px;
-//       height: 150px;
-//       width: 270px;
-//       .img {
-//         height: 150px;
-//         width: 270px;
-//         transition: transform 0.5s ease-in-out;
-//       }
-//     }
-//     .con {
-//       height: 20px;
-//       line-height: 20px;
-//       font-size: 16px;
-//       span:first-child {
-//         width: 70%;
-//       }
-//     }
-//     &:hover {
-//       .img {
-//         transform: scale(1.1, 1.1);
-//       }
-//     }
-//   }
-//   .over-point {
-//     font-weight: bold;
-//   }
-// }
 </style>
