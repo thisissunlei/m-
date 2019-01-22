@@ -43,10 +43,10 @@ export default {
       addRead(id) {
         model.setNewsRead({newsId: id})
           .then(res => {
-            this.$store.dispatch('getUserNewsList', {
+            this.$store.dispatch('getIndexMember', {
               language: this.$route.query.lang === 'en'? 1: 0,
               page: 1,
-              pageSize: 4
+              pageSize: 3
             })
           })
       },
