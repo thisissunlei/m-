@@ -13,19 +13,28 @@
 
     <!-- 城市选择哪个地方 -->
     <div class="city fl" v-if="!!listenCityList && listenCityList.length > 0">
-      <div class="clearfix" @click="openCityDoenPage">
+      <div class="clearfix" v-if="rightConter">
+        <div class="img fl icon"></div>
+        <span class="fl">{{selectCityName}}</span>
+        <div class="img jiao fl"></div>
+      </div>
+      <div class="clearfix" @click="openCityDoenPage" v-else>
         <div class="img fl icon"></div>
         <span class="fl">{{selectCityName}}</span>
         <div class="img jiao fl"></div>
       </div>
       <!-- 下拉城市菜单 -->
       <div class="citys-box" v-show="citysShow">
-        <div class="citys-title">当前选择:{{selectCityName}}</div>
-        <mt-picker :slots="areaCommunity" @change="onValuesChange"></mt-picker>
-        <span class="currentOption" v-if="showOption">
-          <img src="../../assets/images/header/option.png" alt>
-        </span>
-        <span v-else class="currentDefault" @click="setCitysState"></span>
+        <div class="citys-title">{{$t('indexTitle.currentChoice')}}:{{selectCityName}}</div>
+        <div v-for ="(item , index) in listenCityList" :key = "index" @click="setCitysState(item.cityId)" class="cityName">
+          <span :class="cityId == item.cityId?'option':''">
+            {{item.cityName}}
+            <span class="currentOption " v-if="cityId == item.cityId">
+                <img src="../../assets/images/header/option.png" alt>
+            </span>
+          </span>
+          
+        </div>
       </div>
     </div>
     <!-- 城市选中 -->
@@ -37,8 +46,9 @@
         <span class="fl" @click="changeLang('en', 1)"></span>
       </div>
       <div class="other fl">
-        <div class="img" @click="setMenuState(true)" v-if="menuShow == false && isVisit == false"></div>
-        <div class="img select" @click="setMenuState(false)" v-else></div>
+        <div class="img select" @click="setMenuClose" v-if="rightConter"></div>
+        <div class="img" @click="setMenuOpen" v-else ></div>
+        
         <!-- 下拉菜单 -->
         <div class="menu-box" v-show="menuShow">
           <div class="menus clearfix">
@@ -71,7 +81,7 @@
         </div>
       </div>
     </div>
-    <div class="menu-mask" v-if="menuShow || citysShow" @click="closeCityDoenPage"></div>
+    <div class="menu-mask" v-if="rightConter" @click="closeCityDoenPage"></div>
     <Visit :Close="jumpVisit" :areaDisabled="areaDisabled" v-if="isVisit"/>
   </header>
 </template>
@@ -86,23 +96,14 @@ export default {
   },
   data() {
     return {
-      optionCityName: "", //默认滑动选中城市
       selectCityName: "", //已经选中得城市
-      selectCityId: "", //当前选择的城市索引
       citysShow: false, //下拉城市是否显示
-      showOption:true,//默认不展示勾
       language: 0, // 0:中文 1:英文
       cityId: Number, //路由上面的city,只能在路由传参的时候修改
-      menuShow: false,
-      isVisit: false, //是不是展示立即预约按钮哪个窗口
+      menuShow: false,//办公首页
+      isVisit: false, //是不是展示立即预约哪个窗口
       areaDisabled: false,
-      areaCommunity: [
-        {
-          flex: 1,
-          values: [],
-          textAlign: "center"
-        }
-      ]
+      rightConter : false//控制右侧
     };
   },
   computed: {
@@ -133,21 +134,16 @@ export default {
     // 用来处理路由没有id然后进行回调
     cityId() {
       this.getHeadShowCity();
-      this.getCityName();
     },
     listenCityList(){
       this.getHeadShowCity();
-      this.getCityName();
     }
   },
   mounted() {
+    console.log(this.$store.state.common)
     this.language = this.$route.query.lang == "zh" ? 0 : 1;
     // 如果路由有城市id然后进行回调
     this.getHeadShowCity();
-    this.getCityName();
-  },
-  updated(){
-    document.getElementsByClassName("picker-selected")[0].classList.add("color");
   },
   methods: {
     //获取头部的默认展示城市信息
@@ -158,35 +154,6 @@ export default {
           this.selectCityName = val.cityName;
         }
       });
-    },
-    getCityName() {
-      var cityNameList = this.listenCityList.map(val => {
-        return val.cityName;
-      });
-      var defaultIndex = this.listenCityList.findIndex((val, index) => {
-        if (val.cityId == this.cityId) {
-          return index;
-        }
-      });
-      var modifiedRow = {
-        values: cityNameList,
-        defaultIndex
-      };
-      this.areaCommunity.splice(0, 1, modifiedRow);
-    },
-    // 滑动的时候触发的事件
-    onValuesChange(picker, values) {
-      this.optionCityName = values[0];
-      this.listenCityList.map((val, index) => {
-        if (val.cityName == values[0]) {
-          this.selectCityId = val.cityId; //获取滑动时候的城市id
-        }
-      });
-       if(this.selectCityId == this.cityId){
-         this.showOption = true;
-       }else{
-         this.showOption = false;
-       }
     },
     // 语言切换
     changeLang(lang, language) {
@@ -199,15 +166,23 @@ export default {
     //打开城市下拉页面
     openCityDoenPage() {
       this.citysShow = true;
+      this.rightConter = true;
     },
-    //关闭城市下拉页面
+    //关闭后面的阴影
     closeCityDoenPage() {
-      this.citysShow = false;
+      if(this.citysShow){
+        this.citysShow = false;
+        this.rightConter = false;
+      }
+      if(this.menuShow){
+        this.menuShow = false;
+        this.rightConter = false;
+      }
     },
     // 切换城市
-    setCitysState() {
+    setCitysState(cityId) {
+      this.cityId = cityId;
       var lang = this.language == 0 ? 'zh' : 'en';
-      this.showOption = true;
       if (this.$route.name === "activity-id-index") {
         this.jumpUrl("/activity");
       } else if (this.$route.name === "community-id-index") {
@@ -215,25 +190,24 @@ export default {
       } else {
         this.pushUrl(lang);
       }
+      this.rightConter = false;
       this.citysShow = false;
     },
     pushUrl(lang) {
       var path = this.$route.path;
-      this.showOption = false;
       this.$router.replace({
         path,
         query: {
           lang,
-          cityId: this.selectCityId
+          cityId: this.cityId
         }
       });
     },
     jumpUrl(path) {
       var query = this.$route.query;
-      this.showOption = false;
       var newQuery = JSON.parse(JSON.stringify(query));
       newQuery.lang = this.language == 0 ? 'zh' : 'en';
-      newQuery.cityId = this.selectCityId;
+      newQuery.cityId = this.cityId;
       var url = "";
       for (var key in newQuery) {
         url += key + "=" + newQuery[key] + "&";
@@ -241,12 +215,27 @@ export default {
       let win = typeof window == "undefined" ? global : window;
       win.location.href = path + "?" + url.substr(0, url.length - 1);
     },
-    setMenuState() {
-      this.menuShow = !this.menuShow;
-      if (this.isVisit) {
-        this.isVisit = !this.isVisit;
+    setMenuOpen(){
+       if(this.isVisit==false && this.menuShow==false && this.citysShow==false){
+        this.menuShow = true;
+        this.rightConter = true;
       }
     },
+    setMenuClose(){
+       if(this.isVisit){
+        this.isVisit = false;
+        return false
+      }
+      if(this.menuShow){
+        this.menuShow = false;
+        this.rightConter = false;
+      }
+      if(this.citysShow){
+        this.rightConter = false;
+        this.citysShow = false;
+      }
+    },
+    // 弹出立即预约窗口
     jumpVisit() {
       this.isVisit = true;
     }
@@ -357,34 +346,47 @@ header {
       top: 50px;
       z-index: 200;
       width: 375px;
+      height: 381px;
+      overflow: scroll;
       padding: 20px 60px;
       background: #ffffff;
       .citys-title {
         font-family: PingFang-SC-Medium;
         font-size: 16px;
-        padding-bottom: 20px;
+        margin-bottom: 20px;
         color: #333333;
         text-align: center;
       }
-      .currentDefault,
-      .currentOption {
-        position: absolute;
-        bottom: 100px;
-        left: 50%;
-        width: 0.533333rem;
-        height: 0.533333rem;
-        border-radius: 50%;
-        transform: translateX(30px);
-      }
-      .currentDefault {
-        background: #ffeb00;
-      }
-      .currentOption {
-        img {
+      .cityName{
+        position: relative;
+        text-align: center;
+        margin-bottom: 16px;
+        span{
+          font-size: 16px;
+          color: #666;
+          font-size: 16px;
+          line-height: 22px;
+        }
+        .currentOption {
+          position: absolute;
+          bottom: 0;
+          left: 50%;
           width: 20px;
           height: 20px;
+          border-radius: 50%;
+          background: #ffeb00;
+          transform: translateX(30px);
+          img {
+            width: 20px;
+            height: 20px;
+          }
+        }
+        .option{
+          font-size: 18px;
+          color:#333;
         }
       }
+      
     }
   }
   .lang {
@@ -437,6 +439,7 @@ header {
       width: 375px;
       height: 472px;
       padding-top: 18.6px;
+      height: 472px;
       background: #ffffff;
       .menus {
         font-size: 17px;

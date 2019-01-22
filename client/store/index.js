@@ -83,7 +83,6 @@ export default {
       state.env = data
     },
     setIndexMember(state,data){
-      console.log(data)
       state.member = data;
     },
     // setWelfareList( state,data ) {

@@ -220,10 +220,13 @@ export default {
   }
 }
 .order-box {
-  position: absolute;
+  position: fixed;
   top: 50px;
   left: 0px;
+  bottom: 0;
+  right: 0;
   width: 375px;
+  overflow:hidden;
   padding: 20px 0 0 30px;
   z-index: 210;
   background: #fff;
@@ -278,7 +281,7 @@ export default {
     width: 315px;
     height: 50px;
     line-height: 50px;
-    margin: 10px 0px 54px 0px;
+    margin-top: 10px;
     background-image: linear-gradient(-217deg, #ffdf00 0%, #ffeb00 100%);
     border-radius: 4px;
     font-family: PingFang-SC-Regular;

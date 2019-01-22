@@ -74,7 +74,8 @@ module.exports = {
     activity: "Community Events",
     members: "Members",
     detail: "Learn More",
-    later: "Days Later"
+    later: "Days Later",
+    currentChoice : "Current Choice"
   },
   indexPriceType: {
     long: "Per Month",

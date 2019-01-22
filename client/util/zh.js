@@ -72,6 +72,7 @@ module.exports = {
     members: '会员报道',
     detail: '查看详情',
     later: '天后',
+    currentChoice : "当前选择"
   },
   indexPriceType: {
     long: '起/工位•月',

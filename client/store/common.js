@@ -2,6 +2,7 @@ import model from 'model'
 
 export default {
   state: {
+    rightConter111: false,
     origin: '',
     queryString: '',
     query: {},
@@ -40,6 +41,12 @@ export default {
     }
   },
   mutations: {
+    openRightConter:(state , data) =>{
+      state.rightConter111 = data;
+    },
+    closseRightConter:(state,data) =>{
+      state.rightConter111 = data;
+    },
     setDistinctId: (state, data) => {
       state.distinctId = data
     },
