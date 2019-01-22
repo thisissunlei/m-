@@ -95,15 +95,15 @@
     <!-- 社区活动 -->
     <Activity :data="activityList" v-if="!!activityList && activityList.length > 0"/>
     <div class="divide-line"></div>
-
+    <Visit :Close="jumpVisit" :areaDisabled="areaDisabled" v-if="isVisit" />
     <!-- 会员报道 -->
     <Member :data="memberList" v-if="!!memberList && memberList.length > 0"/>
     <!-- start 立即预约 -->
-    <div class="visit-btn">
+    <div class="visit-btn" @click="jumpVisit">
       <p :class="[isFixed ? 'bottom-visit-fixed' : '']">{{$t('indexTitle.order')}}</p>
       <p v-show="isFixed"></p>
     </div>
-    <!-- end 立即预约 -->
+    <!-- end 立即预约 --> 
   </div>
 </template>
 
@@ -113,7 +113,7 @@ import Hot from "../../components/index/hot.vue"; // 热门社区
 import Welfare from "../../components/index/welfare.vue"; // 社区福利
 import Activity from "../../components/index/activity.vue"; // 社区活动
 import Member from "../../components/index/member.vue"; // 社区活动
-
+import Visit from 'components/common/visit.vue'
 import { mapState, mapActions } from "vuex";
 
 export default {
@@ -122,7 +122,8 @@ export default {
     Hot,
     Welfare,
     Activity,
-    Member
+    Member,
+    Visit
   },
   data() {
     return {
@@ -131,6 +132,8 @@ export default {
       language: "",
       cityId: "",
       query: "",
+      isVisit: false,
+      areaDisabled: false,
       isFixed: true,
       bannerFlag: false,
       loopLength: 1,
@@ -197,6 +200,9 @@ export default {
   },
 
   methods: {
+     jumpVisit() {
+      this.isVisit = true;
+    },
     getData() {
         if (!this.$route.query.lang) {
           return
