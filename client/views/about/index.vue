@@ -1,23 +1,16 @@
 <template>
   <div class="about-box">
-    <!-- <div class="tabs-list">
-       <div :class="activeTab==item.value ?'tab active-tab ':'tab'" v-for="(item, i) in  $t('aboutTab')" :key="i">
-          <a  :href="'//'+$store.state.common.origin+'/about'+query[i]">
-            {{item.name}}
-          </a>
-          <span class="lang" v-if="activeTab==item.value && lang=='en'" ></span>
-          <span class="line" v-if="activeTab==item.value && lang=='zh'" ></span>
-        </div>
-    </div> -->
-
     <div class="tab-contain">
       <nav>
         <p v-for="(item,i) in $t('aboutTab')" :key="i" @click="selectType(item)"
         :class="activeTab == item.value?'tab-box activity':'tab-box'"
         >
-        <a  :href="'//'+$store.state.common.origin+'/about'+query[i]">
+        <a v-if="item.name === '加入我们' || item.name === 'Join us'" href="https://zhaopin.krspace.cn/m/apply/36kr/140/#/home?_k=ipbgmo" target="_blank">
+              {{item.name}}
+        </a>
+        <a v-else :href="'//'+$store.state.common.origin+'/about'+query[i]">
             {{item.name}}
-          </a>
+        </a>
         <!-- {{item.name}} -->
           <span class="lang" v-if="activeTab==item.value && lang=='en'" ></span>
           <span class="line" v-if="activeTab==item.value && lang=='zh'" ></span>
@@ -29,7 +22,7 @@
       <Introduce v-if="activeTab == 'size'"/>
       <Things v-if="activeTab == 'things'"/>
       <News v-if="activeTab == 'news'"/>
-      <Join v-if="activeTab == 'join'"/>
+      <!-- <Join v-if="activeTab == 'join'"/> -->
     </div>
   </div>
 </template>
@@ -79,7 +72,6 @@ export default {
           this.lang = n.query.lang;
         }
       },
-
       '$store.state.common.queryString'() {
         this.setQuery()
       }

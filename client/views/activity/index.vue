@@ -1,16 +1,14 @@
 <template>
   <div class="activity">
-
-
-    <div class="activity-top">
+    <div class="activity-top" v-if="activity.recommendActivity.length>0">
       <div class="top-title">
-        <span class="fl">精选活动</span>
+        <span class="fl">{{$t('activityTitle')}}</span>
         <span class="fr num">
           <i class="next fr">/{{activity.recommendActivity.length}}</i>
           <i class="prev fr">{{actiIndex}}</i>
         </span>
       </div>
-      <div v-swiper:mySwiper="swiperOption" v-if="activity.recommendActivity.length>0" ref="swiper">
+      <div v-swiper:mySwiper="swiperOption"  ref="swiper">
         <div class="swiper-wrapper">
           <div class="swiper-slide" v-for="(item, index) in activity.recommendActivity" :key="index">
             <a :href="'//'+$store.state.common.origin+'/welfare/'+item.id+$store.state.common.queryString">
@@ -25,7 +23,7 @@
         </div>
       </div>
     </div>
-    <div class="content-box">
+    <div class="content-box" v-if="!!activity.activityList && activity.activityList.length>0">
           <a :href="'//'+$store.state.common.origin+'/activity/' + item.id + $store.state.common.queryString" class="item-content" v-for="(item,i) in activity.activityList" :key="i">
             <img :src="item.imgUrl" alt="" class="item-img" v-if="!!item.imgUrl">
             <img src="../../assets/images/activity/default.png" alt="" class="item-img" v-else>
@@ -39,9 +37,11 @@
                 <img src="../../assets/images/location.png" alt="">
                 <span class="adress">{{item.communityName}}</span>
               </p>
+              <p class="item-price" v-if="item.cost == 0">免费</p>
             </div>
           </a>
-        </div>
+      </div>
+      <div class="none" v-else>暂无数据</div>
 
   </div>
 </template>
@@ -221,6 +221,8 @@
       img {
         width: 100%;
         height: 172px;
+        border: 1px solid #F3F3F3;
+        border-radius: 4px;
       }
       .default-img {
         background: url("../../assets/images/default.png") ;
@@ -262,6 +264,8 @@
         width: 100px;
         height: 133px;
         margin: 10px;
+        border: 1px solid #F3F3F3;
+        border-radius: 4px;
       }
       .item-info {
         flex: 1;
@@ -306,8 +310,30 @@
             color: #666666;
           }
         }
+        .item-price {
+          position: absolute;
+          bottom: 0;
+          font-family: PingFangSC-Regular;
+          font-size: 15px;
+          color: #333333;
+          line-height: 21px;
+        }
       }
     }
   }
+    .none {
+      background: url('../../assets/images/none.png') center top no-repeat;
+      -webkit-background-size: 116px 106px;
+      background-size: 116px 106px;
+      margin-top: 60px;
+      padding: 130px 0 50px;
+      line-height: 20px;
+      font-size: 20px;
+      color: #666666;
+      text-align: center;
+      padding-bottom: 80px;
+      font-weight: 700;
+  }
+
 </style>
 

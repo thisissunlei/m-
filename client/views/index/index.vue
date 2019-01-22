@@ -158,11 +158,11 @@ export default {
       return this.$store.getters.throwIndexOfficeEnv;
     },
     activityList() {
-      return this.$store.getters.throwIndexActivityList;
+      return this.$store.getters.throwActivityList;
     },
-     memberList(){
+    memberList(){
         return this.$store.getters.throwIndexMemberList;
-      },
+    },
     ...mapState(["index", "welfare"])
   },
   watch: {
@@ -189,7 +189,7 @@ export default {
     this.language = this.lang === "en" ? 1 : 0;
     this.cityId = this.$route.query.cityId;
     this.getData();
-    // console.log("index", this.index, this.envList, 1111111);
+    console.log("index", this.activityList);
     window.addEventListener("scroll", this.scroll);
   },
 

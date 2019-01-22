@@ -1,6 +1,7 @@
 <template>
   <div class="community-slide">
-    <div class="slide-picture">
+    <div class="slide-picture"
+      v-if="showSlides">
       <div v-swiper:mySwiper="swiperOption">
         <div class="swiper-wrapper"
           ref="swiper">
@@ -30,6 +31,7 @@ export default {
 
       imgList: [],
       tabList: [],
+      showSlides: true,
       currentIndex: 0,
       swiperOption: {
         loop: true,
@@ -40,6 +42,7 @@ export default {
         on: {
           slideChange: () => {
             let swiper = this.mySwiper;
+            // console.log(swiper)
             this.currentIndex = swiper.activeIndex
           }
         }
@@ -51,7 +54,9 @@ export default {
 
   },
   mounted() {
+
     this.getImgList(this.detail.list.picTypeMap);
+    console.log(this.detail)
 
   },
   methods: {
@@ -74,6 +79,7 @@ export default {
       let len1 = 0;
       let len2 = 0;
       let len3 = 0;
+
       if (detail.COMMUNITY_INTERIOR && detail.COMMUNITY_INTERIOR.length > 0) {
         len1 = detail.COMMUNITY_INTERIOR.length;
         let arr = [];
@@ -121,6 +127,10 @@ export default {
         this.tabList.push(tabObj)
 
       }
+      // if ((detail.COMMUNITY_ERIOR && detail.COMMUNITY_ERIOR.length > 0) || (detail.OFFICE_STATION && detail.OFFICE_STATION.length > 0) || (detail.COMMUNITY_INTERIOR && detail.COMMUNITY_INTERIOR.length > 0)) {
+      //   this.showSlides = true;
+      // }
+
     },
   },
 }
