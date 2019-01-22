@@ -68,24 +68,20 @@ export default {
   },
   watch:{
     '$route'(n, o) {
-      console.log('n,o',n,o)
         if ( n.query.lang != o.query.lang ) {
           this.lang = n.query.lang;
         }
       },
-      // '$store.state.common.queryString'() {
-      //   this.setQuery()
-      // }
+       '$store.state.common.queryString'(n, o) {
+         this.query = this.$t('aboutTab').map((val, i) => {
+           return this.$store.state.common.queryString+'&tab='+val.value
+         })
+       }
   },
   created(){
     this.activeTab = this.$route.query.tab || 'size';
-    this.query = this.$t('aboutTab').map((val, i) => {
-        // return this.$store.state.common.queryString+'&tab='+val.value
-        return '?tab='+val.value
-      })
   },
   mounted(){
-
 
   },
   // 在服务器端获取并渲染数据，渲染组件之前异步获取数据

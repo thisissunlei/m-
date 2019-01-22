@@ -171,6 +171,7 @@ module.exports = {
     des:
       "Kr Space runs co-working community in 11 cities, including Beijing, Shanghai and Guangzhou. By the end of June 2018, we already run more than 40 communities providing 35,000 workstations, direct managing over 200,000 sqm. in size."
   },
+  communityReset: 'Reset all conditions',
 
   CMNT_DTL_Title: {
     map: "Map",

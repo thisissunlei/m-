@@ -25,13 +25,13 @@
         </li>
         <li class="city-community" v-for="item, i in community.cbdList" :key="i" v-if="$route.query.cityId*1 === item.cityId*1">
           <div :class="all? 'select': ''"
-               @click="changeUrl('porCbdId', '', '全部', '办公位置')">{{$t('communityOpenStatus')[0]}}{{all}}</div>
+               @click="changeUrl('porCbdId', '', '全部', '办公位置')">{{$t('communityOpenStatus')[0]}}</div>
           <div v-for="cbdListItem, cbdListI in item.cbdList" :key="cbdListI"
                @click="changeUrl('porCbdId', cbdListItem.id, cbdListItem.cbdName, '办公位置')"
                :class="listData.porCbdId*1 === cbdListItem.id*1? 'select': ''">{{cbdListItem.cbdName}}</div>
         </li>
       </ul>
-      <div class="reset" @click="changeUrl('reset')">重置所有条件</div>
+      <div class="reset" @click="changeUrl('reset')">{{$t('communityReset')}}</div>
     </div>
     <!--社区状态-->
     <div class="city status" v-if="screenIndex === 2">
@@ -44,7 +44,7 @@
           </div>
         </li>
       </ul>
-      <div class="reset" @click="changeUrl('reset')">重置所有条件</div>
+      <div class="reset" @click="changeUrl('reset')">{{$t('communityReset')}}</div>
     </div>
     <!--工位价格-->
     <div class="city status" v-if="screenIndex === 3">
@@ -58,7 +58,7 @@
           </div>
         </li>
       </ul>
-      <div class="reset" @click="changeUrl('reset')">重置所有条件</div>
+      <div class="reset" @click="changeUrl('reset')">{{$t('communityReset')}}</div>
     </div>
     <div class="mark" @click="screenBoxShow(0)" v-if="screenIndex != 0"></div>
   </div>
@@ -80,7 +80,7 @@
           page: 1,
           pageSize: 100
         },
-        all: false
+        all: true
       }
     },
     watch: {

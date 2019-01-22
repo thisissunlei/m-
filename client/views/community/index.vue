@@ -7,7 +7,7 @@
       <Item :listData="listData" v-for="item, i in community.list.items" :key="i" :item="item" :i="i"></Item>
     </div>
     <div class="none" v-if="(!community.list.items || !community.list.items.length) && !loading">
-      抱歉,未找到与您匹配的社区<br/>请您重新筛选条件查询
+      {{$t('communityDefault')}}
     </div>
     <div :class="!!mapShow? 'map select': 'map'" @click="mapShow = !mapShow"
          v-if="!!community.list.items && !!community.list.items.length && this.listData.cityId != 0"></div>
@@ -213,11 +213,11 @@
       background: #ffffff;
     }
     .none {
-      background: url('../../assets/images/none.png') center top no-repeat;
+      background: #fff url('../../assets/images/none.png') center top no-repeat;
       -webkit-background-size: 116px 106px;
       background-size: 116px 106px;
       margin-top: 60px;
-      padding: 130px 0 50px;
+      padding: 130px 30px 50px;
       line-height: 20px;
       font-size: 15px;
       color: #666666;

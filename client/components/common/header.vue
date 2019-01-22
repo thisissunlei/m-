@@ -101,7 +101,8 @@ export default {
       language: 0, // 0:中文 1:英文
       cityId: Number, //路由上面的city,只能在路由传参的时候修改
       menuShow: false,//办公首页
-      areaDisabled: false
+      areaDisabled: false,
+      lang: ''
     };
   },
   computed: {
@@ -158,6 +159,7 @@ export default {
       this.language = language;
       this.$store.dispatch("getInitialState", { language, lang});//切换语言函数
       this.$store.commit("setCommonLang", lang);
+      this.lang = lang
       this.pushUrl(lang);
     },
     //打开城市下拉页面
@@ -180,6 +182,7 @@ export default {
     setCitysState(cityId) {
       this.cityId = cityId;
       var lang = this.language == 0 ? 'zh' : 'en';
+      this.lang = lang
       if (this.$route.name === "activity-id-index") {
         this.jumpUrl("/activity");
       } else if (this.$route.name === "community-id-index") {
@@ -192,13 +195,11 @@ export default {
     },
     pushUrl(lang) {
       var path = this.$route.path;
-      this.$router.replace({
-        path,
-        query: {
-          lang,
-          cityId: this.cityId
-        }
-      });
+      var query = this.$route.query;
+      var newQuery = JSON.parse(JSON.stringify(query));
+      newQuery.lang = this.lang;
+      newQuery.cityId = this.cityId;
+      this.$router.replace({ path: path, query: newQuery});
     },
     jumpUrl(path) {
       var query = this.$route.query;
