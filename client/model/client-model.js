@@ -16,7 +16,7 @@ let request = axios.create({
   baseURL: url
 });
 
-let handleRequest = function (request) {
+let handleRequest = function(request) {
   return new Promise((resolve, reject) => {
     request
       .then(resp => {
@@ -107,7 +107,7 @@ export default {
       request.get("api/gateway/portalthree/usernews-list", {
         params: data
       })
-    )
+    );
   },
 
   getNewsList(data) {
@@ -198,25 +198,34 @@ export default {
       })
     );
   },
-  getCometTeamList(data) { // 团队 list
-    return handleRequest(request.get('api/gateway/portalthree/comet-team-list', {
-      params: data
-    }))
+  getCometTeamList(data) {
+    // 团队 list
+    return handleRequest(
+      request.get("api/gateway/portalthree/comet-team-list", {
+        params: data
+      })
+    );
   },
-  getPorNewsDetails(data) { // 会员报道 details
-    return handleRequest(request.get('api/gateway/portalthree/por-news-details', {
-      params: data
-    }))
+  getPorNewsDetails(data) {
+    // 会员报道 details
+    return handleRequest(
+      request.get("api/gateway/portalthree/por-news-details", {
+        params: data
+      })
+    );
   },
-  getTeamDetail(data) { //团队详情
-    return handleRequest(request.get('api/gateway/portalthree/teamdetail', {
-      params: data
-    }))
+  getTeamDetail(data) {
+    //团队详情
+    return handleRequest(
+      request.get("api/gateway/portalthree/teamdetail", {
+        params: data
+      })
+    );
   },
   getCommunityCbds(data) {
     // 社区筛选条件
     return handleRequest(
-      request.get('api/gateway/portalthree/cmt-cbd', {
+      request.get("api/gateway/portalthree/cmt-cbd", {
         params: data
       })
     );
@@ -224,7 +233,7 @@ export default {
   getCommunityStatus(data) {
     // 社区筛选状态
     return handleRequest(
-      request.get('api/gateway/portalthree/status/seat-price', {
+      request.get("api/gateway/portalthree/status/seat-price", {
         params: data
       })
     );
@@ -232,7 +241,7 @@ export default {
   getCommunityList(data) {
     // 社区列表
     return handleRequest(
-      request.get('api/gateway/portalthree/cmt-listing', {
+      request.get("api/gateway/portalthree/cmt-listing", {
         params: data
       })
     );
@@ -240,7 +249,7 @@ export default {
   getCommunityDetails(data) {
     //社区详情
     return handleRequest(
-      request.get('api/gateway/portalthree/community-detail', {
+      request.get("api/gateway/portalthree/community-detail", {
         params: data
       })
     );
@@ -248,7 +257,15 @@ export default {
   getOfficeType(data) {
     //高效、分时办公
     return handleRequest(
-      request.get('api/gateway/portalthree/office-type', {
+      request.get("api/gateway/portalthree/office-type", {
+        params: data
+      })
+    );
+  },
+  getSameCommunity(data) {
+    //同城社区
+    return handleRequest(
+      request.get("api/gateway/portalthree/same-cmt", {
         params: data
       })
     );
@@ -256,9 +273,9 @@ export default {
   getComter(data) {
     //高效、分时办公
     return handleRequest(
-      request.get('/api/gateway/get-all-cbd', {
+      request.get("/api/gateway/get-all-cbd", {
         params: data
       })
     );
-  },
+  }
 };
