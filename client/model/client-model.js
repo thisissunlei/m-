@@ -8,7 +8,7 @@ Es6Promise.polyfill();
 //http://optest02.krspace.cn
 let url = "";
 if (process.env.NODE_ENV === "development") {
-  url = "http://optest02.krspace.cn/";
+  url = "http://optest01.krspace.cn/";
 } else {
   url = "https://i.krspace.cn/";
 }

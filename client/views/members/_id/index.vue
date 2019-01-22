@@ -63,7 +63,7 @@ export default {
   mounted() {
     console.log('member',this.member.memberDetail)
     console.log('team',this.member.teamDetail,this.$route.params.id)
-    // this.setNewsCount({newsId:this.$route.params.id})
+    this.setNewsCount({newsId:this.$route.params.id})
   },
   computed: {
     ...mapState([
