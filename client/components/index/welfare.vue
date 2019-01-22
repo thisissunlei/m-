@@ -13,6 +13,7 @@
       <div class="item-info">
         <p class="item-title">{{item.title}}</p>
         <p class="item-use">{{item.descr}}</p>
+
         <div class="item-tab" v-if="!!item.tagName && item.tagName.length > 0">
             <span class="text " v-for="(tag,index) in item.tagName" :key="index">{{tag}}</span>
         </div>
@@ -34,7 +35,7 @@ export default {
     }
   },
   mounted(){
-    console.log('welfare666',this.data)
+
   }
 }
 </script>
@@ -149,10 +150,10 @@ export default {
         .text{
           float: left;
           border-radius: 4px;
-          // margin: 0 5px 5px;
           margin: 0 3px 0 0;
-          padding: 1px 4px;
-          border: 1px solid #CCCCCC;
+          padding: 3px 4px;
+          font-size: 12px;
+          border: 1px solid #CCCCCC;/*no*/
           color: #999;
           background: #fff;
         }

@@ -1,6 +1,6 @@
 <template>
   <div class="g-welfare-contain">
-      <div class="activity-top">
+    <div class="activity-top" v-if="welfare.recommend.length>0">
       <div class="top-title">
         <span class="fl">每日优选</span>
         <span class="fr num">
@@ -9,7 +9,7 @@
         </span>
       </div>
 
-      <div v-swiper:mySwiper="swiperOption" v-if="welfare.recommend.length>0" ref="swiper">
+      <div v-swiper:mySwiper="swiperOption"  ref="swiper">
         <div class="swiper-wrapper">
           <div class="swiper-slide" v-for="(item, index) in welfare.recommend" :key="index">
             <a :href="'//'+$store.state.common.origin+'/welfare/'+item.id+$store.state.common.queryString">
@@ -35,7 +35,10 @@
       </div>
 
       <div class="welfare-list">
-        <DefaultPage v-if="!welfare.totalCount" title="暂无数据"></DefaultPage>
+        <div class="none" v-if="!welfare.totalCount">
+          暂无数据
+        </div>
+        <!-- <DefaultPage v-if="!welfare.totalCount" title="暂无数据"></DefaultPage> -->
         <div class="list-info" v-else>
             <Welfare :list="welfare.list" ></Welfare>
         </div>
@@ -227,6 +230,7 @@
       img {
         width: 100%;
         height: 172px;
+        border-radius: 4px;
       }
       .default-img {
         background: url("../../assets/images/default.png") ;
@@ -301,5 +305,19 @@
         }
       }
     }
+    .none {
+      background: url('../../assets/images/none.png') center top no-repeat;
+      -webkit-background-size: 116px 106px;
+      background-size: 116px 106px;
+      margin-top: 60px;
+      padding: 130px 0 50px;
+      line-height: 20px;
+      font-size: 20px;
+      color: #666666;
+      text-align: center;
+      padding-bottom: 30px;
+      font-weight: 700;
+  }
+
   }
 </style>

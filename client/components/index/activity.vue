@@ -24,7 +24,7 @@
             <img src="../../assets/images/location.png" alt="">
             <span class="adress">{{item.communityName}}</span>
           </p>
-
+          <p class="item-price" v-if="item.cost == 0">免费</p>
         </div>
       </a>
     </div>
@@ -43,7 +43,7 @@ export default {
     }
   },
   mounted(){
-    console.log('activity',this.data)
+    // console.log('data6666',this.data);
   }
 }
 </script>
@@ -188,6 +188,14 @@ export default {
             font-size: 13px;
             color: #666666;
           }
+        }
+        .item-price {
+          position: absolute;
+          bottom: 0;
+          font-family: PingFangSC-Regular;
+          font-size: 15px;
+          color: #333333;
+          line-height: 21px;
         }
       }
     }

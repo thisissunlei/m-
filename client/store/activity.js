@@ -23,8 +23,7 @@ export default {
     getActivityList ({ commit },formData) {
       return model.getActivityList(formData)
         .then(data => {
-          console.log("acitivity",formData);
-
+          // console.log("acitivity",formData);
           commit('setActivityList', data)
         })
         .catch(err => {
@@ -106,6 +105,8 @@ export default {
   },
   getters: {
     throwActivityList(state){
+      console.log("state",state);
+
       return state.activityList;
     }
   }
