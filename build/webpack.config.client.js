@@ -75,7 +75,7 @@ if (isDev) {
     },
     output: {
       filename: '[name].[chunkhash:8].js',
-      publicPath: isDev ? '/public/' : 'https://web.krspace.cn/kr-web-cdn/'
+      publicPath: isDev ? '/public/' : '/public/'
     },
     plugins: defaultPluins.concat([
       // ??

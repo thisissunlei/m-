@@ -52,7 +52,7 @@ export default {
         })
   	},
     setNewsCount({ commit }, data){
-      return model.memberReadCount(data)
+      return model.setNewsRead(data)
         .then(res => {
           console.log('setNewsCount')
           // commit('setTeamDetail', res)

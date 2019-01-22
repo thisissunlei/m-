@@ -23,7 +23,7 @@ let url = ''
 if ( process.env.NODE_ENV === 'development' ) {
   url = 'http://optest01.krspace.cn/'
 } else {
-  url = 'https://i.krspace.cn/'
+  url = 'http://optest01.krspace.cn/'
 }
 let request = axios.create({
   baseURL: url
