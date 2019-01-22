@@ -133,7 +133,7 @@
     <!-- 立即预约 -->
     <Visit :Close="jumpVisit"
       :areaDisabled="areaDisabled"
-      v-if="isVisit" />
+      v-if="this.$store.state.community.isVisit" />
 
     <!-- 社区福利 -->
     <Welfare :data="$store.state.welfare.recommend"
@@ -219,7 +219,6 @@ export default {
   data() {
     return {
       areaDisabled: false,
-      isVisit: false,
       isFixed: true,
       detail: {},
       // showMap: false,
@@ -327,7 +326,8 @@ export default {
       location.href = `/community/${cmtId}/detailmap`;
     },
     jumpVisit() {
-      this.isVisit = true;
+      this.$store.commit('optionVisit', true);
+      this.$store.commit('openRightConter', true);
     },
 
     toggleBottomTags(index) {

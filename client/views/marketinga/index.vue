@@ -392,7 +392,6 @@
           Baidu.trackEvent('MKTA-底部预约','点击');
           var Value=document.getElementById('areaValue2').value;
           var areaValue;
-          console.log(Value);
           if(Value!=''){
             areaValue=Value;
           }
