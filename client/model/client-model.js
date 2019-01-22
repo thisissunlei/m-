@@ -192,6 +192,7 @@ export default {
   },
   memberReadCount(data) {
     //阅读量
+    console.log('阅读量',data)
     return handleRequest(
       request.post("api/gateway/portalthree/add-news-read", {
         params: data
@@ -281,7 +282,30 @@ export default {
   setNewsRead(data) {
     // 增加阅读人数
     return handleRequest(
-      request.post("api/gateway/portalthree/add-news-read", Qs.stringify(data))
+      request.post('api/gateway/portalthree/add-news-read',
+       Qs.stringify(data)))
+  },
+
+  // 推广页面接口 start
+  //获取定位社区
+  getVisitCommunity(data) {
+    return handleRequest(
+      request.get('/api/gateway/get-community-byip')
     );
-  }
+  },
+  // 获取全部城市
+  getCityList(data) {
+    return handleRequest(
+      request.get('/api/gateway/protals-all-city')
+    );
+  },
+  //market推广预约
+  postCityVisit(data) {
+    return handleRequest(
+      request.post('/api/gateway/portals/save-city-visit',
+        Qs.stringify(data)
+      )
+    );
+  },
+  // 推广页面接口 end
 };

@@ -64,17 +64,18 @@ export default {
 
     // this.lang = this.$route.query.lang;
 
-    this.setQuery()
+    // this.setQuery()
   },
   watch:{
     '$route'(n, o) {
+      console.log('n,o',n,o)
         if ( n.query.lang != o.query.lang ) {
           this.lang = n.query.lang;
         }
       },
-      '$store.state.common.queryString'() {
-        this.setQuery()
-      }
+      // '$store.state.common.queryString'() {
+      //   this.setQuery()
+      // }
   },
   created(){
     this.activeTab = this.$route.query.tab || 'size';

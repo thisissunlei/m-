@@ -62,7 +62,6 @@ module.exports = {
     "© 2011-2018 氪空间(北京)信息技术有限公司 | 京ICP备16012805号 | ",
 
   indexTitle: {
-<<<<<<< HEAD
     order: '立即预约',
     more: '查看更多',
     vip: '入驻会员专享',
@@ -75,19 +74,6 @@ module.exports = {
     detail: '查看详情',
     later: '天后',
     currentChoice : "当前选择"
-=======
-    order: "立即预约",
-    more: "查看更多",
-    vip: "入驻会员专享",
-    hot: "热门社区",
-    soon: "待开社区",
-    environment: "社区环境",
-    welfare: "社区福利",
-    activity: "社区活动",
-    members: "会员报道",
-    detail: "查看详情",
-    later: "天后"
->>>>>>> a9c442958dc14c6b12b1a77168fdab7c230b8b96
   },
   indexPriceType: {
     long: "起/工位•月",
