@@ -191,25 +191,14 @@ module.exports = {
     periphery: '周边配套'
   },
 
-  activityTitle: '推荐活动',
-  activityPageSize: '每页15条',
+  activityTitle: '精选活动',
+
   activityMeta: {
     tit:'联合办公社区活动-氪空间',
     des:'氪空间联合办公社区会在每月举办不同类型，不同主题的社区活动，帮助创业公司结识更多有趣的人。通过活动举办，增加创业团队相互交流，相互帮助的机会，使氪空间的租客可以资源共享共同成长。',
     key:'联合办公活动,共享办公活动,氪空间社区活动',
   },
-  activityBread: [
-    {
-      name: "氪空间",
-      url: '/'
-    }, {
-      name: "社区活动",
-      url: '/activity'
-    }, {
-      name: "正文",
-      url: ''
-    }
-  ],
+
   activityDetail: '活动详情',
   activityOther: '其他活动',
   newsMeta: {

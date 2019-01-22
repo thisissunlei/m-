@@ -208,7 +208,7 @@ module.exports = {
     periphery: "Surrounding area"
   },
 
-  activityTitle: "Recommended Events",
+  activityTitle: "Recommended",
   activityPageSize: "15 per page",
   activityMeta: {
     tit: "Kr Space-Community activities",
