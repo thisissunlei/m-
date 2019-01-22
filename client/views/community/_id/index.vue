@@ -138,13 +138,17 @@
     <!-- <Detailmap v-if="showMap"
       :change="mapChange"></Detailmap> -->
     <!-- 社区福利 -->
-    <Welfare />
+    <Welfare :data="$store.state.welfare.recommend"
+      v-if="!!$store.state.welfare.recommend && $store.state.welfare.recommend.length > 0" />
     <div class="divide-line"></div>
     <!-- 社区活动 -->
-    <Activity />
+    <Activity :data="activityList"
+      v-if="!!activityList && activityList.length > 0" />
+
     <div class="divide-line"></div>
     <!-- 会员报道 -->
-    <Member />
+    <Member :data="memberList"
+      v-if="!!memberList && memberList.length > 0" />
     <div class="divide-line"></div>
     <!-- 同城社区 -->
     <div class="same-city-community">
@@ -166,7 +170,7 @@
 
     <!-- start 立即预约 -->
     <div class="visit-btn"
-      @click="jumpVisit"> 
+      @click="jumpVisit">
       <p :class="[isFixed ? 'bottom-visit-fixed' : '']">{{$t('indexTitle.order')}}</p>
       <p v-show="isFixed"></p>
     </div>
@@ -196,6 +200,8 @@ import Activity from '../../../components/index/activity.vue'
 import Member from '../../../components/index/member.vue'
 import Visit from 'components/common/visit.vue'
 import Slides from './slides.vue'
+import { mapState, mapActions } from "vuex";
+
 export default {
   components: {
     Welfare,
@@ -219,13 +225,38 @@ export default {
   },
   asyncData({ route, router, store }) {
     let cmtId = route.params.id;
+    let cityId = route.query.cityId
     let lang = route.query.lang == 'en' ? 1 : 0;
     // console.log(cmtId)
     return Promise.all([
       store.dispatch('getNewCommunityDetails', { id: cmtId, language: lang }),
       store.dispatch('getNewOfficeType', { id: cmtId, language: lang }),
-      store.dispatch('getNewSameCommunity', { id: cmtId, language: lang })
+      store.dispatch('getNewSameCommunity', { id: cmtId, language: lang }),
+      store.dispatch('getWelfareList', {
+        language: lang,
+        page: 1,
+        pageSize: 3,
+        sort: 2
+      }),
+      store.dispatch('getActivityList', {
+        cityId: cityId,
+        page: 1,
+        pageSize: 3
+      }),
+      store.dispatch('getIndexMember', {
+        page: 1,
+        pageSize: 3
+      })
     ])
+  },
+  computed: {
+    activityList() {
+      return this.$store.getters.throwActivityList;
+    },
+    memberList() {
+      return this.$store.getters.throwIndexMemberList;
+    },
+    ...mapState(["welfare"])
   },
   watch: {
     '$route.query.lang'(value) {
