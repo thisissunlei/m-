@@ -7,7 +7,9 @@ export default {
     defaultCity: "",
     cityDownList: [],
     submitInfo: "",
-    visitCityList: []
+    visitCityList: [],
+    visitErr: {},
+    visitNum: 0
   },
   // action去commit哪个mutation
   actions: {
@@ -48,7 +50,7 @@ export default {
           commit('sussuseSumbit', data)
         })
         .catch(err => {
-          console.log(err)
+          commit('setVisitErr', err)
         })
     },
   },
@@ -75,6 +77,16 @@ export default {
     //提交信息成功
     sussuseSumbit(state, data) {
       // state.cmtCityList = data.items;
+      state.visitNum = state.visitNum+1
+      state.visitErr = {
+        code: 1,
+        data: '预约成功!'
+      }
+      console.log(data)
+    },
+    setVisitErr(state, data) {
+      state.visitNum = state.visitNum+1
+      state.visitErr = data
       console.log(data)
     },
     //选择并且修改信息

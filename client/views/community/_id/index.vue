@@ -131,9 +131,9 @@
       </div>
     </div>
     <!-- 立即预约 -->
-    <Visit :Close="jumpVisit"
-      :areaDisabled="areaDisabled"
-      v-if="this.$store.state.community.isVisit" />
+    <!--<Visit :Close="jumpVisit"-->
+      <!--:areaDisabled="areaDisabled"-->
+      <!--v-if="this.$store.state.community.isVisit" />-->
 
     <!-- 社区福利 -->
     <Welfare :data="$store.state.welfare.recommend"
