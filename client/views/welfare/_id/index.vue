@@ -1,19 +1,17 @@
 <template>
   <div class="welfare-detail">
     <div class="welfare-swiper">
-
-    <!-- <img :src="welfare.detail.couponCover" alt="" class="swiper"> -->
-    <!-- <div v-swiper:envSwiper="swiperOption" v-if="!!welfare.detail.couponImgs && welfare.detail.couponImgs.length > 0">
+    <div v-swiper:envSwiper="swiperOption" v-if="!!welfare.detail.couponImgs && welfare.detail.couponImgs.length > 0">
         <div class="swiper-wrapper" ref="swiper">
           <div class="swiper-slide" v-for="(item, index) in welfare.detail.couponImgs" :key="index">
             <div class="img" :style="item?'background: url('+item+'?x-oss-process=image/quality,q_80) center top / cover no-repeat;':''"></div>
           </div>
         </div>
-    </div> -->
-      <div class="swiper" :style="welfare.detail.couponCover?'background: url('+welfare.detail.couponCover+'?x-oss-process=image/quality,q_80) center top / cover no-repeat;':''"></div>
     </div>
-
-      <img :src="welfare.detail.couponCover" alt="" class="small-img">
+      <div class="swiper"  v-else :style="welfare.detail.couponCover?'background: url('+welfare.detail.couponCover+'?x-oss-process=image/quality,q_80) center top / cover no-repeat;':''"></div>
+      <div class="img-num" v-if="!!welfare.detail.couponImgs && welfare.detail.couponImgs.length > 0">{{actiIndex}}/{{welfare.detail.couponImgs.length}}</div>
+    </div>
+      <div class="small-img" :style="welfare.detail.couponCover?'background: url('+welfare.detail.couponCover+'?x-oss-process=image/quality,q_80) center top / cover no-repeat;':''"></div>
       <span class="item-value" v-if="!!welfare.detail.faceValue">{{welfare.detail.faceValue}}</span>
 
     <div class="item-detail">
@@ -24,10 +22,6 @@
             <span class="text text-one" >人气值{{welfare.detail.hotValue}}</span>
             <span class="text text-two" v-for="(item,i) in welfare.detail.tagName" :key="i">{{item}}</span>
           </div>
-        <!-- <div class="tags">
-          <span>人气值123</span>
-          <span>美食</span>
-        </div> -->
       </div>
 
       <div class="item-intro">
@@ -63,8 +57,14 @@ import { mapState,mapActions } from 'vuex'
 export default {
   data(){
     return {
+      actiIndex: 1,
       swiperOption:{
-
+        on: {
+            slideChangeTransitionStart: () => {
+              let swiper = this.mySwiper;
+              this.actiIndex = swiper.activeIndex + 1;
+            },
+          }
       }
     }
   },
@@ -98,15 +98,31 @@ export default {
   position: relative;
 }
   .welfare-swiper {
+    position: relative;
     .swiper-wrapper {
       height: 188px;
       .swiper-slide {
         height: 188px;
+        .img {
+          height: 188px;
+        }
       }
     }
     .swiper {
       width: 375px;
       height: 188px;
+    }
+    .img-num {
+      position: absolute;
+      left: 16px;
+      bottom: 21px;
+      padding: 1px 7px;
+      background: rgba(35,36,40,0.60);
+      border-radius: 18px;
+      font-family:PingFangSC-Regular;
+      font-size: 13px;
+      z-index: 20;
+      color: #FFFFFF;
     }
   }
       .small-img {
@@ -118,6 +134,7 @@ export default {
         background: #FFFFFF;
         border: 1px solid #EEEEEE;
         border-radius: 8px;
+        z-index: 20;
       }
       .item-value {
         position: absolute;
@@ -130,6 +147,7 @@ export default {
         letter-spacing: 0;
         line-height: 18px;
         padding: 6px 10px;
+        z-index: 20;
         background: #2E2E2E;
       }
   .item-detail {

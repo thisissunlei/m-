@@ -38,12 +38,14 @@
         <div class="none" v-if="!welfare.totalCount">
           暂无数据
         </div>
-        <!-- <DefaultPage v-if="!welfare.totalCount" title="暂无数据"></DefaultPage> -->
+
         <div class="list-info" v-else>
             <Welfare :list="welfare.list" ></Welfare>
         </div>
       </div>
     </section>
+     <div class="get-more" v-if="welfare.page < welfare.totalPages">{{$t("getMore")}}</div>
+    <div class="get-more" v-else>{{$t("end")}}</div>
   </div>
 </template>
 
@@ -318,6 +320,12 @@
       padding-bottom: 30px;
       font-weight: 700;
   }
-
+}
+.get-more {
+    margin: 29px 0 50px 0;
+    font-family: PingFang-SC-Regular;
+    font-size: 15px;
+    color: #666666;
+    text-align: center;
   }
 </style>

@@ -23,6 +23,7 @@
         </div>
       </div>
     </div>
+
     <div class="content-box" v-if="!!activity.activityList && activity.activityList.length>0">
           <a :href="'//'+$store.state.common.origin+'/activity/' + item.id + $store.state.common.queryString" class="item-content" v-for="(item,i) in activity.activityList" :key="i">
             <img :src="item.imgUrl" alt="" class="item-img" v-if="!!item.imgUrl">
@@ -42,7 +43,8 @@
           </a>
       </div>
       <div class="none" v-else>暂无数据</div>
-
+      <div class="get-more" v-if="activity.page < activity.totalPages">{{$t("getMore")}}</div>
+    <div class="get-more" v-else>{{$t("end")}}</div>
   </div>
 </template>
 
@@ -121,7 +123,7 @@
       this.language = this.lang === 'en' ? 1 : 0;
       this.cityId = this.$route.query.cityId;
       window.addEventListener('scroll',this.getMore);
-      console.log("activityList",this.activity.activityList);
+      console.log("activityList",);
     },
     computed: {
       ...mapState(['activity'])
@@ -334,6 +336,12 @@
       padding-bottom: 80px;
       font-weight: 700;
   }
-
+  .get-more {
+  margin: 29px 0 50px 0;
+  font-family: PingFang-SC-Regular;
+  font-size: 15px;
+  color: #666666;
+  text-align: center;
+}
 </style>
 
