@@ -10,6 +10,7 @@ import member from './member'
 import community from './community'
 import detail from './detail'
 import calculator from './calculator'
+import officeEnv from './officeEnv'
 
 let isDev = process.env.NODE_ENV === 'development'
 export default () => {
@@ -26,6 +27,7 @@ export default () => {
       community,
       detail,
       calculator,
+      officeEnv
     }
   })
 
@@ -41,6 +43,7 @@ export default () => {
       './community',
       './detail',
       './calculator',
+      './officeEnv'
     ], () => {
       let common = require('./common').default
       let index = require('./index').default
@@ -52,6 +55,7 @@ export default () => {
       let community = require('./community').default
       let detail = require('./detail').default
       let calculator = require('./calculator').default
+      let officeEnv = require('./officeEnv').default
       store.hotUpdate({
         modules: {
           common,
@@ -63,7 +67,8 @@ export default () => {
           member,
           community,
           detail,
-          calculator
+          calculator,
+          officeEnv
         }
       })
     })

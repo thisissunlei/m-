@@ -76,7 +76,7 @@
             v-for="(item,index) in envList"
             v-show="envList.length"
             :key="index"
-            href="#"
+            :href="'//'+$store.state.common.origin+'/officeEnv/'+item.envId+$store.state.common.queryString"
             class="swiper-slide"
           >
             <div class="image" :style="`background-image:url(${item.firstPic})` " name="“images”"></div>
