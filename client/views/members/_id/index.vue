@@ -49,6 +49,22 @@ export default {
   components: {
     // Swiper
   },
+   metaInfo() {
+      return {
+        title: this.$t('membersDetailMeta.tit')+this.member.memberDetail.protalsNewsVo.title,
+        meta: [
+          {
+            name: "keywords",
+            content: this.$t('membersDetailMeta.key')+this.member.memberDetail.protalsNewsVo.title
+          },
+          {
+            hid: "community",
+            name: "description",
+            content:this.$t('membersDetailMeta.des')
+          }
+        ]
+      }
+    },
   asyncData({ route, store }) {
     let lang = 0;
       if ( !!route.query.lang && route.query.lang === 'en' ) {

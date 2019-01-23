@@ -456,5 +456,20 @@ module.exports = {
     mobileNumber: "您的联系方式",
     community: "参观地点",
     confirmText: "提交"
-  }
+  },
+  teamMeta: {
+    tit: '-氪空间',
+    key: '氪空间,氪空间会员,',
+    des: ''
+  },
+  membersMeta: {
+    tit: '氪空间-入驻会员',
+    key: '氪空间会员,氪空间入驻会员,氪空间入驻企业',
+    des: '氪空间高端舒适的办公环境，活泼严谨的工作氛围得到了入驻会员的认可，该栏目主要介绍氪空间会员入驻故事。'
+  },
+  membersDetailMeta: {
+    tit: '氪空间会员-',
+    key: '氪空间会员,',
+    des: ''
+  },
 };

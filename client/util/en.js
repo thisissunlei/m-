@@ -498,5 +498,20 @@ module.exports = {
     mobileNumber: "Mobile Number",
     community: "Community",
     confirmText: "OK"
-  }
+  },
+  teamMeta: {
+    tit: '-Kr Space-Member',
+    key: 'Kr Space,Kr Space Member,',
+    des: ''
+  },
+  membersMeta: {
+    tit: 'Kr Space-Member',
+    key: 'Kr Space,Member',
+    des: 'Membership story introduction of Kr Space'
+  },
+  membersDetailMeta: {
+    tit: 'Kr Space-Member-',
+    key: 'Kr Space-Member,',
+    des: ''
+  },
 };

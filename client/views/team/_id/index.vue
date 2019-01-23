@@ -51,6 +51,22 @@ export default {
   components: {
     // Swiper
   },
+  metaInfo() {
+      return {
+        title: this.member.teamDetail.teamName+this.$t('teamMeta.tit'),
+        meta: [
+          {
+            name: "keywords",
+            content: this.$t('teamMeta.key')+this.member.teamDetail.teamName
+          },
+          {
+            hid: "community",
+            name: "description",
+            content:this.$t('teamMeta.des')
+          }
+        ]
+      }
+    },
   asyncData({ route, store }) {
     let lang = 0;
       if ( !!route.query.lang && route.query.lang === 'en' ) {

@@ -51,6 +51,21 @@ export default {
   components: {
     // Swiper
   },
+  metaInfo() {
+      return {
+        title: this.$t('membersMeta.tit'),
+        meta: [
+          {
+            name: "keywords",
+            content: this.$t('membersMeta.key')
+          },
+          {
+            name: "description",
+            content: this.$t('membersMeta.des')
+          }
+        ]
+      }
+    },
   asyncData({ route, store }) {
     let lang = 0;
       if ( !!route.query.lang && route.query.lang === 'en' ) {
