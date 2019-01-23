@@ -229,6 +229,8 @@ export default {
 <style lang="less" scoped>
   .member{
     padding: 30px 0 30px 17px;
+    width: 100%;
+    overflow: hidden;
   }
   .member-h{
     font-size: 20px;
