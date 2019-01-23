@@ -498,6 +498,9 @@ module.exports = {
     userName: "Name",
     mobileNumber: "Mobile Number",
     community: "Community",
-    confirmText: "OK"
+    confirmText: "OK",
+    nameDefault:'customer',
+    placeHodelerName:"input Name",
+    placeHodelerLink:"input Mobile Number "
   }
 };

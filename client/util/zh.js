@@ -454,6 +454,9 @@ module.exports = {
     userName: "您的称谓",
     mobileNumber: "您的联系方式",
     community: "参观地点",
-    confirmText: "提交"
+    confirmText: "提交",
+    nameDefault:'客户',
+    placeHodelerName:"请输入您的称谓",
+    placeHodelerLink:"请输入您的联系方式"
   }
 };

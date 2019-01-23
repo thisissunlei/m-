@@ -24,7 +24,7 @@ export default {
     },
     getHeaderCommunityByip: ({ commit }) => {
       return model.getHeaderCommunityByip()
-        .then(res => {
+        .then(res => { 
           commit('setHeaderCommunityByipt', res.items);
         })
         .catch(err => {})
@@ -48,6 +48,7 @@ export default {
       state.url = data;
     },
     setHeaderCommunityByipt(state, data) {
+      console.log(data)
       state.ip = [data.cityVo.cityId, data.communityVo.communityId]
       state.headerCityId = data.cityVo.cityId
     },

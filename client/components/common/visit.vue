@@ -11,16 +11,19 @@
         <span class="star">*</span>
         <span class="text">{{$t("visitInfo.userName")}}</span>
       </div>
-      <div class="u-input"> 
-        <input type="text" placeholder="" v-model="username" >
+      <div class="u-input-name" v-if="language == 0"> 
+        <input type="text" :placeholder="$t('visitInfo.placeHodelerName')" v-model="usernamezh">
+      </div>
+      <div class="u-input-name" v-else> 
+        <input type="text" :placeholder="$t('visitInfo.placeHodelerName')" v-model="usernameen">
       </div>
 
       <div class="name">
         <span class="star">*</span>
         <span class="text">{{$t("visitInfo.mobileNumber")}}</span>
       </div>
-      <div class="u-input">
-        <input type = "text" v-model = "mobile" onkeyup="value=value.replace(/[^\d]/g,'') " placeholder="请输入您的联系方式"  maxlength=11>
+      <div class="u-input-moile">
+        <input type = "text" v-model="mobile" onkeyup="value=value.replace(/[^\d]/g,'') " :placeholder="$t('visitInfo.placeHodelerLink')"  maxlength=11>
       </div>
 
       <div class="name">
@@ -61,10 +64,9 @@ export default {
   data() {
     return {
       language: "",
-      username: "",//用户名
+      usernamezh: "客户",//用户名
+      usernameen: "customer",//用户名
       mobile: "",//手机号码
-      errorUserName: false,//判断用户名
-      errorMobile:false,//判断联系方式
       areaVisible: false,//是否拉起参观地点
       cityIndex:'',//选中的城市索引
       cityName : '',//选择的城市名称
@@ -92,9 +94,16 @@ export default {
     areaValue() {
       return this.$store.getters.computerDefault;
     },
+    cmtCityList(){
+      this.$store.dispatch("getCmtCityList", { language: this.language });
+      return this.$store.state.visit.cmtCityList;
+    },
+
     ...mapState({
       'visitCityList' : state=>state.visit.visitCityList,
-      'cmtCityList' : state=>state.visit.cmtCityList
+      // 'cmtCityList' : state=>state.visit.cmtCityList,
+      // 'ip' : state =>state.common.ip
+
     })
   },
   watch: {
@@ -102,11 +111,12 @@ export default {
         this.language = this.$route.query.lang == "en" ? 1 : 0;
       },
       language(){
-        this.$store.dispatch("getDefaultCityList", { language: this.language });
         this.$store.dispatch("getCmtCityList", { language: this.language });
       }
     },
   mounted() {
+    console.log(this.$store.state.visit.cmtCityList)
+    // this.getDefaultCity()
       this.language = this.$route.query.lang == "en" ? 1 : 0;
         // window.addEventListener("popstate", this.onBrowserBack, false);
   },
@@ -124,6 +134,11 @@ export default {
     //     }
     //   },
     //点击按钮显示下方的下拉框
+    // getDefaultCity(){
+    //   console.log(this.cmtCityList)
+    //   console.log(this.ip)
+
+    // },
     clickModelCity() {
       this.areaVisible = true;
       this.$store.commit('setVisitCityList');
@@ -172,12 +187,19 @@ export default {
     },
     // 提交
     submit() {
+      var username = "";
+      if(this.language == 'zh'){
+        username = this.usernamezh
+      }else{
+        username = this.usernameen
+      }
+      
       var nowDate = new Date();
       var appionttime = nowDate.getFullYear() + "-" + nowDate.getMonth()+1 +"-" + nowDate.getDate()
       var data = {
-        username : this.username || "客户",
-        mobilephone : this.mobile,
+        username,
         appionttime ,
+        mobilephone : this.mobile,
         communityId : this.communityId
       }
       this.$store.dispatch("getVisitInfo", data);
@@ -251,7 +273,7 @@ export default {
         line-height: 20px;
       }
     }
-    .u-input {
+    .u-input,.u-input-name,.u-input-moile {
       width: 315px;
       height: 50px;
       margin-bottom: 20px;
@@ -262,7 +284,18 @@ export default {
         margin: 15px 0 0 10px;
         font-size: 16px;
         color: #333;
+        height: 20px;
         line-height: 20px;
+      }
+    }
+    .u-input-name{
+      input{
+        width: 112px;
+      }
+    }
+    .u-input-moile{
+      input{
+        width: 144px;
       }
     }
   }
