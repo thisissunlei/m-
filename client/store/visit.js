@@ -13,22 +13,6 @@ export default {
   },
   // action去commit哪个mutation
   actions: {
-    // 获取默认地址的数据
-    /**
-     * 
-     * @param {langurge} 语言种类 
-     */
-    getDefaultCityList({
-      commit
-    }, params) {
-      return model.getHeaderCommunityByip(params)
-        .then(data => {
-          commit('setDefaultCity', data)
-        })
-        .catch(err => {
-          console.log(err)
-        })
-    },
     //获取所有社区信息
     getCmtCityList({
       commit
@@ -58,14 +42,11 @@ export default {
   mutations: {
     // 获取默认地址展示数据
     setDefaultCity(state, data) {
-      if (!data.items.communityVo.communityName) {
-        state.defaultCity = data.items.cityVo.cityName;
-      } else {
-        state.defaultCity = data.items.cityVo.cityName + data.items.communityVo.communityName;
-      }
+        // state.defaultCity = 
     },
     //获取预约下拉的城市名称从社区接口中获得
-    setVisitCityList(state) {
+    setVisitCityList(state) {  
+      console.log(state.cmtCityList)
       state.visitCityList = state.cmtCityList.map(val => {
         return val.cityName
       })
@@ -97,6 +78,7 @@ export default {
   getters: {
     // 处理默认展示数据
     computerDefault(state) {
+
       return state.defaultCity
     },
     // 处理默认数据

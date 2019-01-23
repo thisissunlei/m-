@@ -52,7 +52,7 @@
         <!-- 下拉菜单 -->
         <div class="menu-box" v-show="menuShow">
           <div class="menus clearfix">
-            <div>
+            <div class="menu-box-index">
               <a :href="'//'+$store.state.common.origin+$store.state.common.queryString">{{$t("nav.home")}}</a>
             </div>
             <div>
@@ -76,6 +76,7 @@
             <div class="calculator">
               <span>{{$t("nav.calculator")}}</span>
             </div>
+            <div class="line"> </div>
           </div>
           <div class="order" @click="jumpVisit">{{$t('indexTitle.order')}}</div>
         </div>
@@ -207,6 +208,7 @@ export default {
     // 切换城市
     setCitysState(cityId) {
       this.cityId = cityId;
+      console.log(this.$store.state.common)
       var lang = this.language == 0 ? 'zh' : 'en';
       this.lang = lang
       if (this.$route.name === "activity-id-index") {
@@ -467,14 +469,15 @@ header {
       z-index: 200;
       width: 375px;
       height: 472px;
-      padding-top: 18.6px;
-      height: 472px;
       background: #ffffff;
       .menus {
         font-size: 17px;
         line-height: 24px;
         color: #333333;
         text-align: center;
+        .menu-box-index{
+          margin-top: 19px;
+        }
         div {
           text-align: center;
           margin-bottom: 24px;
@@ -486,7 +489,14 @@ header {
           }
         }
         .calculator {
-          padding-bottom: 8px;
+          padding-bottom: 16px;
+          margin: 0
+        }
+        .line{
+          height: 1px;
+          width: 100%;
+          background-color: #F6F6F6;
+          margin-bottom:16px;
         }
       }
       .order {
