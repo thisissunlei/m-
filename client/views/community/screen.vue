@@ -166,9 +166,14 @@
 </script>
 <style lang='less' scoped>
   .community {
+    height: 41px;
     .screen {
+      position: fixed;
+      top: 50px;
+      left: 0;
+      right: 0;
       display: flex;
-      border-bottom: 1px #f6f6f6 solid;
+      box-shadow: 0 0 2px 0 rgba(0,0,0,0.10);
       background: #ffffff;
       li {
         flex-grow: 1;

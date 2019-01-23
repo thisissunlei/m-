@@ -47,6 +47,13 @@
       'change'(n, o) {
         this.community = this.$store.state.community
         this.list = this.$store.state.community.list.items
+        this.index = null
+//        if ( !!this.list.length && this.list.length === 1 ) {
+//          this.index = 0
+//          this.$emit('change', 0)
+//        } else {
+//          this.index = null
+//        }
         this.centerAndZoom()
       },
     },

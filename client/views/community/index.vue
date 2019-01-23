@@ -1,5 +1,5 @@
 <template>
-  <div :class="screenIndex*1 != 0? 'community select': 'community'">
+  <div class="community">
     <h1 style="display: none;">氪空间联合办公室出租</h1>
     <Screen :len="len" :all="all" @change="changeScreenInde"></Screen>
     <!--列表-->
@@ -234,7 +234,9 @@
       background-size: 100% 100%;
       width: 48px;
       &.select {
-        background: #000000;
+        background: url('../../assets/images/community/list.png') 0 0 no-repeat;
+        -webkit-background-size: 100% 100%;
+        background-size: 100% 100%;
       }
     }
     .map-detail {
