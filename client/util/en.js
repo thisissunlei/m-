@@ -25,22 +25,19 @@ module.exports = {
   },
   visit: {
     success: {
-      name: "Dear customers, your appointment information has been ",
-      title: "submitted successfully！",
-      msg:
-        "Due to the large number of appointments, please be patient! We will contact you within 24 hours. Please keep your phone on."
+      name: "Dear customers",
+      title: "your appointment information has been submitted successfully！",
+      msg: "Due to the large number of appointments, please be patient! We will contact you within 24 hours. Please keep your phone on."
     },
     repeat: {
-      name: "Dear customers, your appointment information has been ",
-      title: "submitted successfully！",
-      msg:
-        "Due to the large number of appointments, please do not repeat the appointment.We will contact you. Please keep your phone on."
+      name: "Dear customers",
+      title: "your appointment information has been submitted successfully！",
+      msg: "Due to the large number of appointments, please do not repeat the appointment.We will contact you. Please keep your phone on."
     },
     fail: {
-      name: "Dear customers, your appointment information ",
-      title: "submitted failure！",
-      msg:
-        "Maybe the server is a mess, and apologize for the inconvenience. Please try to make an appointment later, or call the customer number 400-807-3636."
+      name: "Dear customers",
+      title: "your appointment information submitted failure！",
+      msg: "Maybe the server is a mess, and apologize for the inconvenience. Please try to make an appointment later, or call the customer number 400-807-3636."
     },
     btn: "OK"
   },
@@ -171,6 +168,7 @@ module.exports = {
     des:
       "Kr Space runs co-working community in 11 cities, including Beijing, Shanghai and Guangzhou. By the end of June 2018, we already run more than 40 communities providing 35,000 workstations, direct managing over 200,000 sqm. in size."
   },
+  communityReset: 'Reset all conditions',
 
   CMNT_DTL_Title: {
     map: "Map",
@@ -502,5 +500,20 @@ module.exports = {
     mobileNumber: "Mobile Number",
     community: "Community",
     confirmText: "OK"
-  }
+  },
+  teamMeta: {
+    tit: '-Kr Space-Member',
+    key: 'Kr Space,Kr Space Member,',
+    des: ''
+  },
+  membersMeta: {
+    tit: 'Kr Space-Member',
+    key: 'Kr Space,Member',
+    des: 'Membership story introduction of Kr Space'
+  },
+  membersDetailMeta: {
+    tit: 'Kr Space-Member-',
+    key: 'Kr Space-Member,',
+    des: ''
+  },
 };

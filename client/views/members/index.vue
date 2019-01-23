@@ -51,6 +51,21 @@ export default {
   components: {
     // Swiper
   },
+  metaInfo() {
+      return {
+        title: this.$t('membersMeta.tit'),
+        meta: [
+          {
+            name: "keywords",
+            content: this.$t('membersMeta.key')
+          },
+          {
+            name: "description",
+            content: this.$t('membersMeta.des')
+          }
+        ]
+      }
+    },
   asyncData({ route, store }) {
     let lang = 0;
       if ( !!route.query.lang && route.query.lang === 'en' ) {
@@ -214,6 +229,8 @@ export default {
 <style lang="less" scoped>
   .member{
     padding: 30px 0 30px 17px;
+    width: 100%;
+    overflow: hidden;
   }
   .member-h{
     font-size: 20px;

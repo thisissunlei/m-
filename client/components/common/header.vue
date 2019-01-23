@@ -83,16 +83,20 @@
     </div>
     <div class="menu-mask" v-if="this.menuShow || this.citysShow" @click="closeCityDoenPage"></div>
     <Visit :Close="jumpVisit" :areaDisabled="areaDisabled" v-if="this.$store.state.community.isVisit"/>
+
+    <Dialog :personName="dialogName" :isShow="isShow" :dialogType="dialogType" :Close="dialogClose"/>
   </header>
 </template>
 
 <script>
 import Vue from "vue";
 import Visit from "./visit.vue";
+import Dialog from '../Dialog';
 import { mapState, mapGetters } from "vuex";
 export default {
   components: {
-    Visit
+    Visit,
+    Dialog
   },
   data() {
     return {
@@ -101,7 +105,11 @@ export default {
       language: 0, // 0:中文 1:英文
       cityId: Number, //路由上面的city,只能在路由传参的时候修改
       menuShow: false,//办公首页
-      areaDisabled: false
+      areaDisabled: false,
+      lang: '',
+      dialogName: '',
+      isShow: false,
+      dialogType: ''
     };
   },
   computed: {
@@ -135,14 +143,33 @@ export default {
     },
     listenCityList(){
       this.getHeadShowCity();
+    },
+    '$store.state.visit.visitNum'(n, o) {
+      console.log(n, o, this.$store.state.visit.visitErr)
+      let visit = this.$store.state.visit.visitErr
+      this.isShow = true;
+      this.dialogName = '客户';
+      if ( visit.code === 1 ) {
+        this.dialogType = 'success';
+      } else if ( visit.code === -2 ) {
+        this.dialogType = 'warn';
+      } else {
+        this.dialogType = 'error';
+      }
     }
   },
   mounted() {
+//    this.isShow = true;
+//    this.dialogName = '客户';
+//    this.dialogType = 'error';
     this.language = this.$route.query.lang == "zh" ? 0 : 1;
     // 如果路由有城市id然后进行回调
     this.getHeadShowCity();
   },
   methods: {
+    dialogClose() {
+      this.isShow = false
+    },
     //获取头部的默认展示城市信息
     getHeadShowCity() {
       var cityId = (this.cityId = this.$route.query.cityId);
@@ -158,6 +185,7 @@ export default {
       this.language = language;
       this.$store.dispatch("getInitialState", { language, lang});//切换语言函数
       this.$store.commit("setCommonLang", lang);
+      this.lang = lang
       this.pushUrl(lang);
     },
     //打开城市下拉页面
@@ -180,6 +208,7 @@ export default {
     setCitysState(cityId) {
       this.cityId = cityId;
       var lang = this.language == 0 ? 'zh' : 'en';
+      this.lang = lang
       if (this.$route.name === "activity-id-index") {
         this.jumpUrl("/activity");
       } else if (this.$route.name === "community-id-index") {
@@ -192,13 +221,11 @@ export default {
     },
     pushUrl(lang) {
       var path = this.$route.path;
-      this.$router.replace({
-        path,
-        query: {
-          lang,
-          cityId: this.cityId
-        }
-      });
+      var query = this.$route.query;
+      var newQuery = JSON.parse(JSON.stringify(query));
+      newQuery.lang = this.lang;
+      newQuery.cityId = this.cityId;
+      this.$router.replace({ path: path, query: newQuery});
     },
     jumpUrl(path) {
       var query = this.$route.query;

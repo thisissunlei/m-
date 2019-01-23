@@ -4,7 +4,7 @@
       <div class="u-dialog-content">
         <span class="u-close" @click="onClose"></span>
         <div :class="[imgClass,'u-tip-img']"></div>
-        <div class="u-tip-name">尊敬的{{personName}}</div>
+        <div class="u-tip-name">{{name}}</div>
         <div class="u-tip-message">{{message}}</div>
         <div class="u-tip-info">{{info}}</div>
         <div class="u-dialog-btn"  @click="onClose">确定</div>
@@ -26,7 +26,8 @@
         message:'',
         info:'',
         imgClass:'',
-        status:''
+        status:'',
+        name: ''
       }
     },
     created(){
@@ -56,19 +57,22 @@
     methods:{
       changeInfo(){
         if(this.status=='success'){
-          this.message='您的预约信息已提交成功！';
-          this.info="氪空间的工作人员将在24小时内与您联系，请您保持电话畅通。";
+          this.name = this.$t('visit.success.name');
+          this.message= this.$t('visit.success.title');
+          this.info=this.$t('visit.success.msg');
           this.imgClass="u-success";
         }
-        if(this.status=='error'){
-          this.message='您的预约信息提交失败！';
-          this.info="请稍后再试，或拨打客服电话 400-807-3636。 ";
-          this.imgClass="u-error";
-        }
         if(this.status=='warn'){
-          this.message='您的预约信息已提交成功！';
-          this.info="请勿重复预约，氪空间的工作人员将在24小时内与您联系。";
+          this.name = this.$t('visit.repeat.name');
+          this.message= this.$t('visit.repeat.title');
+          this.info=this.$t('visit.repeat.msg');
           this.imgClass="u-warn";
+        }
+        if(this.status=='error'){
+          this.name = this.$t('visit.fail.name');
+          this.message= this.$t('visit.fail.title');
+          this.info=this.$t('visit.fail.msg');
+          this.imgClass="u-error";
         }
 
       },
@@ -91,19 +95,18 @@
     z-index:899;
     .g-dialog{
       width:315px;
-      height:247px;
+      min-height:247px;
       position: absolute;
       left:50%;
       top:50%;
-
-      margin-left: -157.5px;
-      margin-top:-123.5px;
+      transform: translate( -50%, -50%);
       .u-dialog-content{
         width: 315px;
-        height: 247px;
+        min-height: 247px;
         background:#fff;
         border-radius: 8px;
         position: relative;
+        padding-bottom: 1px;
         .u-close{
           position: absolute;
           width: 20px;

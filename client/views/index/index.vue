@@ -95,7 +95,7 @@
     <!-- 社区活动 -->
     <Activity :data="activityList" v-if="!!activityList && activityList.length > 0"/>
     <div class="divide-line"></div>
-    <Visit :Close="jumpVisit" :areaDisabled="areaDisabled" v-if="this.$store.state.community.isVisit" />
+    <!--<Visit :Close="jumpVisit" :areaDisabled="areaDisabled" v-if="this.$store.state.community.isVisit" />-->
     <!-- 会员报道 -->
     <Member :data="memberList" v-if="!!memberList && memberList.length > 0"/>
     <!-- start 立即预约 -->
