@@ -163,7 +163,7 @@
       <div class="close" @click="changeCity"></div>
       <ul>
         <li v-for="item, i in modeList" :key="i" @click="cityListClick(item)"
-            :class="cityId === item.id? 'select': ''">{{item.name}}</li>
+            :class="modeId === item.id? 'select': ''">{{item.name}}</li>
       </ul>
     </div>
 
@@ -202,6 +202,8 @@ import model from 'model'
         modeShow: false,
         modeType: '',
         modeId: 0,
+        commId: 0,
+        numId: 0,
         cityIndex:0,
         mobile:'',
         areaValue:'',
@@ -244,7 +246,7 @@ import model from 'model'
         cityName:'',
         cityList:[],
         buildList:[],
-        countList:[{id:1,name:'1-5人'},{id:2,name:'6-10人'},{id:3,name:'11-15人'},{id:1,name:'16人以上'}],
+        countList:[{id:1,name:'1-5人'},{id:2,name:'6-10人'},{id:3,name:'11-15人'},{id:4,name:'16人以上'}],
         countValue:'',
       }
     },
@@ -306,16 +308,32 @@ import model from 'model'
         }
         if ( type === 'comm' ) {
           this.modeList = this.buildList
-          this.modeId = this.cityId
+          this.modeId = this.commId
         }
         if ( type === 'num' ) {
           this.modeList = this.countList
-          this.modeId = this.cityId
+          this.modeId = this.numId
         }
+        console.log(this.modeId)
         this.modeShow = !this.modeShow
       },
       cityListClick(item) {
         console.log(item)
+        let type = this.modeType
+        this.modeId = item.id
+        if ( type === 'city' ) {
+          this.cityId = item.id
+          this.areaValue = item.name
+        }
+        if ( type === 'comm' ) {
+          this.commId = item.id
+          this.buildValue = item.name
+        }
+        if ( type === 'num' ) {
+          this.numId = item.id
+          this.countValue = item.name
+        }
+        this.modeShow = false
       },
       dialogClose(){
         this.isShow = !this.isShow;
@@ -461,6 +479,7 @@ import model from 'model'
         this.buildList = buildList;
 //        this.initArea2(buildList);
         this.buildValue = buildList[0].name;
+        this.modeId = buildList[0].id;
       },
       onSubmit(){
         var _this=this;
@@ -499,16 +518,18 @@ import model from 'model'
 
         model.postCityVisit(form)
           .then(res => {
+            console.log('1', res)
             this.isShow = true;
             this.disableSubmit = false;
             this.dialogName = this.username;
             this.dialogType = 'success';
             this.mobile='';
             // this.areaValue='';
-            _taq.push({convert_id:"1597892806975534", event_type:"form"});
-            _taq.push({convert_id:"1600058262413320", event_type:"form"});
+//            _taq.push({convert_id:"1597892806975534", event_type:"form"});
+//            _taq.push({convert_id:"1600058262413320", event_type:"form"});
           })
           .catch(err => {
+            console.log('0', err)
             if(err.code == -2){
               this.dialogType = 'warn';
             }else{

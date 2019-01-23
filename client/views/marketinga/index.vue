@@ -439,11 +439,11 @@
             this.dialogType = 'success';
             this.mobile='';
             // this.areaValue='';
-            _taq.push({convert_id:"1597892806975534", event_type:"form"});
-            _taq.push({convert_id:"1600058262413320", event_type:"form"});
-            _taq.push({convert_id:"1602584012684340", event_type:"form"});
-            _taq.push({convert_id:"1602492776885256", event_type:"form"});
-            gdt('track', 'RESERVATION');
+//            _taq.push({convert_id:"1597892806975534", event_type:"form"});
+//            _taq.push({convert_id:"1600058262413320", event_type:"form"});
+//            _taq.push({convert_id:"1602584012684340", event_type:"form"});
+//            _taq.push({convert_id:"1602492776885256", event_type:"form"});
+//            gdt('track', 'RESERVATION');
           })
           .catch(err => {
             if(err.code == -2){

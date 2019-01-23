@@ -38,7 +38,9 @@
       dialogType:{
         deep:true,
         handler:function(newProps,oldProps){
+          console.log(newProps, oldProps)
           let type=newProps?newProps:oldProps;
+          console.log(type)
           this.status=type;
           this.changeInfo();
 
