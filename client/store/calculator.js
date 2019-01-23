@@ -40,6 +40,11 @@ export default {
     setComter(state, data) {
       state.communityData = data
     },
+    setCity(state, data){
+      state.cityList = state.communityData.map(item=>{
+        return item.cityName
+      })
+    }
   },
   getters: {
 
