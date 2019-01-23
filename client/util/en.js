@@ -189,6 +189,8 @@ module.exports = {
     spFacilities: "Amenities",
     spService: "Services",
     spCharacteristic: "Features",
+    qrLongpress: "Long press the QR Code or",
+    qrSearch: "Open Wechat - Search“氪空间自由座” Mini Program",
     m: "sq.m",
     work: "desks",
     poUnit: "Per Month",

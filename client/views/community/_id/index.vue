@@ -190,8 +190,8 @@
           @click="showQRcode"
           alt="">
         <div class="code-guide">
-          <p>长按二维码或</p>
-          <p>打开微信 - 搜索“氪空间自由座”小程序</p>
+          <p>{{$t('CMNT_DTL_Title.qrLongpress')}}</p>
+          <p>{{$t('CMNT_DTL_Title.qrSearch')}}</p>
         </div>
       </div>
     </div>
@@ -222,7 +222,7 @@ export default {
       areaDisabled: false,
       isFixed: true,
       detail: {},
-      // showMap: false,
+      cityId: '',
       bottomTagIndex: 0,
       bottomTagIndex1: 0,
       showCode: false,
@@ -270,8 +270,15 @@ export default {
   },
   watch: {
     '$route.query.lang'(value) {
-      // console.log(value)
       this.getNewData()
+
+    },
+    '$route.query.cityId'(value) {
+      console.log(value)
+      if (value != this.cityId) {
+        let cityId = value;
+        location.href = '//' + this.$store.state.common.origin + '/community' + this.$store.state.common.queryString;
+      }
 
     }
   },
@@ -390,6 +397,8 @@ export default {
   },
   mounted() {
     console.log(this.detail)
+    this.cityId = this.$route.query.cityId
+
     this.defaultMap();
     window.addEventListener('scroll', this.scroll)
 
@@ -674,6 +683,7 @@ export default {
         color: #666666;
         position: absolute;
         bottom: 36px;
+        padding: 10px;
         p {
           text-align: center;
         }

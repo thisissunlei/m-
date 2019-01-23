@@ -186,6 +186,8 @@ module.exports = {
     spFacilities: "基础设施",
     spService: "基础服务",
     spCharacteristic: "特色服务",
+    qrLongpress: "长按二维码或",
+    qrSearch: "打开微信 - 搜索“氪空间自由座”小程序",
     m: "㎡ 面积",
     work: "个 工位",
     poUnit: "/工位•月",
