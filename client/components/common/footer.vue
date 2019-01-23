@@ -33,14 +33,14 @@
         </div>
       </div>
       <div class="menu-text">
-        <a href=""
+        <a :href="'//'+$store.state.common.origin+'/about'+$store.state.common.queryString"
           class="fl">公司简介</a>
-        <a href=""
-          class="fl">公司动态</a>
-        <a href=""
+        <a :href="'//'+$store.state.common.origin+'/about'+$store.state.common.queryString+'&tab=things'"
+          class="fl">大事记</a>
+        <a :href="'//'+$store.state.common.origin+'/about'+$store.state.common.queryString+'&tab=news'"
+          class="fl">公司新闻</a>
+        <a href="https://zhaopin.krspace.cn/m/apply/36kr/140/#/home?_k=ipbgmo"
           class="fl">加入我们</a>
-        <a href=""
-          class="fl">联系我们</a>
       </div>
       <div class="line"></div>
     </div>

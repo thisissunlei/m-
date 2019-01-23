@@ -3,9 +3,9 @@
     <div class="img" :style="!!item.recommendPicUrl? 'background: url('+item.recommendPicUrl+'?x-oss-process=image/resize,h_560,w_420,color_eeeeee,quality,q_80) center top / cover no-repeat': ''"></div>
     <div class="con">
       <div class="tit over-point" v-if="!!item.cmtName">{{item.cmtName}}</div>
-      <div class="add">
+      <div class="add" v-if="!!item.address">
         <div class="icon"></div>
-        <div class="txt over-point2">北京市朝阳区建国路108号海航实业大厦9层北京市朝阳区建国路108号海航实业大厦9层</div>
+        <div class="txt over-point2">{{item.address}}</div>
       </div>
       <div class="info">
         <div class="mj">
@@ -82,6 +82,7 @@
     .add {
       display: flex;
       margin-bottom: 5px;
+      height: 36px;
       .icon {
         background: url('../../assets/images/index/address.png') 0 0 no-repeat;
         -webkit-background-size: 100% 100%;

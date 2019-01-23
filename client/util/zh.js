@@ -25,20 +25,19 @@ module.exports = {
   },
   visit: {
     success: {
-      name: "尊敬的客户，您的预约信息已",
-      title: "提交成功！",
+      name: "尊敬的客户",
+      title: "您的预约信息已提交成功！",
       msg: "氪空间的工作人员将在24小时内与您联系，请您保持电话畅通。"
     },
     repeat: {
-      name: "尊敬的客户，您的预约信息已",
-      title: "提交成功！",
+      name: "尊敬的客户",
+      title: "您的预约信息已提交成功！",
       msg: "氪空间的工作人员将在24小时内与您联系，请您保持电话畅通。"
     },
     fail: {
-      name: "尊敬的客户，您的预约信息",
-      title: "提交失败！",
-      msg:
-        "可能服务器是开小差了，给您带来的不便深表歉意。请稍后尝试预约，或拨打客户电话400-807-3636。"
+      name: "尊敬的客户",
+      title: "您的预约信息提交失败！",
+      msg: "可能服务器是开小差了，给您带来的不便深表歉意。请稍后尝试预约，或拨打客户电话400-807-3636。"
     },
     btn: "确定"
   },
@@ -62,18 +61,18 @@ module.exports = {
     "© 2011-2018 氪空间(北京)信息技术有限公司 | 京ICP备16012805号 | ",
 
   indexTitle: {
-    order: '立即预约',
-    more: '查看更多',
-    vip: '入驻会员专享',
-    hot: '热门社区',
-    soon: '待开社区',
-    environment: '社区环境',
-    welfare: '社区福利',
-    activity: '社区活动',
-    members: '会员报道',
-    detail: '查看详情',
-    later: '天后',
-    currentChoice : "当前选择"
+    order: "立即预约",
+    more: "查看更多",
+    vip: "入驻会员专享",
+    hot: "热门社区",
+    soon: "待开社区",
+    environment: "社区环境",
+    welfare: "社区福利",
+    activity: "社区活动",
+    members: "会员报道",
+    detail: "查看详情",
+    later: "天后",
+    currentChoice: "当前选择"
   },
   indexPriceType: {
     long: "起/工位•月",
@@ -169,10 +168,12 @@ module.exports = {
     des:
       "氪空间提供联合办公室出租,共享办公工位出租,服务式办公室出租,氪空间社区租赁信息等，氪空间联合办公社区业务已覆盖北京、上海、广州、天津、杭州、苏州、南京、成都、武汉等城市核心商业区和商业中心，欢迎各创业公司前来参观预定。"
   },
+  communityReset: '重置所有条件',
   CMNT_DTL_Title: {
     map: "查看地图",
     long: "高效办公",
     short: "分时办公",
+    order: "预约",
     QRcode: "手机扫一扫，快速体验自由座",
     shortBtn: "预订",
     activity: "社区活动",
@@ -185,6 +186,8 @@ module.exports = {
     spFacilities: "基础设施",
     spService: "基础服务",
     spCharacteristic: "特色服务",
+    qrLongpress: "长按二维码或",
+    qrSearch: "打开微信 - 搜索“氪空间自由座”小程序",
     m: "㎡ 面积",
     work: "个 工位",
     poUnit: "/工位•月",
@@ -458,5 +461,20 @@ module.exports = {
     nameDefault:'客户',
     placeHodelerName:"请输入您的称谓",
     placeHodelerLink:"请输入您的联系方式"
-  }
+  },
+  teamMeta: {
+    tit: '-氪空间',
+    key: '氪空间,氪空间会员,',
+    des: ''
+  },
+  membersMeta: {
+    tit: '氪空间-入驻会员',
+    key: '氪空间会员,氪空间入驻会员,氪空间入驻企业',
+    des: '氪空间高端舒适的办公环境，活泼严谨的工作氛围得到了入驻会员的认可，该栏目主要介绍氪空间会员入驻故事。'
+  },
+  membersDetailMeta: {
+    tit: '氪空间会员-',
+    key: '氪空间会员,',
+    des: ''
+  },
 };

@@ -31,7 +31,7 @@
                :class="listData.porCbdId*1 === cbdListItem.id*1? 'select': ''">{{cbdListItem.cbdName}}</div>
         </li>
       </ul>
-      <div class="reset" @click="changeUrl('reset')">重置所有条件</div>
+      <div class="reset" @click="changeUrl('reset')">{{$t('communityReset')}}</div>
     </div>
     <!--社区状态-->
     <div class="city status" v-if="screenIndex === 2">
@@ -44,7 +44,7 @@
           </div>
         </li>
       </ul>
-      <div class="reset" @click="changeUrl('reset')">重置所有条件</div>
+      <div class="reset" @click="changeUrl('reset')">{{$t('communityReset')}}</div>
     </div>
     <!--工位价格-->
     <div class="city status" v-if="screenIndex === 3">
@@ -58,7 +58,7 @@
           </div>
         </li>
       </ul>
-      <div class="reset" @click="changeUrl('reset')">重置所有条件</div>
+      <div class="reset" @click="changeUrl('reset')">{{$t('communityReset')}}</div>
     </div>
     <div class="mark" @click="screenBoxShow(0)" v-if="screenIndex != 0"></div>
   </div>
@@ -80,7 +80,7 @@
           page: 1,
           pageSize: 100
         },
-        all: false
+        all: true
       }
     },
     watch: {
@@ -91,8 +91,10 @@
           this.setIndex()
         }
       },
-      '$route.query'() {
-        this.all = false
+      '$route.query'(n, o) {
+        if ( !!n.porCbdId ) {
+          this.all = false
+        }
         this.setData(1)
       }
     },
@@ -164,9 +166,14 @@
 </script>
 <style lang='less' scoped>
   .community {
+    height: 41px;
     .screen {
+      position: fixed;
+      top: 50px;
+      left: 0;
+      right: 0;
       display: flex;
-      border-bottom: 1px #f6f6f6 solid;
+      box-shadow: 0 0 2px 0 rgba(0,0,0,0.10);
       background: #ffffff;
       li {
         flex-grow: 1;

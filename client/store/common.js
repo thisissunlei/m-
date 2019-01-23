@@ -56,7 +56,6 @@ export default {
       state.headerCityList = data;
     },
     setHeaderCityId: (state, data) => {
-      console.log("data",data);
       state.headerCityId = data;
       let query = state.query
       let queryString = '/?'
@@ -96,7 +95,6 @@ export default {
       }
       state.queryString = queryString.substr(0,queryString.length-1)
       state.query = query
-      console.log('query',query)
     },
     setPageQuery(state) {
       let query = state.query

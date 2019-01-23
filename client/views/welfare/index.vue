@@ -54,7 +54,6 @@
     mapState,
     mapActions
   } from 'vuex'
-  import DefaultPage from 'components/defaultPage.vue'
   import Welfare from '../../components/welfare/index.vue' // 会员福利
   var interval = null;
   export default {
@@ -80,7 +79,6 @@
       }
     },
     components: {
-      DefaultPage,
       Welfare,
     },
 

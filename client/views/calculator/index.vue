@@ -13,13 +13,13 @@
                         id="area1" 
                         type="text"  
                         name="input_area"  
-                          v-model="areaValue1"
+                        v-model="areaValue"
                         placeholder="请选择热门商圈"
                         readOnly="readOnly"
-                        onfocus="this.blur()"
+                        @click="clickModelCom"
                         />
                         <p style="margin-right:0.12rem">> </p>
-                        <input id="areaValue1"   type="hidden" />
+                        <input id="areaValue"   type="hidden" />
                         <!-- <p class="mine mit"><span style="opacity:0.5">x</span></p> -->
           </div> 
           <div class="u-input u-area">
@@ -66,6 +66,7 @@
             
         </div>
         <div style="text-align:center;">
+          <span class="form-btns" @click="subcompute">计算</span>
               <!-- <mt-button type="primary" @click="subcompute" class="btn" name="compute">计算</mt-button> -->
         </div>
         <p class="small">依据城市核心商圈的费用平均值进行估算，您也可手动填写。</p>
@@ -79,7 +80,15 @@
           <mt-picker :slots="timeList" @change="onValuesChange"></mt-picker>
           <!-- <mt-picker :slots="areaCommunity" @change="onValuesChange"></mt-picker> -->
         </mt-popup>
-        <!-- <CommonDialog :personName="commonDialogName" :message="CommonDialogMessage" :isShow="isShowCommon" :dialogType="commonDialogType" :Close="commonDialogClose" /> -->
+
+        <mt-popup v-model="communityBox" position="bottom" class="area-class">
+          <p>
+            <span @click="communityCancel">取消</span>
+            <span class="btns" @click="communityConfirm">确定</span>
+          </p>
+          <mt-picker :slots="areaCommunity" @change="onCommunityChange"></mt-picker>
+        </mt-popup>
+        <CommonDialog :personName="commonDialogName" :message="CommonDialogMessage" :isShow="isShowCommon" :dialogType="commonDialogType" :Close="commonDialogClose" />
       </div>  
 
 
@@ -155,7 +164,7 @@ import Thousand from "../../util/thousand";
 // import Header from "~/components/Header";
 // import $http from "~/plugins/http";
 // import Dialog from '~/components/Dialog';
-// import CommonDialog from '~/components/CommonDialog';
+import CommonDialog from '../../components/CommonDialog';
 // import Visit from "~/components/Visit";
 import dateFormat from '../../util/dateFormat';
 export default {
@@ -163,7 +172,7 @@ export default {
     // Header,
     // Visit,
     // Dialog,
-    // CommonDialog
+    CommonDialog
   },
 
   data () {
@@ -195,12 +204,32 @@ export default {
         { id: 120, name: "10年" }
       ],
       areaVisible: false,
+      communityBox:false,
       communityData:{},
+      currentTime :'',
+      areaCommunity: [
+        {
+          flex: 1,
+          values: [],
+          textAlign: "center"
+        },
+        {
+          divider: true,
+          content: "-",
+        },
+        {
+          flex: 1,
+          values: [],
+          textAlign: "center"
+        }
+      ],
+      areaValue: "",
+      selectCbdData:[],
 
       isVisit: false,
       showComputer: false,
       switchOn: true,
-      areaValue1: "",
+      
       cmtVosLength: "123123",
       state: "",
       state1: "",
@@ -209,7 +238,6 @@ export default {
       dayPrice: '',
       urlParams:'',
       time:"",
-      selectCbdData: {},
       visitParams: {
         from: '',
         terminal: ''
@@ -306,30 +334,6 @@ export default {
   },
 
   watch: {
-    areaValue1: {
-      deep: true,
-      handler: function (newProps, oldProps) {
-        let cbdParams;
-        var cityIndex;
-        var cbdIndex;
-        if (newProps && newProps.length > 0) {
-          var cbdDom = document.getElementById('areaValue1');
-          var cbdValues = cbdDom.value.split(',');
-          // cbdParams=newProps;
-          cityIndex = cbdValues[0];
-          this.cityId = this.communityData[cityIndex].cityId;
-          cbdIndex = cbdValues[1];
-          // console.log(2222222,this.communityData[cityIndex].name, cbdValues);
-          this.selectCbdData = this.communityData[cityIndex].protalsCbdVos[cbdIndex];
-          this.name=this.communityData[cityIndex].name
-          this.dayPrice = this.communityData[cityIndex].protalsCbdVos[cbdIndex].dayPrice;
-          // console.log("dayPrice", this.dayPrice);
-        } else {
-          // cbdParams=oldProps;
-        }
-
-      }
-    },
       time: {
         deep: true,
         handler: function (newProps, oldProps) {
@@ -351,31 +355,32 @@ export default {
 
   },
   methods: {
-    // initArea1 (LAreaData) {
-    //   // console.log("larea", LAreaData);
-    //   var area = new LArea();
-    //   area.init({
-    //     trigger: "#area1", //触发选择控件的文本框，同时选择完毕后name属性输出到该位置
-    //     valueTo: "#areaValue1", //选择完毕后id属性输出到该位置
-    //     keys: { id: "id", name: "name" }, //绑定数据源相关字段 id对应valueTo的value属性输出 name对应trigger的value属性输出
-    //     type: 1, //数据源类型
-    //     data: LAreaData //数据源
-    //   });
-    // },
-
-    // initArea (LAreaData) {
-    //   var area = new LArea();
-    //   area.init({
-    //     trigger: "#area", //触发选择控件的文本框，同时选择完毕后name属性输出到该位置
-    //     valueTo: "#time", //选择完毕后id属性输出到该位置
-    //     keys: { id: "id", name: "name" }, //绑定数据源相关字段 id对应valueTo的value属性输出 name对应trigger的value属性输出
-    //     type: 1, //数据源类型
-    //     data: LAreaData, //数据源
-    //     flexNum: 1
-    //   });
-    // },
-    subcompute(){
-
+    subcompute () {
+      
+      var communityData = Object.assign({}, this.selectCbdData);
+      console.log('subcompute')
+      if(this.areaValue1 && this.time && this.visitData.number && this.visitData.office ){
+          // var swiperData = [];
+          // communityData.cmtVos.map((item, index) => {
+          // var swiperItem = {};
+          // swiperItem.name = item.communityName;
+          // swiperItem.id = item.id;
+          // swiperItem.imageUrl = item.homeImageUrl;
+          // swiperData.push(swiperItem)
+          //     return item;
+          // });
+          // this.swiperData = swiperData;
+          // this.showComputer = true;
+      }else{
+        var _this = this;
+        this.commonDialogType = 'warn';
+        this.communityName = "提示";
+        this.CommonDialogMessage = "请填写完整！";
+        setTimeout(() => {
+            _this.isShowCommon = true;
+        }, 200);
+        
+      } 
     },
     poqoweq () {
       this.totalMonth = parseInt();
@@ -402,25 +407,76 @@ export default {
       this.visitData.office = val * 12
     },
     onValuesChange(picker,value){
-      console.log('onValuesChange',picker,value)
+      this.currentTime = value[0];
     },
     clickModelTime(){
-      console.log('blur=====')
+      let arr = this.timeList.map(item=>{
+        return item.name
+      })
       this.areaVisible = true;
       var modifiedRow = {
         flex: 1,
-        values: ['1','2','3','4'],
+        values: arr,
         textAlign: "center"
       };
       this.timeList.splice(0, 1, modifiedRow);
     },
+    clickModelCom(){
+      this.$store.commit('setCity');
+      this.communityBox = true;
+      var modifiedRow = {
+        flex: 1,
+        values: this.calculator.cityList,
+        textAlign: "center"
+      };
+      this.areaCommunity.splice(0, 1, modifiedRow);
+    },
     confirm(){
       this.areaVisible = false;
-      console.log('confirm')
+      this.time = this.currentTime;
     },
     cancel(){
       this.areaVisible = false;
-    }
+      this.currentTime = ''
+    },
+    // 获取社区并更新
+    onCommunityChange(picker, values) {
+      let one = values[0];
+      if(!one){
+        return
+      }
+      var index = this.areaCommunity[0].values.indexOf(one);
+      if (index >= 0 && this.areaCommunity[0].values.length > 0) {
+       var modifiedRow = this.calculator.communityData[
+          index
+        ].protalsCbdVos.map((val, index) => {
+          return val.cbdName;
+        });
+        picker.setSlotValues(1, modifiedRow)
+      }
+      this.cityName  = values[0];
+      this.cityIndex = index;
+      this.communityRange = values[1];
+    },
+    communityConfirm(){
+      this.communityBox = false;
+      this.areaValue = this.cityName+'-'+this.communityRange;
+      var price = this.calculator.communityData[
+          this.cityIndex
+        ].protalsCbdVos.filter((val, index) => {
+          return val.cbdName === this.communityRange;
+        });
+      this.dayPrice = price[0].dayPrice;
+      this.seatPrice = price[0].seatPrice;
+      this.selectCbdData = price[0].cmtVos;
+    },
+    communityCancel(){
+      this.communityBox = false;
+      this.currentTime = ''
+    },
+    commonDialogClose(){
+      this.isShowCommon = !this.isShowCommon;
+    },
   }
 };
 </script>
@@ -738,6 +794,19 @@ export default {
     display: flex;
     align-items: center;
     justify-content: center;
+    font-size: 12px;
+  }
+  .form-btns{
+    display: inline-block;
+    width: 300px;
+    height: 50px;
+    line-height: 50px;
+    margin: 20px 40px;
+    border-radius: 8px;
+    background-image: linear-gradient(46deg,#f79c1c,#fad961);
+    box-shadow: 0 5px 15px #f79c1c;
+    color: #fff;
+    font-size: 18px;
   }
 </style>
 
