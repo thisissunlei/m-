@@ -359,7 +359,7 @@ export default {
       
       var communityData = Object.assign({}, this.selectCbdData);
       console.log('subcompute')
-      if(this.areaValue1 && this.time && this.visitData.number && this.visitData.office ){
+      if(this.areaValue && this.time && this.visitData.number && this.visitData.office ){
           // var swiperData = [];
           // communityData.cmtVos.map((item, index) => {
           // var swiperItem = {};
